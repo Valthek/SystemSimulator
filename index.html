@@ -16,7 +16,8 @@
         transpiler: 'typescript',
         typescriptOptions: { emitDecoratorMetadata: true },
         packages: {'app': {defaultExtension: 'ts'}},
-        map: { 'app': './app' }
+        map: { 'app': './app' },
+        baseURL: '/SystemSimulator/'
       });
       System.import('app/system_simulator_main')
             .then(null, console.error.bind(console));
