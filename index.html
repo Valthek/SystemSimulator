@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>System Simulator</title>
+<link rel="stylesheet" href="styling/imported/bootstrap.min.css">
+<link rel="stylesheet/scss" href="styling/style.scss">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.6/angular2-polyfills.js"></script>
+    <script src="https://code.angularjs.org/tools/system.js"></script>
+    <script src="https://code.angularjs.org/tools/typescript.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.6/Rx.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.6/angular2.dev.js"></script>
+    <script>
+      System.config({
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {'app': {defaultExtension: 'ts'}},
+        map: { 'app': './app' }
+      });
+      System.import('app/system_simulator_main')
+            .then(null, console.error.bind(console));
+    </script>
+</head>
+  <body>
+    <my-app>Loading...</my-app>
+    
+    <div class="app_container">
+      <div class="simulation_container">
+
+      </div>
+      <div class="options_container">
+
+      </div>
+      <div class="date_container">
+
+      </div>
+    </div>
+
+<script src="scripting/imported/jquery-3.1.1.min.js"></script>
+<script src="scripting/imported/bootstrap.min.js"></script>
+  </body>
+</html>
