@@ -1,0 +1,46 @@
+$borders: #cfcfcf;
+
+.plot_container{
+    position: fixed;
+    height: 100%; 
+    width: 100%; 
+    top: 0; 
+    right:0; 
+    bottom:0;
+    left: 0;
+    z-index: 0;
+}
+
+.plot_toggle {
+    position: absolute;
+    clip: rect(0,0,0,0);
+}
+
+label[for="plot_toggle"]{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
+    background-size:contain;
+
+    background-color: #666666;
+    border: 1px solid $borders;
+    padding: 5px;
+}
+
+.plot_toggle:checked + label{
+    right: 215px;
+}
+
+.plot_toggle:checked ~ .simulation_container{
+    right: 200px;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+}
+
+.plot_toggle + label, .simulation_container{
+    transition: right 0.2s;
+}
