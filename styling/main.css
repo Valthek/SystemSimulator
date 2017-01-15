@@ -49,11 +49,9 @@ label[for="plot_toggle"] {
   position: fixed;
   height: 100%;
   width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0; }
+  bottom: -98%;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.55); }
 
 .time_toggle {
   position: absolute;
@@ -76,11 +74,11 @@ label[for="time_toggle"] {
 .time_toggle:checked + label {
   bottom: 40%; }
 
-.time_toggle:checked ~ .simulation_container {
-  bottom: 35%;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5); }
+.time_toggle:checked + label ~ .time_container {
+  bottom: -58%;
+  background-color: rgba(255, 255, 255, 0.75); }
 
-.time_toggle + label, .simulation_container {
+.time_toggle + label, .time_container {
   transition: bottom 0.2s; }
 
 .simulation_container {
