@@ -1,4 +1,4 @@
-$borders: #cfcfcf;
+@import "_colors.scss";
 
 .time_container{
     position: fixed;
@@ -6,7 +6,8 @@ $borders: #cfcfcf;
     width: 100%; 
     bottom:-98%;
     z-index: 2;
-    background-color: rgba(255,255,255,0.55);
+    background-color: $background;
+    border-top: 2px solid $borders;
 }
 
 .time_toggle {
@@ -24,8 +25,7 @@ label[for="time_toggle"]{
     cursor: pointer;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
     background-size:contain;
-
-    background-color: #666666;
+    background-color: $background;
     border: 1px solid $borders;
     padding: 5px;
 }
@@ -34,9 +34,9 @@ label[for="time_toggle"]{
     bottom: 40%;
 }
 
-.time_toggle:checked + label ~ .time_container{
-    bottom: -58%;
-    background-color: rgba(255,255,255,0.75);
+.time_toggle:checked ~ .time_container{
+    bottom: -60%;
+    background-color: $background;
 }
 
 .time_toggle + label, .time_container{

@@ -2,26 +2,19 @@
 @import "components/_plot.scss"; 
 @import "components/_time.scss";
 
-$background: #ffffff;
-$borders: #cfcfcf;
-$menuColor: #ffffff;
+$background:#090922;
 
 .simulation_container{
     position: relative;
-    background-color: #111133;
+    background-color: $background;
     min-height: 100%;
     min-width: 100%;
     top: 0;
     bottom: 100%;
     left: 0;
     z-index: 1;
-
     padding: 4em;
     background-size: 200%;
-}
-
-.test{
-    color: #444;
 }
 
 

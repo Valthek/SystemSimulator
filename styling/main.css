@@ -5,17 +5,16 @@ body {
   overflow-x: hidden; }
 
 * {
-  color: #00ff00; }
+  color: #28c5f8; }
 
 .plot_container {
   position: fixed;
   height: 100%;
   width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0; }
+  right: -98%;
+  z-index: 2;
+  background-color: rgba(40, 200, 250, 0.5);
+  border-top: 2px solid #28c5f8; }
 
 .plot_toggle {
   position: absolute;
@@ -25,24 +24,24 @@ label[for="plot_toggle"] {
   position: fixed;
   top: 15px;
   right: 15px;
-  z-index: 2;
+  z-index: 3;
   width: 40px;
   height: 40px;
   cursor: pointer;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
   background-size: contain;
-  background-color: #666666;
-  border: 1px solid #cfcfcf;
+  background-color: rgba(40, 200, 250, 0.5);
+  border: 1px solid #28c5f8;
   padding: 5px; }
 
 .plot_toggle:checked + label {
-  right: 215px; }
+  right: 40%; }
 
-.plot_toggle:checked ~ .simulation_container {
-  right: 200px;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5); }
+.plot_toggle:checked ~ .plot_container {
+  right: -58%;
+  background-color: rgba(40, 200, 250, 0.5); }
 
-.plot_toggle + label, .simulation_container {
+.plot_toggle + label, .plot_container {
   transition: right 0.2s; }
 
 .time_container {
@@ -51,7 +50,8 @@ label[for="plot_toggle"] {
   width: 100%;
   bottom: -98%;
   z-index: 2;
-  background-color: rgba(255, 255, 255, 0.55); }
+  background-color: rgba(40, 200, 250, 0.5);
+  border-top: 2px solid #28c5f8; }
 
 .time_toggle {
   position: absolute;
@@ -67,23 +67,23 @@ label[for="time_toggle"] {
   cursor: pointer;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
   background-size: contain;
-  background-color: #666666;
-  border: 1px solid #cfcfcf;
+  background-color: rgba(40, 200, 250, 0.5);
+  border: 1px solid #28c5f8;
   padding: 5px; }
 
 .time_toggle:checked + label {
   bottom: 40%; }
 
-.time_toggle:checked + label ~ .time_container {
+.time_toggle:checked ~ .time_container {
   bottom: -58%;
-  background-color: rgba(255, 255, 255, 0.75); }
+  background-color: rgba(40, 200, 250, 0.5); }
 
 .time_toggle + label, .time_container {
   transition: bottom 0.2s; }
 
 .simulation_container {
   position: relative;
-  background-color: #111133;
+  background-color: #090922;
   min-height: 100%;
   min-width: 100%;
   top: 0;
