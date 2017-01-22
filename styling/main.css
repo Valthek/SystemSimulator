@@ -11,10 +11,10 @@ body {
   position: fixed;
   height: 100%;
   width: 100%;
-  right: -98%;
+  right: -100%;
   z-index: 2;
   background-color: rgba(40, 200, 250, 0.5);
-  border-top: 2px solid #28c5f8; }
+  border-left: 2px solid #28c5f8; }
 
 .plot_toggle {
   position: absolute;
@@ -23,22 +23,28 @@ body {
 label[for="plot_toggle"] {
   position: fixed;
   top: 15px;
-  right: 15px;
+  right: 0px;
   z-index: 3;
   width: 40px;
-  height: 40px;
+  height: 60px;
   cursor: pointer;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
-  background-size: contain;
-  background-color: rgba(40, 200, 250, 0.5);
-  border: 1px solid #28c5f8;
-  padding: 5px; }
+  background-image: url("../images/toggle-horizontal.png");
+  background-position: right 40px bottom 0px; }
+
+label[for="plot_toggle"]:hover {
+  background-image: url("../images/toggle-horizontal.png");
+  background-position: right 0px bottom 0px; }
 
 .plot_toggle:checked + label {
-  right: 40%; }
+  right: 40%;
+  background-position: right 0px bottom 0px; }
+
+.plot_toggle:checked + label:hover {
+  right: 40%;
+  background-position: right 40px bottom 0px; }
 
 .plot_toggle:checked ~ .plot_container {
-  right: -58%;
+  right: -60%;
   background-color: rgba(40, 200, 250, 0.5); }
 
 .plot_toggle + label, .plot_container {
@@ -48,7 +54,7 @@ label[for="plot_toggle"] {
   position: fixed;
   height: 100%;
   width: 100%;
-  bottom: -98%;
+  bottom: -100%;
   z-index: 2;
   background-color: rgba(40, 200, 250, 0.5);
   border-top: 2px solid #28c5f8; }
@@ -59,23 +65,30 @@ label[for="plot_toggle"] {
 
 label[for="time_toggle"] {
   position: fixed;
-  bottom: 15px;
+  bottom: 0px;
   right: 50%;
   z-index: 3;
-  width: 40px;
+  width: 60px;
   height: 40px;
   cursor: pointer;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
-  background-size: contain;
-  background-color: rgba(40, 200, 250, 0.5);
-  border: 1px solid #28c5f8;
-  padding: 5px; }
+  background-image: url("../images/toggle-vertical.png");
+  background-position: right 0px bottom 40px;
+  margin-bottom: 0px; }
+
+label[for="time_toggle"]:hover {
+  background-image: url("../images/toggle-vertical.png");
+  background-position: right 0px bottom 0px; }
 
 .time_toggle:checked + label {
-  bottom: 40%; }
+  bottom: 40%;
+  background-position: right 0px bottom 0px; }
+
+.time_toggle:checked + label:hover {
+  bottom: 40%;
+  background-position: right 0px bottom 40px; }
 
 .time_toggle:checked ~ .time_container {
-  bottom: -58%;
+  bottom: -60%;
   background-color: rgba(40, 200, 250, 0.5); }
 
 .time_toggle + label, .time_container {

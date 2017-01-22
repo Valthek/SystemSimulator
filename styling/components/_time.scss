@@ -4,7 +4,7 @@
     position: fixed;
     height: 100%; 
     width: 100%; 
-    bottom:-98%;
+    bottom:-100%;
     z-index: 2;
     background-color: $background;
     border-top: 2px solid $borders;
@@ -15,23 +15,31 @@
     clip: rect(0,0,0,0);
 }
 
-label[for="time_toggle"]{
-    position: fixed;
-    bottom: 15px;
-    right: 50%;
-    z-index: 3;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
-    background-size:contain;
-    background-color: $background;
-    border: 1px solid $borders;
-    padding: 5px;
-}
+label[for="time_toggle"] {
+  position: fixed;
+  bottom: 0px;
+  right: 50%;
+  z-index: 3;
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+  background-image: url("../images/toggle-vertical.png");
+  background-position: right 0px bottom 40px;
+  margin-bottom: 0px; }
+
+  label[for="time_toggle"]:hover {
+    background-image: url("../images/toggle-vertical.png");
+    background-position: right 0px bottom 0px;
+  }
 
 .time_toggle:checked + label{
     bottom: 40%;
+    background-position: right 0px bottom 0px;
+}
+
+.time_toggle:checked + label:hover{
+    bottom: 40%;
+    background-position: right 0px bottom 40px;
 }
 
 .time_toggle:checked ~ .time_container{
@@ -42,3 +50,4 @@ label[for="time_toggle"]{
 .time_toggle + label, .time_container{
     transition: bottom 0.2s;
 }
+
