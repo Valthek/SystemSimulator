@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("angular2/core");
-var AppComponent = (function () {
-    function AppComponent() {
+var SimulatorComponent = (function () {
+    function SimulatorComponent() {
     }
-    return AppComponent;
+    return SimulatorComponent;
 }());
-AppComponent = __decorate([
+SimulatorComponent = __decorate([
     core_1.Component({
         selector: 'simulator',
         template: "<h1>I'm using Angular 2</h1>"
