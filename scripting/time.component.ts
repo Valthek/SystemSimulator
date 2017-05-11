@@ -4,4 +4,4 @@ import { Component } from 'angular2/core';
   selector: 'time',
   template: "<p>Change the time</p>"
 })
-export class AppComponent { }
+export class TimeComponent { }
