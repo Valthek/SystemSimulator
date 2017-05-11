@@ -2,6 +2,6 @@ import { Component } from 'angular2/core';
  
 @Component({
   selector: 'simulator',
-  template: "<h1>I'm using Angular 2</h1>"
+  template: "<canvas id='SimulatorVisual' width='900' height='900'></canvas>"
 })
-export class AppComponent { }
+export class SimulatorComponent { }

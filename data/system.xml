@@ -1,0 +1,75 @@
+<?xml version='1.0' ?>
+<doc>
+	<planet>
+		<name>Cavernus</name>
+		<distance>0.233</distance>
+		<speed>0.130</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Styx</name>
+		<distance>0.336</distance>
+		<speed>0.226</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Zyraak</name>
+		<distance>0.628</distance>
+		<speed>0.577</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Tareen</name>
+		<distance>0.906</distance>
+		<speed>1</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Neophytos</name>
+		<distance>0.1299</distance>
+		<speed>1.717</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<CObject>
+		<name>Asteroid belt</name>
+		<distance>1.900</distance>
+		<speed>3.035</speed>
+		<startAngle>0</startAngle>
+	</CObject>
+	<CObject>
+		<name>Unknown 1</name>
+		<distance>2.910</distance>
+		<speed>5.753</speed>
+		<startAngle>0</startAngle>
+	</CObject>
+	<planet>
+		<name>Tempesta</name>
+		<distance>4.150</distance>
+		<speed>9.797</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Helia</name>
+		<distance>7.650</distance>
+		<speed>24.520</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Celestia</name>
+		<distance>11.500</distance>
+		<speed>45.193</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<planet>
+		<name>Iscarda</name>
+		<distance>18.050</distance>
+		<speed>88.866</speed>
+		<startAngle>0</startAngle>
+	</planet>
+	<CObject>
+		<name>Unknown 2</name>
+		<distance>27.000</distance>
+		<speed>162.580</speed>
+		<startAngle>0</startAngle>
+	</CObject>
+</doc>
