@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
         "target": "es5",
-        "noImplicitAny": false,
+        "module": "commonjs",
         "sourceMap": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "watch":true,
+        "experimentalDecorators": true
     }
 }
