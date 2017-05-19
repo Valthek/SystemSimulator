@@ -1,10 +1,18 @@
-"use strict";
 // 2d vector class (coordinate system, positioning)
-Object.defineProperty(exports, "__esModule", { value: true });
-var vector2d = (function () {
-    function vector2d() {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var vector2d;
+    return {
+        setters:[],
+        execute: function() {
+            vector2d = (function () {
+                function vector2d() {
+                }
+                return vector2d;
+            }());
+            exports_1("vector2d", vector2d);
+        }
     }
-    return vector2d;
-}());
-exports.vector2d = vector2d;
+});
 //# sourceMappingURL=vector2d.js.map
