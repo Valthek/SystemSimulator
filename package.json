@@ -21,8 +21,10 @@
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
     "lite-server": "^2.1.0",
     "typescript": "^1.7.5",
-    "typings":"^0.6.8"
+    "typings": "^0.6.8"
   }
 }

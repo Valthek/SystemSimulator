@@ -1,10 +1,10 @@
-System.register([], function(exports_1, context_1) {
+System.register([], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var CObject;
     return {
-        setters:[],
-        execute: function() {
+        setters: [],
+        execute: function () {
             CObject = (function () {
                 function CObject() {
                 }
@@ -12,6 +12,6 @@ System.register([], function(exports_1, context_1) {
             }());
             exports_1("CObject", CObject);
         }
-    }
+    };
 });
 //# sourceMappingURL=CObject.js.map
