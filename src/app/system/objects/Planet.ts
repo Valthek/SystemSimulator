@@ -1,6 +1,6 @@
 import {cObject} from "./cObject";
 
-export class Planet extends cObject
+export class planet extends cObject
 {
 
 }

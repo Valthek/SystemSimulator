@@ -1,5 +1,6 @@
-<h1>{{planet.name}}</h1>
-<div>
-    <label>name: </label>
-    <input [(ngModel)]="planet.name" placeholder="name">
-</div>
+<h1>Antara</h1>
+<ul class="planets">
+  <li *ngFor="let planet of planets">
+      <span>{{planet.name}}</span>
+    </li>
+</ul>
