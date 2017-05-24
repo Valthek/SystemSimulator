@@ -96,7 +96,7 @@ label[for="time_toggle"]:hover {
 
 .simulation_container {
   position: relative;
-  background-color: #090922;
+  background-color: #fff;
   min-height: 100%;
   min-width: 100%;
   top: 0;

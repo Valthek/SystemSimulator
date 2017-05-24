@@ -8,9 +8,16 @@
             "command": "tsc",
             "args": ["-p","."],
             "isShellCommand": true,
+            "isBuildCommand": true,
             "isBackground": true,
             "showOutput": "silent",
             "problemMatcher": "$tsc"
+        },
+        {
+            "taskName": "gulp",
+            "command": "gulp",
+            "isShellCommand": true,
+            "showOutput": "always"
         }
     ]
 }
