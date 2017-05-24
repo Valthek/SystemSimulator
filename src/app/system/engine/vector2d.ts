@@ -2,7 +2,7 @@
 
 export class vector2d{
     // X coordinate relative to origin
-    X:number;
+    x:number;
     // Y coordinate relative to origin
-    Y:number;
+    y:number;
 }
