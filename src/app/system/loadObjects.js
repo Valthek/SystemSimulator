@@ -1,41 +1,36 @@
-System.register(['jquery'], function(exports_1, context_1) {
+System.register(["./objects/planet"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var jquery_1;
+    var planet_1;
     var loadObjects;
     return {
         setters:[
-            function (jquery_1_1) {
-                jquery_1 = jquery_1_1;
+            function (planet_1_1) {
+                planet_1 = planet_1_1;
             }],
         execute: function() {
             loadObjects = (function () {
                 function loadObjects() {
                 }
                 loadObjects.loadPlanets = function () {
-                    var planets;
-                    jquery_1.default.ajax({
+                    var planets = [];
+                    var test = $.ajax({
                         type: "GET",
                         url: "/data/system.xml",
                         dataType: "xml",
-                        success: parseXML,
+                        success: function (data) {
+                            $(data).find("planet").each(function (index) {
+                                var p = new planet_1.planet();
+                                p.name = $(this).find("name").text();
+                                p.distanceToOrigin = $(this).find("distance").text();
+                                p.radialVelocity = $(this).find("speed").text();
+                                planets.push(p);
+                            });
+                        },
                         error: function () {
                             console.log("An error loading the xml file has occured");
                         }
                     });
-                    function parseXML(document) {
-                        jquery_1.default(document).find("planet").each(function (index) {
-                            planets[index] = {
-                                name: jquery_1.default(this).find("name").text(),
-                                distanceToOrigin: jquery_1.default(this).find("distance").val(),
-                                radialVelocity: jquery_1.default(this).find("speed").val()
-                            };
-                            var name = jquery_1.default(this).find("name").text();
-                            var distance = jquery_1.default(this).find("distance").text();
-                            var speed = +jquery_1.default(this).find("speed").text();
-                            console.log("The planet is: " + name + " and lies at " + distance + " AU from the sun, orbiting at a rate of " + speed + " years per revolution");
-                        });
-                    }
                     return planets;
                 };
                 return loadObjects;

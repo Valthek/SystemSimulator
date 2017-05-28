@@ -1,6 +1,7 @@
 <h1>Antara</h1>
 <ul class="planets">
-  <li *ngFor="let planet of planets">
+  <li *ngFor="#planet of planets">
       <span>{{planet.name}}</span>
+      <span>distance: {{planet.distanceToOrigin}} and velocity {{planet.radialVelocity}}</span>
     </li>
 </ul>

@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component, Directive} from "angular2/core";
 import {planet} from "./system/objects/planet";
 import {loadObjects} from "./system/loadObjects";
 
@@ -7,8 +7,11 @@ import {loadObjects} from "./system/loadObjects";
    templateUrl: "src/app/templates/simulator.html"
 })
 
-
-
 export class AppComponent {
-    planets: planet[] = loadObjects.loadPlanets();
+    planets: planet[]  = loadObjects.loadPlanets();        
+
+    constructor(){
+
+    }
 }
+

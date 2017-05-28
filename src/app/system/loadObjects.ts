@@ -1,35 +1,29 @@
-import { planet } from "./objects/planet"
-import $ from 'jquery';
+import { planet } from "./objects/planet";
+import { Directive } from 'angular2/core';
+declare var $: any;
 
 export class loadObjects {
 
-  static loadPlanets() {
-    let planets: planet[];
-    $.ajax({
+  static loadPlanets(): planet[] {
+    let planets: planet[] = []; 
+    let test = $.ajax({
       type: "GET",
       url: "/data/system.xml",
       dataType: "xml",
-      success: parseXML,
+      success: function (data) {
+        $(data).find("planet").each(function (index) {
+          let p: planet = new planet();
+          p.name = $(this).find("name").text();
+          p.distanceToOrigin = $(this).find("distance").text();
+          p.radialVelocity = $(this).find("speed").text();
+
+          planets.push(p);
+        });
+      },
       error: function () {
         console.log("An error loading the xml file has occured");
       }
     });
-    function parseXML(document) {
-      $(document).find("planet").each(function (index) {
-
-        planets[index] = {
-          name: $(this).find("name").text(),
-          distanceToOrigin: $(this).find("distance").val(),
-          radialVelocity: $(this).find("speed").val()
-        }
-
-        var name = $(this).find("name").text();
-        var distance = $(this).find("distance").text();
-        var speed = + $(this).find("speed").text();
-        console.log("The planet is: " + name + " and lies at " + distance + " AU from the sun, orbiting at a rate of " + speed + " years per revolution");
-
-      });
-    }
     return planets;
   }
 }
