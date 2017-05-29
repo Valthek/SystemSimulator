@@ -1,1 +1,6 @@
 https://www.tutorialspoint.com/angular2/angular2_architecture.htm
+
+// Generic tutorial for animations
+https://www.kirupa.com/html5/creating_simple_html5_canvas_animation.htm
+// specific circles orbiting shit
+https://www.kirupa.com/html5/animating_with_requestAnimationFrame.htm
