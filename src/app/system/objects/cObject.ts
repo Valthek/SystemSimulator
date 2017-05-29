@@ -6,4 +6,11 @@ export class cObject{
     //position: vector2d;
     distanceToOrigin:number;
     radialVelocity:number;
+
+    constructor(name, distance, velocity)
+    {
+        this.name = name;
+        this.distanceToOrigin = distance;
+        this.radialVelocity = velocity;
+    }
 }

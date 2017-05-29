@@ -6,7 +6,10 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             cObject = (function () {
-                function cObject() {
+                function cObject(name, distance, velocity) {
+                    this.name = name;
+                    this.distanceToOrigin = distance;
+                    this.radialVelocity = velocity;
                 }
                 return cObject;
             }());
