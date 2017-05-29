@@ -40,7 +40,6 @@ System.register(["angular2/core", "./system/objects/planet", "./system/engine/dr
                 return AppComponent;
             }());
             exports_1("AppComponent", AppComponent);
-            this.canvas.drawCanvas(p);
         }
     }
 });

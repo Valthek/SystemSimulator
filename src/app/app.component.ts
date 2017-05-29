@@ -14,6 +14,5 @@ export class AppComponent {
     //planets: planet[] = loadObjects.loadPlanets();
     p:planet = new planet("test", 1, 3);
     canvas:drawCanvas = new drawCanvas();
-    this.canvas.drawCanvas(p);
     
 }
