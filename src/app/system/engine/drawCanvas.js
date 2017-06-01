@@ -7,13 +7,15 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             drawCanvas = (function () {
                 function drawCanvas() {
-                    // properties
-                    // typecast element as HTMLCanvasElement to ensure methods are available
+                }
+                // properties
+                // typecast element as HTMLCanvasElement to ensure methods are available
+                drawCanvas.prototype.ngOnInit = function () {
                     this.mainCanvas = document.querySelector("#simulatorCanvas");
                     this.mainContext = this.mainCanvas.getContext("2d");
                     this.canvasWidth = this.mainCanvas.width;
                     this.canvasHeight = this.mainCanvas.height;
-                }
+                };
                 drawCanvas.prototype.drawCircle = function () {
                     this.mainContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
                     // color in the background

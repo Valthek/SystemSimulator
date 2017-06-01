@@ -20,10 +20,10 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                         dataType: "xml",
                         success: function (data) {
                             $(data).find("planet").each(function (index) {
-                                var p = new planet_1.planet();
-                                p.name = $(this).find("name").text();
-                                p.distanceToOrigin = $(this).find("distance").text();
-                                p.radialVelocity = $(this).find("speed").text();
+                                var name = $(this).find("name").text();
+                                var distanceToOrigin = $(this).find("distance").text();
+                                var radialVelocity = $(this).find("speed").text();
+                                var p = new planet_1.planet(name, distanceToOrigin, radialVelocity);
                                 planets.push(p);
                             });
                         },

@@ -3,14 +3,19 @@ import { planet } from "./../objects/planet"
 
 export class drawCanvas 
 {
+    mainCanvas: HTMLCanvasElement;
+    mainContext;
+    canvasWidth: number; 
+    canvasHeight: number;
     // properties
     // typecast element as HTMLCanvasElement to ensure methods are available
-    mainCanvas = <HTMLCanvasElement>document.querySelector("#simulatorCanvas");
-    mainContext = this.mainCanvas.getContext("2d");
+    ngOnInit(){
+    this.mainCanvas = document.querySelector("#simulatorCanvas") as HTMLCanvasElement;
+    this.mainContext = this.mainCanvas.getContext("2d");
 
-    canvasWidth = this.mainCanvas.width;
-    canvasHeight = this.mainCanvas.height;
-
+    this.canvasWidth = this.mainCanvas.width;
+    this.canvasHeight = this.mainCanvas.height;
+    }
     constructor(){
 
     }

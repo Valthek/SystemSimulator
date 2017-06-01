@@ -1,8 +1,9 @@
 <h1>Antara</h1>
-<canvas id=""></canvas>
 <ul class="planets">
   <li *ngFor="#planet of planets">
       <span>{{planet.name}}</span>
       <span>distance: {{planet.distanceToOrigin}} and velocity {{planet.radialVelocity}}</span>
     </li>
 </ul>
+
+<canvas id="simulatorCanvas" height="900" width="900" style="border: 3px #ccc solid"></canvas>

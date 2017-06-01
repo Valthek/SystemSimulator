@@ -5,18 +5,17 @@ declare var $: any;
 export class loadObjects {
 
   static loadPlanets(): planet[] {
-    let planets: planet[] = []; 
+    let planets: planet[] = [];
     let test = $.ajax({
       type: "GET",
       url: "/data/system.xml",
       dataType: "xml",
       success: function (data) {
         $(data).find("planet").each(function (index) {
-          let p: planet = new planet();
-          p.name = $(this).find("name").text();
-          p.distanceToOrigin = $(this).find("distance").text();
-          p.radialVelocity = $(this).find("speed").text();
-
+          let name = $(this).find("name").text();
+          let distanceToOrigin = $(this).find("distance").text();
+          let radialVelocity = $(this).find("speed").text();
+          let p: planet = new planet(name, distanceToOrigin, radialVelocity);
           planets.push(p);
         });
       },

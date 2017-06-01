@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./system/objects/planet", "./system/engine/drawCanvas"], function(exports_1, context_1) {
+System.register(["angular2/core", "./system/loadObjects", "./system/engine/drawCanvas"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(["angular2/core", "./system/objects/planet", "./system/engine/dr
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, planet_1, drawCanvas_1;
+    var core_1, loadObjects_1, drawCanvas_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (planet_1_1) {
-                planet_1 = planet_1_1;
+            function (loadObjects_1_1) {
+                loadObjects_1 = loadObjects_1_1;
             },
             function (drawCanvas_1_1) {
                 drawCanvas_1 = drawCanvas_1_1;
@@ -26,14 +26,13 @@ System.register(["angular2/core", "./system/objects/planet", "./system/engine/dr
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    //planets: planet[] = loadObjects.loadPlanets();
-                    this.p = new planet_1.planet("test", 1, 3);
+                    this.planets = loadObjects_1.loadObjects.loadPlanets();
                     this.canvas = new drawCanvas_1.drawCanvas();
                 }
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'simulator',
-                        templateUrl: "src/app/templates/canvas.html"
+                        templateUrl: "src/app/templates/simulator.html"
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
