@@ -23,7 +23,9 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                                 var name = $(this).find("name").text();
                                 var distanceToOrigin = $(this).find("distance").text();
                                 var radialVelocity = $(this).find("speed").text();
-                                var p = new planet_1.planet(name, distanceToOrigin, radialVelocity);
+                                var angle = $(this).find("startAngle").text();
+                                var radius = $(this).find("displayRadius").text();
+                                var p = new planet_1.planet(name, distanceToOrigin, radialVelocity, angle, radius);
                                 planets.push(p);
                             });
                         },

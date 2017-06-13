@@ -15,7 +15,9 @@ export class loadObjects {
           let name = $(this).find("name").text();
           let distanceToOrigin = $(this).find("distance").text();
           let radialVelocity = $(this).find("speed").text();
-          let p: planet = new planet(name, distanceToOrigin, radialVelocity);
+          let angle = $(this).find("startAngle").text();
+          let radius = $(this).find("displayRadius").text();
+          let p: planet = new planet(name, distanceToOrigin, radialVelocity,angle, radius);
           planets.push(p);
         });
       },

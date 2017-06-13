@@ -1,10 +1,13 @@
-import {Component, Directive} from "angular2/core";
+import {Component, Directive, View} from "angular2/core";
 import {planet} from "./system/objects/planet";
 import {loadObjects} from "./system/loadObjects";
 import {drawCanvas} from "./system/engine/drawCanvas";
 
 @Component({
-   selector: 'simulator',
+   selector: 'simulator'
+})
+
+@View({
    templateUrl: "src/app/templates/simulator.html"
 })
 

@@ -31,7 +31,9 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/drawC
                 }
                 AppComponent = __decorate([
                     core_1.Component({
-                        selector: 'simulator',
+                        selector: 'simulator'
+                    }),
+                    core_1.View({
                         templateUrl: "src/app/templates/simulator.html"
                     }), 
                     __metadata('design:paramtypes', [])

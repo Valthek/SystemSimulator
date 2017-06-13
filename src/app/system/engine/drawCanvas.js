@@ -8,27 +8,34 @@ System.register([], function(exports_1, context_1) {
             drawCanvas = (function () {
                 function drawCanvas() {
                 }
-                // properties
                 // typecast element as HTMLCanvasElement to ensure methods are available
                 drawCanvas.prototype.ngOnInit = function () {
                     this.mainCanvas = document.querySelector("#simulatorCanvas");
                     this.mainContext = this.mainCanvas.getContext("2d");
                     this.canvasWidth = this.mainCanvas.width;
                     this.canvasHeight = this.mainCanvas.height;
+                    this.animationRunning = false;
                 };
-                drawCanvas.prototype.drawCircle = function () {
-                    this.mainContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-                    // color in the background
-                    this.mainContext.fillStyle = "#EEEEEE";
-                    this.mainContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-                    // draw the circle
-                    this.mainContext.beginPath();
-                    var radius = 175;
-                    this.mainContext.arc(225, 225, radius, 0, Math.PI * 2, false);
-                    this.mainContext.closePath();
-                    // color in the circle
-                    this.mainContext.fillStyle = "#006699";
-                    this.mainContext.fill();
+                drawCanvas.prototype.startAnimation = function () {
+                    this.animationRunning = true;
+                };
+                drawCanvas.prototype.stopAnimation = function () {
+                    this.animationRunning = false;
+                    cancelAnimationFrame(this.animationRequestID);
+                };
+                drawCanvas.prototype.animate = function (framerate, objects) {
+                    // Animation Loop
+                    if (this.animationRunning) {
+                        setTimeout(function () {
+                            // Clear canvas
+                            this.mainContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+                            this.mainContext.fillStyle = '#f6f6f6';
+                            this.mainContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+                            // Call draw functions here
+                            this.animationRequestID = requestAnimationFrame(this.animate);
+                            console.log("Refresh");
+                        }, 1000 / framerate);
+                    }
                 };
                 return drawCanvas;
             }());

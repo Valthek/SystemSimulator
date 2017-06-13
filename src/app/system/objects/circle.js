@@ -1,33 +1,23 @@
-System.register(["./cObject"], function(exports_1, context_1) {
+System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var __extends = (this && this.__extends) || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-    var cObject_1;
-    var planet;
+    var circle;
     return {
-        setters:[
-            function (cObject_1_1) {
-                cObject_1 = cObject_1_1;
-            }],
+        setters:[],
         execute: function() {
-            planet = (function (_super) {
-                __extends(planet, _super);
-                function planet(name, distance, velocity, angle, radius, initialPosition) {
-                    _super.call(this, name, distance, velocity);
+            circle = (function () {
+                function circle(angle, sign, radius, rotationRadius, initialX, initialY) {
                     this.currentX = 0;
                     this.currentY = 0;
                     this.angle = angle;
-                    this.radius = distance;
-                    this.rotationRadius = distance;
-                    this.initialX = initialPosition.x;
-                    this.initialY = initialPosition.y;
+                    this.sign = sign;
+                    this.radius = radius;
+                    this.rotationRadius = rotationRadius;
+                    this.initialX = initialX;
+                    this.initialY = initialY;
                     this.incrementer = .01 + Math.random() * .1;
                 }
-                planet.prototype.update = function (mainContext) {
+                circle.prototype.update = function (mainContext) {
                     this.angle += this.incrementer;
                     this.currentX = this.initialX + this.rotationRadius * Math.cos(this.angle);
                     this.currentY = this.initialY + this.rotationRadius * Math.sin(this.angle);
@@ -43,10 +33,10 @@ System.register(["./cObject"], function(exports_1, context_1) {
                     mainContext.fill();
                 };
                 ;
-                return planet;
-            }(cObject_1.cObject));
-            exports_1("planet", planet);
+                return circle;
+            }());
+            exports_1("circle", circle);
         }
     }
 });
-//# sourceMappingURL=planet.js.map
+//# sourceMappingURL=circle.js.map
