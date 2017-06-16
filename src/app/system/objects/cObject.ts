@@ -1,16 +1,20 @@
 // base class for celestial objects (everything)
-import {vector2d} from "./../engine/vector2d";
+import { vector2d } from "./../engine/vector2d";
 
-export class cObject{
+export class cObject {
     name: string;
-    //position: vector2d;
-    distanceToOrigin:number;
-    radialVelocity:number;
+    currentPosition: vector2d;
+    radialVelocity: number;
+    currentAngle: number;
+    radius: number;
 
-    constructor(name, distance, velocity)
-    {
+    constructor(name: string, distance: number, initialAngle: number, velocity: number) {
         this.name = name;
-        this.distanceToOrigin = distance;
+        this.currentAngle = initialAngle;
+        this.radius = distance;
+        let x = distance * Math.cos(initialAngle);
+        let y = distance * Math.sin(initialAngle);
+        this.currentPosition = new vector2d(x, y);
         this.radialVelocity = velocity;
     }
 }

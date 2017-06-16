@@ -16,33 +16,20 @@ System.register(["./cObject"], function(exports_1, context_1) {
         execute: function() {
             planet = (function (_super) {
                 __extends(planet, _super);
-                function planet(name, distance, velocity, angle, radius, initialPosition) {
-                    _super.call(this, name, distance, velocity);
-                    this.currentX = 0;
-                    this.currentY = 0;
-                    this.angle = angle;
-                    this.radius = distance;
-                    this.rotationRadius = distance;
-                    this.initialX = initialPosition.x;
-                    this.initialY = initialPosition.y;
-                    this.incrementer = .01 + Math.random() * .1;
+                function planet(name, initialAngle, distance, velocity, planetSize, planetColor) {
+                    _super.call(this, name, distance, initialAngle, velocity);
+                    this.size = planetSize;
+                    this.color = planetColor;
                 }
-                planet.prototype.update = function (mainContext) {
-                    this.angle += this.incrementer;
-                    this.currentX = this.initialX + this.rotationRadius * Math.cos(this.angle);
-                    this.currentY = this.initialY + this.rotationRadius * Math.sin(this.angle);
-                    if (this.angle >= (Math.PI * 2)) {
-                        this.angle = 0;
-                        this.incrementer = .01 + Math.random() * .1;
+                planet.prototype.updatePosition = function (zoomLevel) {
+                    this.currentAngle = +this.radialVelocity + +this.currentAngle;
+                    //this.currentPosition.x = this.radius * Math.cos(this.currentAngle) * zoomLevel;
+                    //this.currentPosition.y = this.radius * Math.sin(this.currentAngle) * zoomLevel;
+                    if (this.currentAngle >= (Math.PI * 2)) {
+                        this.currentAngle = +this.currentAngle - +(Math.PI * 2);
                     }
-                    // The following code is responsible for actually drawing the circle on the screen
-                    mainContext.beginPath();
-                    mainContext.arc(this.currentX, this.currentY, this.radius, 0, Math.PI * 2, false);
-                    mainContext.closePath();
-                    mainContext.fillStyle = 'rgba(177, 0, 129, .1)';
-                    mainContext.fill();
+                    console.log(this.currentAngle);
                 };
-                ;
                 return planet;
             }(cObject_1.cObject));
             exports_1("planet", planet);

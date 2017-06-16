@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./system/loadObjects", "./system/engine/drawCanvas"], function(exports_1, context_1) {
+System.register(["angular2/core", "./system/loadObjects", "./system/engine/canvasManager"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/drawC
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, loadObjects_1, drawCanvas_1;
+    var core_1, loadObjects_1, canvasManager_1;
     var AppComponent;
     return {
         setters:[
@@ -20,23 +20,55 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/drawC
             function (loadObjects_1_1) {
                 loadObjects_1 = loadObjects_1_1;
             },
-            function (drawCanvas_1_1) {
-                drawCanvas_1 = drawCanvas_1_1;
+            function (canvasManager_1_1) {
+                canvasManager_1 = canvasManager_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(ngZone) {
+                    this.ngZone = ngZone;
+                    this.simSpeed = 1;
+                    this.zoomLevel = 1;
+                    this.currentDate = 0;
+                    this.framerate = 60;
                     this.planets = loadObjects_1.loadObjects.loadPlanets();
-                    this.canvas = new drawCanvas_1.drawCanvas();
                 }
+                AppComponent.prototype.ngAfterViewInit = function () {
+                    var _this = this;
+                    this.running = true;
+                    this.context = this.myCanvas.nativeElement.getContext("2d");
+                    this.ngZone.runOutsideAngular(function () { return _this.tick(); });
+                };
+                AppComponent.prototype.ngOnDestroy = function () {
+                    this.running = false;
+                };
+                AppComponent.prototype.tick = function () {
+                    var _this = this;
+                    if (!this.running) {
+                        return;
+                    }
+                    var ctx = this.context;
+                    canvasManager_1.canvasManager.clearCanvas(ctx);
+                    // draw all the planets
+                    for (var i = 0; i < this.planets.length; i++) {
+                        this.planets[i].updatePosition(this.zoomLevel / 50);
+                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], (this.zoomLevel / 50));
+                        console.log("name: " + this.planets[i].name + ", x position: " + this.planets[i].currentPosition.x + ", y position: " + this.planets[i].currentPosition.y);
+                    }
+                    requestAnimationFrame(function () { return _this.tick(); });
+                };
+                __decorate([
+                    core_1.ViewChild("simulatorCanvas"), 
+                    __metadata('design:type', core_1.ElementRef)
+                ], AppComponent.prototype, "myCanvas", void 0);
                 AppComponent = __decorate([
                     core_1.Component({
-                        selector: 'simulator'
+                        selector: 'simulator',
                     }),
                     core_1.View({
                         templateUrl: "src/app/templates/simulator.html"
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [core_1.NgZone])
                 ], AppComponent);
                 return AppComponent;
             }());

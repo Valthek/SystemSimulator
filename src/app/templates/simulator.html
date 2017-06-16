@@ -1,9 +1,14 @@
-<!-- <h1>Antara</h1>
+<!--<h1>Antara</h1>
 <ul class="planets">
   <li *ngFor="#planet of planets">
       <span>{{planet.name}}</span>
-      <span>distance: {{planet.distanceToOrigin}} and velocity {{planet.radialVelocity}}</span>
+      <span>distance: {{planet.radius}} and velocity {{planet.radialVelocity}}</span>
     </li>
-</ul> -->
-
-<canvas id="simulatorCanvas" height="900" width="900" style="border: 3px #ccc solid"></canvas>
+</ul>-->
+<div>
+  <canvas #simulatorCanvas width="900" height="900" style="background:lightgray;"></canvas>
+  <div>
+    <label for="timescale">Timescale: </label><input id="timescale" type="range" min="0.1" max="400" [(ngModel)]="simSpeed" /><br />
+    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="1" max="100" [(ngModel)]="zoomLevel" /><br />
+  </div>
+</div>

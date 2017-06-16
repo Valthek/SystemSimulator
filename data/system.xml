@@ -2,86 +2,98 @@
 <doc>
 	<planet>
 		<name>Cavernus</name>
-		<distance>0.233</distance>
-		<speed>0.130</speed>
+		<distance>0.130</distance>
+		<radialVelocity>0.130</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Styx</name>
 		<distance>0.336</distance>
-		<speed>0.226</speed>
+		<radialVelocity>0.226</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Zyraak</name>
 		<distance>0.628</distance>
-		<speed>0.577</speed>
+		<radialVelocity>0.577</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Tareen</name>
 		<distance>0.906</distance>
-		<speed>1</speed>
+		<radialVelocity>1</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Neophytos</name>
 		<distance>0.1299</distance>
-		<speed>1.717</speed>
+		<radialVelocity>1.717</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<CObject>
 		<name>Asteroid belt</name>
 		<distance>1.900</distance>
-		<speed>3.035</speed>
+		<radialVelocity>3.035</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</CObject>
 	<CObject>
 		<name>Unknown 1</name>
 		<distance>2.910</distance>
-		<speed>5.753</speed>
+		<radialVelocity>5.753</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</CObject>
 	<planet>
 		<name>Tempesta</name>
 		<distance>4.150</distance>
-		<speed>9.797</speed>
+		<radialVelocity>9.797</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Helia</name>
 		<distance>7.650</distance>
-		<speed>24.520</speed>
+		<radialVelocity>24.520</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Celestia</name>
 		<distance>11.500</distance>
-		<speed>45.193</speed>
+		<radialVelocity>45.193</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<planet>
 		<name>Iscarda</name>
 		<distance>18.050</distance>
-		<speed>88.866</speed>
+		<radialVelocity>88.866</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</planet>
 	<CObject>
 		<name>Unknown 2</name>
 		<distance>27.000</distance>
-		<speed>162.580</speed>
+		<radialVelocity>162.580</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
+		<planetColor>#ff00ff</planetColor>
 	</CObject>
 </doc>

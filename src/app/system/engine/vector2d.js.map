@@ -1,1 +1,1 @@
-{"version":3,"file":"vector2d.js","sourceRoot":"","sources":["vector2d.ts"],"names":[],"mappings":"AAAA,mDAAmD;;;;;;;;YAEnD;gBAAA;gBAKA,CAAC;gBAAD,eAAC;YAAD,CAAC,AALD,IAKC;YALD,+BAKC,CAAA"}
+{"version":3,"file":"vector2d.js","sourceRoot":"","sources":["vector2d.ts"],"names":[],"mappings":"AAAA,mDAAmD;;;;;;;;YAEnD;gBAMI,kBAAY,CAAC,EAAE,CAAC;oBAEZ,IAAI,CAAC,CAAC,GAAG,CAAC,CAAC;oBACX,IAAI,CAAC,CAAC,GAAG,CAAC,CAAC;gBACf,CAAC;gBACL,eAAC;YAAD,CAAC,AAXD,IAWC;YAXD,+BAWC,CAAA"}

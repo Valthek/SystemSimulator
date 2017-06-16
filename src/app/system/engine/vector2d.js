@@ -7,7 +7,9 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             vector2d = (function () {
-                function vector2d() {
+                function vector2d(x, y) {
+                    this.x = x;
+                    this.y = y;
                 }
                 return vector2d;
             }());

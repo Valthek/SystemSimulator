@@ -14,7 +14,7 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                 }
                 loadObjects.loadPlanets = function () {
                     var planets = [];
-                    var test = $.ajax({
+                    $.ajax({
                         type: "GET",
                         url: "/data/system.xml",
                         dataType: "xml",
@@ -22,10 +22,11 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                             $(data).find("planet").each(function (index) {
                                 var name = $(this).find("name").text();
                                 var distanceToOrigin = $(this).find("distance").text();
-                                var radialVelocity = $(this).find("speed").text();
-                                var angle = $(this).find("startAngle").text();
+                                var radialVelocity = $(this).find("radialVelocity").text();
+                                var initialAngle = $(this).find("startAngle").text();
                                 var radius = $(this).find("displayRadius").text();
-                                var p = new planet_1.planet(name, distanceToOrigin, radialVelocity, angle, radius);
+                                var planetColor = $(this).find("planetColor").text();
+                                var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
                                 planets.push(p);
                             });
                         },

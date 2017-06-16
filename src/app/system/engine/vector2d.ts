@@ -5,4 +5,10 @@ export class vector2d{
     x:number;
     // Y coordinate relative to origin
     y:number;
+
+    constructor(x, y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 }

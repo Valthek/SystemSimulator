@@ -1,12 +1,13 @@
 import { planet } from "./objects/planet";
 import { Directive } from 'angular2/core';
+import { vector2d } from './engine/vector2d';
 declare var $: any;
 
 export class loadObjects {
 
   static loadPlanets(): planet[] {
     let planets: planet[] = [];
-    let test = $.ajax({
+    $.ajax({
       type: "GET",
       url: "/data/system.xml",
       dataType: "xml",
@@ -14,10 +15,11 @@ export class loadObjects {
         $(data).find("planet").each(function (index) {
           let name = $(this).find("name").text();
           let distanceToOrigin = $(this).find("distance").text();
-          let radialVelocity = $(this).find("speed").text();
-          let angle = $(this).find("startAngle").text();
+          let radialVelocity = $(this).find("radialVelocity").text();
+          let initialAngle = $(this).find("startAngle").text();
           let radius = $(this).find("displayRadius").text();
-          let p: planet = new planet(name, distanceToOrigin, radialVelocity,angle, radius);
+          let planetColor = $(this).find("planetColor").text();
+          let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
           planets.push(p);
         });
       },
