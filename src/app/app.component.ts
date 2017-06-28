@@ -13,7 +13,7 @@ import { canvasManager } from "./system/engine/canvasManager";
 
 export class AppComponent implements AfterViewInit {
     planets: planet[];
-    simSpeed: number = 0.1;
+    simSpeed: number = 1;
     zoomLevel: number = 20;
     currentDate: number = 0;
     context: CanvasRenderingContext2D;
@@ -34,7 +34,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     ngOnDestroy() { 
-        this.running = false;
+        this.running = false; 
     }
 
     private tick() {
@@ -44,7 +44,8 @@ export class AppComponent implements AfterViewInit {
             // draw all the planets
             for (let i = 0; i < this.planets.length; i++) {
                 this.planets[i].updatePosition(this.simSpeed/100);
-                console.log(this.simSpeed/100);
+                this.currentDate += this.simSpeed/100;
+                console.log(this.currentDate);
                 canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
             }
         }
