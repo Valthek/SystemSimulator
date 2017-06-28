@@ -30,9 +30,7 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                                 var planetColor = $(this).find("planetColor").text();
                                 var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
                                 planets.push(p);
-                                if (p.name = "Antara") {
-                                    console.log(p);
-                                }
+                                console.log(p.name);
                             });
                         },
                         error: function () {

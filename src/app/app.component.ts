@@ -41,12 +41,15 @@ export class AppComponent implements AfterViewInit {
         if (this.running) {
             var ctx = this.context;
             canvasManager.clearCanvas(ctx);
+            canvasManager.drawSky(ctx);
             // draw all the planets
             for (let i = 0; i < this.planets.length; i++) {
-                this.planets[i].updatePosition(this.simSpeed/100);
-                this.currentDate += this.simSpeed/100;
+                this.planets[i].updatePosition(this.simSpeed/250);
+                this.currentDate += this.simSpeed/250;
                 console.log(this.currentDate);
+                canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
                 canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
+
             }
         }
         requestAnimationFrame(() => this.tick());

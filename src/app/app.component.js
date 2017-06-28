@@ -27,7 +27,7 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/canva
             AppComponent = (function () {
                 function AppComponent(ngZone) {
                     this.ngZone = ngZone;
-                    this.simSpeed = 0.1;
+                    this.simSpeed = 1;
                     this.zoomLevel = 20;
                     this.currentDate = 0;
                     this.framerate = 60;
@@ -47,10 +47,13 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/canva
                     if (this.running) {
                         var ctx = this.context;
                         canvasManager_1.canvasManager.clearCanvas(ctx);
+                        canvasManager_1.canvasManager.drawSky(ctx);
                         // draw all the planets
                         for (var i = 0; i < this.planets.length; i++) {
-                            this.planets[i].updatePosition(this.simSpeed / 100);
-                            console.log(this.simSpeed / 100);
+                            this.planets[i].updatePosition(this.simSpeed / 250);
+                            this.currentDate += this.simSpeed / 250;
+                            console.log(this.currentDate);
+                            canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
                             canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
                         }
                     }

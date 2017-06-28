@@ -23,10 +23,8 @@ export class loadObjects {
           let planetColor = $(this).find("planetColor").text();
           let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
           planets.push(p);
-          if (p.name="Antara")
-          {
-            console.log(p);
-          }
+          console.log(p.name);
+          
         });
       },
       error: function () {
