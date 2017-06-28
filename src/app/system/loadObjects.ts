@@ -16,11 +16,17 @@ export class loadObjects {
           let name = $(this).find("name").text();
           let distanceToOrigin = $(this).find("distance").text();
           let radialVelocity = $(this).find("radialVelocity").text();
+          console.log(name + " " + radialVelocity);
           let initialAngle = $(this).find("startAngle").text();
+          console.log(name + " " + initialAngle);
           let radius = $(this).find("displayRadius").text();
           let planetColor = $(this).find("planetColor").text();
           let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
           planets.push(p);
+          if (p.name="Antara")
+          {
+            console.log(p);
+          }
         });
       },
       error: function () {

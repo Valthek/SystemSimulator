@@ -23,11 +23,16 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                                 var name = $(this).find("name").text();
                                 var distanceToOrigin = $(this).find("distance").text();
                                 var radialVelocity = $(this).find("radialVelocity").text();
+                                console.log(name + " " + radialVelocity);
                                 var initialAngle = $(this).find("startAngle").text();
+                                console.log(name + " " + initialAngle);
                                 var radius = $(this).find("displayRadius").text();
                                 var planetColor = $(this).find("planetColor").text();
                                 var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
                                 planets.push(p);
+                                if (p.name = "Antara") {
+                                    console.log(p);
+                                }
                             });
                         },
                         error: function () {

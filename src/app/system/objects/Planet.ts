@@ -12,14 +12,13 @@ export class planet extends cObject
         this.color = planetColor;
     }    
 
-    updatePosition(zoomLevel) {
-        this.currentAngle = +this.radialVelocity + +this.currentAngle;
-        //this.currentPosition.x = this.radius * Math.cos(this.currentAngle) * zoomLevel;
-        //this.currentPosition.y = this.radius * Math.sin(this.currentAngle) * zoomLevel;
+    updatePosition(simSpeed:number) {
+        this.currentAngle =+this.currentAngle + (+this.radialVelocity*simSpeed);
+        this.currentPosition.x = this.orbitRadius * Math.cos(this.currentAngle);
+        this.currentPosition.y = this.orbitRadius * Math.sin(this.currentAngle);
 
         if(this.currentAngle >= (Math.PI * 2)){
-            this.currentAngle = +this.currentAngle - +(Math.PI * 2);
+            this.currentAngle -= +(Math.PI * 2);
         }
-        console.log(this.currentAngle)
     }
 }

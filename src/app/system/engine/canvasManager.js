@@ -15,11 +15,11 @@ System.register([], function(exports_1, context_1) {
                 canvasManager.drawPlanet = function (context, planet, zoomLevel) {
                     // Draw a planet at their appropriate coordinates
                     context.beginPath();
-                    context.fillStyle = '#ff00ee';
-                    var x = (planet.currentPosition.x + context.canvas.clientWidth / 2);
-                    var y = (planet.currentPosition.y + context.canvas.clientHeight / 2);
+                    context.fillStyle = planet.color;
+                    var x = ((planet.currentPosition.x) * zoomLevel + context.canvas.clientWidth / 2);
+                    var y = ((planet.currentPosition.y) * zoomLevel + context.canvas.clientHeight / 2);
                     context.moveTo(x, y);
-                    context.arc(x, y, planet.size / zoomLevel, 0, Math.PI * 2);
+                    context.arc(x, y, planet.size, 0, Math.PI * 2);
                     context.fill();
                 };
                 return canvasManager;

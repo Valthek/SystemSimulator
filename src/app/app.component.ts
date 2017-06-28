@@ -13,12 +13,13 @@ import { canvasManager } from "./system/engine/canvasManager";
 
 export class AppComponent implements AfterViewInit {
     planets: planet[];
-    simSpeed: number = 1;
-    zoomLevel: number = 1;
+    simSpeed: number = 0.1;
+    zoomLevel: number = 20;
     currentDate: number = 0;
     context: CanvasRenderingContext2D;
     canvasManager: canvasManager;
-    framerate = 60;
+    framerate:number = 60;
+    interval: number;
     private running: boolean
 
     constructor(private ngZone: NgZone) {
@@ -32,24 +33,21 @@ export class AppComponent implements AfterViewInit {
         this.ngZone.runOutsideAngular(() => this.tick());
     }
 
-    ngOnDestroy() {
+    ngOnDestroy() { 
         this.running = false;
     }
 
     private tick() {
-        if (!this.running) {
-            return;
+        if (this.running) {
+            var ctx = this.context;
+            canvasManager.clearCanvas(ctx);
+            // draw all the planets
+            for (let i = 0; i < this.planets.length; i++) {
+                this.planets[i].updatePosition(this.simSpeed/100);
+                console.log(this.simSpeed/100);
+                canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
+            }
         }
-
-        var ctx = this.context;
-        canvasManager.clearCanvas(ctx);
-        // draw all the planets
-        for (let i = 0; i < this.planets.length; i++) {
-            this.planets[i].updatePosition(this.zoomLevel/50);
-            canvasManager.drawPlanet(ctx, this.planets[i], (this.zoomLevel / 50));         
-            console.log("name: " + this.planets[i].name + ", x position: " + this.planets[i].currentPosition.x + ", y position: " + this.planets[i].currentPosition.y);   
-        }
-
         requestAnimationFrame(() => this.tick());
     }
 }

@@ -1,12 +1,20 @@
 <?xml version='1.0' ?>
 <doc>
 	<planet>
+		<name>Antara</name>
+		<distance>0</distance>
+		<radialVelocity>0</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>5</displayRadius>
+		<planetColor>#fff000</planetColor>
+	</planet>
+	<planet>
 		<name>Cavernus</name>
 		<distance>0.130</distance>
 		<radialVelocity>0.130</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#663300</planetColor>
 	</planet>
 	<planet>
 		<name>Styx</name>
@@ -14,15 +22,15 @@
 		<radialVelocity>0.226</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#993300</planetColor>
 	</planet>
 	<planet>
 		<name>Zyraak</name>
 		<distance>0.628</distance>
 		<radialVelocity>0.577</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>45</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#0066cc</planetColor>
 	</planet>
 	<planet>
 		<name>Tareen</name>
@@ -30,7 +38,7 @@
 		<radialVelocity>1</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#009933</planetColor>
 	</planet>
 	<planet>
 		<name>Neophytos</name>
@@ -38,7 +46,7 @@
 		<radialVelocity>1.717</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#990000</planetColor>
 	</planet>
 	<CObject>
 		<name>Asteroid belt</name>
@@ -62,7 +70,7 @@
 		<radialVelocity>9.797</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#00cccc</planetColor>
 	</planet>
 	<planet>
 		<name>Helia</name>
@@ -70,7 +78,7 @@
 		<radialVelocity>24.520</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#99cc33</planetColor>
 	</planet>
 	<planet>
 		<name>Celestia</name>
@@ -78,7 +86,7 @@
 		<radialVelocity>45.193</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#3333cc</planetColor>
 	</planet>
 	<planet>
 		<name>Iscarda</name>
@@ -86,7 +94,7 @@
 		<radialVelocity>88.866</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>3</displayRadius>
-		<planetColor>#ff00ff</planetColor>
+		<planetColor>#999966</planetColor>
 	</planet>
 	<CObject>
 		<name>Unknown 2</name>

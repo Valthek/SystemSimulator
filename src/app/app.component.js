@@ -27,8 +27,8 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/canva
             AppComponent = (function () {
                 function AppComponent(ngZone) {
                     this.ngZone = ngZone;
-                    this.simSpeed = 1;
-                    this.zoomLevel = 1;
+                    this.simSpeed = 0.1;
+                    this.zoomLevel = 20;
                     this.currentDate = 0;
                     this.framerate = 60;
                     this.planets = loadObjects_1.loadObjects.loadPlanets();
@@ -44,16 +44,15 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/canva
                 };
                 AppComponent.prototype.tick = function () {
                     var _this = this;
-                    if (!this.running) {
-                        return;
-                    }
-                    var ctx = this.context;
-                    canvasManager_1.canvasManager.clearCanvas(ctx);
-                    // draw all the planets
-                    for (var i = 0; i < this.planets.length; i++) {
-                        this.planets[i].updatePosition(this.zoomLevel / 50);
-                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], (this.zoomLevel / 50));
-                        console.log("name: " + this.planets[i].name + ", x position: " + this.planets[i].currentPosition.x + ", y position: " + this.planets[i].currentPosition.y);
+                    if (this.running) {
+                        var ctx = this.context;
+                        canvasManager_1.canvasManager.clearCanvas(ctx);
+                        // draw all the planets
+                        for (var i = 0; i < this.planets.length; i++) {
+                            this.planets[i].updatePosition(this.simSpeed / 100);
+                            console.log(this.simSpeed / 100);
+                            canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
+                        }
                     }
                     requestAnimationFrame(function () { return _this.tick(); });
                 };

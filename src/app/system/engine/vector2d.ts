@@ -11,4 +11,14 @@ export class vector2d{
         this.x = x;
         this.y = y;
     }
+
+    static ToRadian(degrees:number)
+    {
+        return degrees*(Math.PI/180);
+    }
+
+    static ToDegrees(radian:number) 
+    {
+        return radian*(180/Math.PI);
+    }
 }

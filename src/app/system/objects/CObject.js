@@ -10,14 +10,21 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
             }],
         execute: function() {
             cObject = (function () {
-                function cObject(name, distance, initialAngle, velocity) {
+                function cObject(name, orbitRadius, initialAngle, velocity) {
                     this.name = name;
-                    this.currentAngle = initialAngle;
-                    this.radius = distance;
-                    var x = distance * Math.cos(initialAngle);
-                    var y = distance * Math.sin(initialAngle);
+                    this.currentAngle = vector2d_1.vector2d.ToRadian(initialAngle);
+                    this.initialAngle = vector2d_1.vector2d.ToRadian(initialAngle);
+                    this.orbitRadius = orbitRadius;
+                    if (velocity != 0) {
+                        this.radialVelocity = (1 / vector2d_1.vector2d.ToRadian(velocity) / 336);
+                    }
+                    else {
+                        this.radialVelocity = 0;
+                    }
+                    var radian = vector2d_1.vector2d.ToRadian(initialAngle);
+                    var x = +orbitRadius * Math.cos(radian);
+                    var y = +orbitRadius * Math.sin(radian);
                     this.currentPosition = new vector2d_1.vector2d(x, y);
-                    this.radialVelocity = velocity;
                 }
                 return cObject;
             }());

@@ -21,14 +21,13 @@ System.register(["./cObject"], function(exports_1, context_1) {
                     this.size = planetSize;
                     this.color = planetColor;
                 }
-                planet.prototype.updatePosition = function (zoomLevel) {
-                    this.currentAngle = +this.radialVelocity + +this.currentAngle;
-                    //this.currentPosition.x = this.radius * Math.cos(this.currentAngle) * zoomLevel;
-                    //this.currentPosition.y = this.radius * Math.sin(this.currentAngle) * zoomLevel;
+                planet.prototype.updatePosition = function (simSpeed) {
+                    this.currentAngle = +this.currentAngle + (+this.radialVelocity * simSpeed);
+                    this.currentPosition.x = this.orbitRadius * Math.cos(this.currentAngle);
+                    this.currentPosition.y = this.orbitRadius * Math.sin(this.currentAngle);
                     if (this.currentAngle >= (Math.PI * 2)) {
-                        this.currentAngle = +this.currentAngle - +(Math.PI * 2);
+                        this.currentAngle -= +(Math.PI * 2);
                     }
-                    console.log(this.currentAngle);
                 };
                 return planet;
             }(cObject_1.cObject));
