@@ -9,7 +9,8 @@
   <canvas #simulatorCanvas width="900" height="900" style="background:lightgray;"></canvas>
   <div>
     <label for="timescale">{{simSpeed}}</label><input id="timescale" type="range" min="1" max="100" [(ngModel)]="simSpeed" /><br />
-    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="20" max="150" [(ngModel)]="zoomLevel" /><br />
-    <label for="play">Play: </label><input id="play" type="checkbox" [(ngModel)]="running" />
+    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="24" max="320" [(ngModel)]="zoomLevel" /><br />
+    <label for="play">Play: </label><input id="play" type="checkbox" [(ngModel)]="running" /> <br />
+    <input id="date" type="text" [(ngModel)]="currentDate" />
   </div>
 </div>

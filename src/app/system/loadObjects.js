@@ -23,14 +23,12 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                                 var name = $(this).find("name").text();
                                 var distanceToOrigin = $(this).find("distance").text();
                                 var radialVelocity = $(this).find("radialVelocity").text();
-                                console.log(name + " " + radialVelocity);
                                 var initialAngle = $(this).find("startAngle").text();
-                                console.log(name + " " + initialAngle);
                                 var radius = $(this).find("displayRadius").text();
                                 var planetColor = $(this).find("planetColor").text();
                                 var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
                                 planets.push(p);
-                                console.log(p.name);
+                                console.log(p);
                             });
                         },
                         error: function () {
@@ -38,6 +36,32 @@ System.register(["./objects/planet"], function(exports_1, context_1) {
                         }
                     });
                     return planets;
+                };
+                loadObjects.loadCObkects = function () {
+                    var cObjects = [];
+                    $.ajax({
+                        type: "GET",
+                        url: "/data/system.xml",
+                        dataType: "xml",
+                        success: function (data) {
+                            $(data).find("CObject").each(function (index) {
+                                var name = $(this).find("name").text();
+                                var distanceToOrigin = $(this).find("distance").text();
+                                var radialVelocity = $(this).find("radialVelocity").text();
+                                console.log(name + " " + radialVelocity);
+                                var initialAngle = $(this).find("startAngle").text();
+                                console.log(name + " " + initialAngle);
+                                var radius = $(this).find("displayRadius").text();
+                                var planetColor = $(this).find("planetColor").text();
+                                //let o: cObject = new cObject(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
+                                //cObjects.push(o);         
+                            });
+                        },
+                        error: function () {
+                            console.log("An error loading the xml file has occured");
+                        }
+                    });
+                    return cObjects;
                 };
                 return loadObjects;
             }());

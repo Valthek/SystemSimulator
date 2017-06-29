@@ -1,5 +1,6 @@
 import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef } from "angular2/core";
 import { planet } from "./system/objects/planet";
+import { cObject } from "./system/objects/cObject";
 import { loadObjects } from "./system/loadObjects";
 import { canvasManager } from "./system/engine/canvasManager";
 
@@ -13,17 +14,24 @@ import { canvasManager } from "./system/engine/canvasManager";
 
 export class AppComponent implements AfterViewInit {
     planets: planet[];
-    simSpeed: number = 1;
-    zoomLevel: number = 20;
-    currentDate: number = 0;
+    cObjects: cObject[];
+    
     context: CanvasRenderingContext2D;
     canvasManager: canvasManager;
-    framerate:number = 60;
-    interval: number;
-    private running: boolean
+    framerate: number = 60;
+
+    // Visualisation Options
+    simSpeed: number = 1;
+    zoomLevel: number = 24;
+    currentDate: number = 0;
+    running: boolean = true;
+    showMoons: boolean = true;
+
 
     constructor(private ngZone: NgZone) {
         this.planets = loadObjects.loadPlanets();
+        //this.cObjects = loadObjects.loadCObjects();
+
     }
     @ViewChild("simulatorCanvas") myCanvas: ElementRef;
 
@@ -33,25 +41,32 @@ export class AppComponent implements AfterViewInit {
         this.ngZone.runOutsideAngular(() => this.tick());
     }
 
-    ngOnDestroy() { 
-        this.running = false; 
+    ngOnDestroy() {
+        this.running = false;
     }
 
-    private tick() {
-        if (this.running) {
-            var ctx = this.context;
-            canvasManager.clearCanvas(ctx);
-            canvasManager.drawSky(ctx);
-            // draw all the planets
-            for (let i = 0; i < this.planets.length; i++) {
-                this.planets[i].updatePosition(this.simSpeed/250);
-                this.currentDate += this.simSpeed/250;
-                console.log(this.currentDate);
-                canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
-                canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
-
-            }
-        }
+    private tick() { 
         requestAnimationFrame(() => this.tick());
+
+        if (this.running) {
+                var ctx = this.context;
+                canvasManager.clearCanvas(ctx);
+                canvasManager.drawSky(ctx);
+                // draw all the planets
+                for (let i = 0; i < this.planets.length; i++) {
+                    this.planets[i].updatePosition(this.simSpeed);
+                    if (this.showMoons && this.planets[i].moons.length )
+                    {
+                        for (let o = 0; o < this.planets[i].moons.length; o++)
+                        {
+                            this.planets[i].moons[o].updatePosition(this.simSpeed);
+                        }
+                    }
+                    this.currentDate += (this.simSpeed /  this.framerate);
+                    canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
+                    canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
+                }
+        }
+
     }
 }

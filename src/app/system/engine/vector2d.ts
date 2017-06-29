@@ -21,4 +21,13 @@ export class vector2d{
     {
         return radian*(180/Math.PI);
     }
+
+    static CalculateDistance(source: vector2d, destination:vector2d)
+    {
+        let dx = source.x - destination.x;
+        let dy = source.y - destination.y;
+        let distance = Math.sqrt((dx*dx)+(dy*dy));
+
+        return distance;
+    }
 }

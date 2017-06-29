@@ -20,7 +20,7 @@ export class canvasManager {
 
             context.fillStyle = "#00ee00";
             context.font = "10px Arial";
-        context.fillText(planet.name, x, y+10);
+        context.fillText(planet.name, (x - 15 ), y+15);
     }
 
     static drawOrbit(context, planet:planet, zoomLevel:number)
@@ -37,7 +37,15 @@ export class canvasManager {
     {
         context.beginPath();
             context.rect(0,0,context.canvas.clientWidth, context.canvas.clientHeight);
-            context.fillStyle= "#000919";
+            context.fillStyle= "#282832";
         context.fill();
+    }
+
+    static drawFrameRate(context, frameRate)
+    {
+        context.beginPath();
+        context.fillStyle = "#FFee00";
+            context.font = "20px Arial";
+        context.fillText(frameRate , 30,30);
     }
 }

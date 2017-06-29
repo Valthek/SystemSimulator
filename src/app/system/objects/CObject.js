@@ -15,12 +15,7 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
                     this.currentAngle = vector2d_1.vector2d.ToRadian(initialAngle);
                     this.initialAngle = vector2d_1.vector2d.ToRadian(initialAngle);
                     this.orbitRadius = orbitRadius;
-                    if (velocity != 0) {
-                        this.radialVelocity = (1 / vector2d_1.vector2d.ToRadian(velocity) / 336);
-                    }
-                    else {
-                        this.radialVelocity = 0;
-                    }
+                    this.radialVelocity = vector2d_1.vector2d.ToRadian(velocity);
                     var radian = vector2d_1.vector2d.ToRadian(initialAngle);
                     var x = +orbitRadius * Math.cos(radian);
                     var y = +orbitRadius * Math.sin(radian);

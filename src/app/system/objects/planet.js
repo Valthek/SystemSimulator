@@ -22,7 +22,10 @@ System.register(["./cObject"], function(exports_1, context_1) {
                     this.color = planetColor;
                 }
                 planet.prototype.updatePosition = function (simSpeed) {
-                    this.currentAngle = +this.currentAngle + (+this.radialVelocity * simSpeed);
+                    this.currentAngle = +this.currentAngle + (this.radialVelocity / simSpeed);
+                    if (this.name === "Zyraak") {
+                        console.log(this.currentAngle + " " + this.radialVelocity);
+                    }
                     this.currentPosition.x = this.orbitRadius * Math.cos(this.currentAngle);
                     this.currentPosition.y = this.orbitRadius * Math.sin(this.currentAngle);
                     if (this.currentAngle >= (Math.PI * 2)) {

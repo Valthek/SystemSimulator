@@ -13,7 +13,8 @@ export class planet extends cObject
     }    
 
     updatePosition(simSpeed:number) {
-        this.currentAngle =+this.currentAngle + (+this.radialVelocity*simSpeed);
+        this.currentAngle =+this.currentAngle + (this.radialVelocity/simSpeed);
+
         this.currentPosition.x = this.orbitRadius * Math.cos(this.currentAngle);
         this.currentPosition.y = this.orbitRadius * Math.sin(this.currentAngle);
 

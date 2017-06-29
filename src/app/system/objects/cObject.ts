@@ -9,7 +9,7 @@ export class cObject {
     // static values
     name: string;
     // initialAngle is in radians for ease of calculation
-    initialAngle:number;
+    initialAngle: number;
     // radialVelocity is in radians for ease of calculation
     radialVelocity: number;
     orbitRadius: number;
@@ -22,14 +22,8 @@ export class cObject {
 
         this.orbitRadius = orbitRadius;
 
-        if (velocity != 0){
-        this.radialVelocity = (1/vector2d.ToRadian(velocity)/336); 
-    }
-    else
-    {
-        this.radialVelocity = 0;
-    }
-
+        this.radialVelocity = vector2d.ToRadian(velocity);
+       
         let radian = vector2d.ToRadian(initialAngle);
 
         let x = +orbitRadius * Math.cos(radian);

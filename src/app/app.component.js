@@ -28,10 +28,14 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/canva
                 function AppComponent(ngZone) {
                     this.ngZone = ngZone;
                     this.simSpeed = 1;
-                    this.zoomLevel = 20;
+                    this.zoomLevel = 24;
                     this.currentDate = 0;
                     this.framerate = 60;
+                    this.running = true;
                     this.planets = loadObjects_1.loadObjects.loadPlanets();
+                    this.timeThen = Date.now();
+                    this.lastLoop = Date.now();
+                    //this.cObjects = loadObjects.loadCObjects();
                 }
                 AppComponent.prototype.ngAfterViewInit = function () {
                     var _this = this;
@@ -44,20 +48,19 @@ System.register(["angular2/core", "./system/loadObjects", "./system/engine/canva
                 };
                 AppComponent.prototype.tick = function () {
                     var _this = this;
+                    requestAnimationFrame(function () { return _this.tick(); });
                     if (this.running) {
                         var ctx = this.context;
                         canvasManager_1.canvasManager.clearCanvas(ctx);
                         canvasManager_1.canvasManager.drawSky(ctx);
                         // draw all the planets
                         for (var i = 0; i < this.planets.length; i++) {
-                            this.planets[i].updatePosition(this.simSpeed / 250);
-                            this.currentDate += this.simSpeed / 250;
-                            console.log(this.currentDate);
+                            this.planets[i].updatePosition(this.simSpeed);
+                            this.currentDate += (this.simSpeed / this.framerate);
                             canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
                             canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
                         }
                     }
-                    requestAnimationFrame(function () { return _this.tick(); });
                 };
                 __decorate([
                     core_1.ViewChild("simulatorCanvas"), 
