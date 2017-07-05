@@ -10,6 +10,7 @@ export class canvasManager {
     static drawPlanet(context, planet:planet, zoomLevel:number)
     {
         // Draw a planet at their appropriate coordinates
+        // Coordinates are absolute for the planet compared to origin, centered on canvas
         context.beginPath();
             context.fillStyle = planet.color;
             let x = ((planet.currentPosition.x)*zoomLevel + context.canvas.clientWidth/2);
@@ -23,6 +24,7 @@ export class canvasManager {
         context.fillText(planet.name, (x - 15 ), y+15);
     }
 
+    // Draw a circle indicating the planet's orbit
     static drawOrbit(context, planet:planet, zoomLevel:number)
     {
         context.beginPath();
@@ -33,6 +35,7 @@ export class canvasManager {
         context.stroke();
     }
 
+    // Draw the background for the map (dark blue/black)
     static drawSky(context)
     {
         context.beginPath();
@@ -41,6 +44,7 @@ export class canvasManager {
         context.fill();
     }
 
+    // Render framerate in top left corner (render text, technically speaking)
     static drawFrameRate(context, frameRate)
     {
         context.beginPath();

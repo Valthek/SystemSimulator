@@ -11,15 +11,4 @@ export class moon extends cObject
         this.size = planetSize / 5;
         this.color = moonColor;
     }    
-
-    updatePosition(simSpeed:number, planetPosition: vector2d) {
-        this.currentAngle =+this.currentAngle + (this.radialVelocity/simSpeed);
-
-        this.currentPosition.x = planetPosition.x + this.orbitRadius * Math.cos(this.currentAngle);
-        this.currentPosition.y = planetPosition.y + this.orbitRadius * Math.sin(this.currentAngle);
-
-        if(this.currentAngle >= (Math.PI * 2)){
-            this.currentAngle -= +(Math.PI * 2);
-        }
-    }
 }

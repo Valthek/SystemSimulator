@@ -27,13 +27,14 @@ export class loadObjects {
               let moonSpeed = $(this).find("moonSpeed").text();
               let moonStartAngle =  $(this).find("moonStartAngle").text();
               let moonColor = $(this).find("moonColor").text();
-              let m: moon = new moon(moonName, moonStartAngle, 2, moonSpeed, 1, moonColor);
+              let m: moon = new moon(moonName, moonStartAngle, 5, moonSpeed, 1, moonColor);
               moons.push(m);
+              console.log(m);
             });
-          let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor);
+          let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons);
           planets.push(p);
           console.log(p);          
-        }); 
+        });  
       },
       error: function () {
         console.log("An error loading the xml file has occured");

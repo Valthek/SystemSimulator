@@ -7,26 +7,24 @@ System.register(["./cObject"], function(exports_1, context_1) {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
     var cObject_1;
-    var planet;
+    var moon;
     return {
         setters:[
             function (cObject_1_1) {
                 cObject_1 = cObject_1_1;
             }],
         execute: function() {
-            planet = (function (_super) {
-                __extends(planet, _super);
-                function planet(name, initialAngle, distance, velocity, planetSize, planetColor, moons) {
+            moon = (function (_super) {
+                __extends(moon, _super);
+                function moon(name, initialAngle, distance, velocity, planetSize, moonColor) {
                     _super.call(this, name, distance, initialAngle, velocity);
-                    this.moons = [];
-                    this.size = planetSize;
-                    this.color = planetColor;
-                    this.moons = moons;
+                    this.size = planetSize / 5;
+                    this.color = moonColor;
                 }
-                return planet;
+                return moon;
             }(cObject_1.cObject));
-            exports_1("planet", planet);
+            exports_1("moon", moon);
         }
     }
 });
-//# sourceMappingURL=planet.js.map
+//# sourceMappingURL=moon.js.map

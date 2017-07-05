@@ -20,7 +20,7 @@
 		<name>Styx</name>
 		<distance>0.336</distance>
 		<radialVelocity>4.746</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>25</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#993300</planetColor>
 	</planet>
@@ -33,55 +33,55 @@
 		<planetColor>#0066cc</planetColor>
 		<moon>
 			<moonName>Ashakar</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Dirak </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Aman</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<planet>
 		<name>Tareen</name>
 		<distance>0.906</distance>
 		<radialVelocity>1</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>175</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#009933</planetColor>
 		<moon>
 			<moonName>Calader</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>12</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<planet>
 		<name>Neophytos</name>
 		<distance>1.299</distance>
 		<radialVelocity>0.624</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>60</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#990000</planetColor>
 		<moon>
 			<moonName>Fylakos </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Navpigeia</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<CObject>
@@ -104,128 +104,128 @@
 		<name>Tempesta</name>
 		<distance>4.150</distance>
 		<radialVelocity>0.109</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>230</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#00cccc</planetColor>
 		<moon>
 			<moonName>Osara </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Tothus  </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Isa </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Hori </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<planet>
 		<name>Helia</name>
 		<distance>7.650</distance>
 		<radialVelocity>0.044</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>10</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#99cc33</planetColor>
 		<moon>
 			<moonName>Thoren</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Frejon </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Hodan </moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<planet>
 		<name>Celestia</name>
 		<distance>11.500</distance>
 		<radialVelocity>0.024</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>340</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#3333cc</planetColor>
 		<moon>
 			<moonName>Hermea</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Attenos</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Aren</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Aprocryta</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Artemea</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Posida</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<planet>
 		<name>Iscarda</name>
 		<distance>18.050</distance>
 		<radialVelocity>0.012</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>145</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#999966</planetColor>
 		<moon>
 			<moonName>Shavana</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Visja</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Brahmos</moonName>
-			<moonSpeed></moonSpeed>
-			<moonStartAngle></moonStartAngle>
-			<moonColor></moonColor>
+			<moonSpeed>2</moonSpeed>
+			<moonStartAngle>0</moonStartAngle>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 	</planet>
 	<CObject>

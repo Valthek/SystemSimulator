@@ -14,6 +14,7 @@ System.register([], function(exports_1, context_1) {
                 };
                 canvasManager.drawPlanet = function (context, planet, zoomLevel) {
                     // Draw a planet at their appropriate coordinates
+                    // Coordinates are absolute for the planet compared to origin, centered on canvas
                     context.beginPath();
                     context.fillStyle = planet.color;
                     var x = ((planet.currentPosition.x) * zoomLevel + context.canvas.clientWidth / 2);
@@ -25,6 +26,7 @@ System.register([], function(exports_1, context_1) {
                     context.font = "10px Arial";
                     context.fillText(planet.name, (x - 15), y + 15);
                 };
+                // Draw a circle indicating the planet's orbit
                 canvasManager.drawOrbit = function (context, planet, zoomLevel) {
                     context.beginPath();
                     context.strokeStyle = "#00ee00";
@@ -33,12 +35,14 @@ System.register([], function(exports_1, context_1) {
                     context.arc(x, y, planet.orbitRadius * zoomLevel, 0, Math.PI * 2);
                     context.stroke();
                 };
+                // Draw the background for the map (dark blue/black)
                 canvasManager.drawSky = function (context) {
                     context.beginPath();
                     context.rect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
                     context.fillStyle = "#282832";
                     context.fill();
                 };
+                // Render framerate in top left corner (render text, technically speaking)
                 canvasManager.drawFrameRate = function (context, frameRate) {
                     context.beginPath();
                     context.fillStyle = "#FFee00";
