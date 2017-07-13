@@ -14,6 +14,7 @@ export class vector2d{
 
     static ToRadian(degrees:number)
     {
+        console.log("degrees: " + degrees);
         return degrees*(Math.PI/180);
     }
 
@@ -29,5 +30,12 @@ export class vector2d{
         let distance = Math.sqrt((dx*dx)+(dy*dy));
 
         return distance;
+    }
+
+    AddVector(vector2d)
+    {
+        this.x += vector2d.x;
+        this.y += vector2d.y;
+        return this;
     }
 }

@@ -14,6 +14,7 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
                     this.name = name;
                     this.currentAngle = vector2d_1.vector2d.ToRadian(initialAngle);
                     this.initialAngle = vector2d_1.vector2d.ToRadian(initialAngle);
+                    console.log(this.initialAngle);
                     this.orbitRadius = orbitRadius;
                     this.radialVelocity = vector2d_1.vector2d.ToRadian(velocity);
                     var radian = vector2d_1.vector2d.ToRadian(initialAngle);
@@ -22,16 +23,12 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
                     this.currentPosition = new vector2d_1.vector2d(x, y);
                 }
                 // Update position relative to a central point (a planet, usually)
-                cObject.prototype.updatePosition = function (simSpeed, planetPosition) {
-                    this.currentAngle = +this.currentAngle - (this.radialVelocity * simSpeed);
-                    this.currentPosition.x = planetPosition.x + this.orbitRadius * Math.cos(this.currentAngle);
-                    this.currentPosition.y = planetPosition.y + this.orbitRadius * Math.sin(this.currentAngle);
-                    if (this.currentAngle >= (Math.PI * 2)) {
-                        this.currentAngle -= +(Math.PI * 2);
-                    }
+                cObject.prototype.updatePosition = function (zeroPosition) {
+                    this.currentPosition.x = zeroPosition.x + this.orbitRadius * Math.cos(this.currentAngle);
+                    this.currentPosition.y = zeroPosition.y + this.orbitRadius * Math.sin(this.currentAngle);
                 };
-                cObject.prototype.setPosition = function (currentDate) {
-                    var newAngle = this.initialAngle + (currentDate * this.radialVelocity);
+                cObject.prototype.setAngle = function (currentDate) {
+                    var newAngle = this.initialAngle - (currentDate * this.radialVelocity);
                     newAngle = newAngle % (Math.PI * 2);
                     this.currentAngle = newAngle;
                 };

@@ -12,10 +12,22 @@ System.register([], function(exports_1, context_1) {
                     this.y = y;
                 }
                 vector2d.ToRadian = function (degrees) {
+                    console.log("degrees: " + degrees);
                     return degrees * (Math.PI / 180);
                 };
                 vector2d.ToDegrees = function (radian) {
                     return radian * (180 / Math.PI);
+                };
+                vector2d.CalculateDistance = function (source, destination) {
+                    var dx = source.x - destination.x;
+                    var dy = source.y - destination.y;
+                    var distance = Math.sqrt((dx * dx) + (dy * dy));
+                    return distance;
+                };
+                vector2d.prototype.AddVector = function (vector2d) {
+                    this.x += vector2d.x;
+                    this.y += vector2d.y;
+                    return this;
                 };
                 return vector2d;
             }());

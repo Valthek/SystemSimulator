@@ -8,17 +8,16 @@
 <div>
   <canvas #simulatorCanvas width="900" height="900" style="background:lightgray;"></canvas>
   <div>
-    <input id="timescale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/tick</label><br
+    <input id="timescale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/second</label><br
     />
     <label for="zoom">Zoom: </label><input id="zoom" type="range" min="23" max="320" [(ngModel)]="zoomLevel" /><br />
-    <button id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
     <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
-      <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD">
+      <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
         <option value="0" selected>01</option>
         <option value="1">02</option>
         <option value="2">03</option>
         <option value="3">04</option>
-        <option value="4">05</option>
+        <option value="4">05</option> 
         <option value="5">06</option>
         <option value="6">07</option>
         <option value="7">08</option>
@@ -27,7 +26,7 @@
         <option value="10">11</option>
         <option value="11">12</option>
         <option value="12">13</option>
-        <option value="l3">14</option>
+        <option value="13">14</option>
         <option value="14">15</option>
         <option value="15">16</option>
         <option value="16">17</option>
@@ -44,7 +43,7 @@
         <option value="27">28</option>
         </select>
 
-      <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM">
+      <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()" >
         <option value="0" selected>January</option>
         <option value="1">February</option>
         <option value="2">March</option>
@@ -58,7 +57,7 @@
         <option value="10">November</option>
         <option value="11">December</option>
       </select>
-      <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY">
+      <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
           <option value="0" selected> 0 AT</option>
           <option value="1" > 1 AT</option>
           <option value="2" > 2 AT</option>
@@ -70,9 +69,20 @@
           <option value="8" > 8 AT</option>
           <option value="9" > 9 AT</option>
           <option value="10"> 10 AT</option>
+          <option value="11"> 11 AT</option>
+          <option value="12"> 12 AT</option>
+          <option value="13"> 13 AT</option>
+          <option value="14"> 14 AT</option>
+          <option value="15"> 15 AT</option>
+          <option value="16"> 16 AT</option>
+          <option value="17"> 17 AT</option>
+          <option value="18"> 18 AT</option>
+          <option value="19"> 19 AT</option>
+          <option value="20"> 20 AT</option>
         </select>
 
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="btn btn-success">Change Date</button>
     </form>
+    <button id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
   </div>
 </div>

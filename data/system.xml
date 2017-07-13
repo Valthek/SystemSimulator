@@ -12,7 +12,7 @@
 		<name>Cavernus</name>
 		<distance>0.233</distance>
 		<radialVelocity>8.246</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>84</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#663300</planetColor>
 	</planet>
@@ -53,8 +53,8 @@
 	<planet>
 		<name>Tareen</name>
 		<distance>0.906</distance>
-		<radialVelocity>1</radialVelocity>
-		<startAngle>175</startAngle>
+		<radialVelocity>1.071</radialVelocity>
+		<startAngle>90</startAngle>
 		<displayRadius>3</displayRadius>
 		<planetColor>#009933</planetColor>
 		<moon>

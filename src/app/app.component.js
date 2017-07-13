@@ -31,17 +31,26 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                 function AppComponent(ngZone) {
                     this.ngZone = ngZone;
                     this.framerate = 60;
+                    this.nowTime = 0;
+                    this.thenTime = 0;
+                    this.deltaTime = 0;
+                    this.currentDateY = 0;
+                    this.currentDateM = 0;
+                    this.currentDateD = 0;
                     // Visualisation Options
                     this.simSpeed = 1;
                     this.zoomLevel = 23;
                     this.isRunning = true;
                     this.showMoons = true;
-                    this.playButtonText = "Stop";
+                    this.playButtonText = "Pause Animation";
                     this.systemPositionOffset = new vector2d_1.vector2d(0, 0);
+                    this.dateUnlocked = true;
                     // internal data
                     this.actualDate = 0;
                     this.planets = loadObjects_1.loadObjects.loadPlanets();
+                    this.thenTime = Date.now();
                     //this.cObjects = loadObjects.loadCObjects();
+                    console.log("The simulator has loaded. Starting...");
                 }
                 AppComponent.prototype.ngAfterViewInit = function () {
                     var _this = this;
@@ -52,55 +61,92 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                 AppComponent.prototype.ngOnDestroy = function () {
                     this.isRunning = false;
                 };
-                AppComponent.prototype.tick = function () {
-                    var _this = this;
-                    requestAnimationFrame(function () { return _this.tick(); });
-                    if (this.isRunning) {
-                        var ctx = this.context;
-                        canvasManager_1.canvasManager.clearCanvas(ctx);
-                        canvasManager_1.canvasManager.drawSky(ctx);
-                        // draw all the planets
-                        for (var i = 0; i < this.planets.length; i++) {
-                            this.planets[i].updatePosition(this.simSpeed / 10, this.planets[0].currentPosition);
-                            if (this.showMoons && this.planets[i].moons.length) {
-                                for (var o = 0; o < this.planets[i].moons.length; o++) {
-                                    this.planets[i].moons[o].updatePosition(this.simSpeed / 10, this.planets[i].currentPosition);
-                                }
-                            }
-                            this.actualDate += (this.simSpeed / this.framerate);
-                            canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
-                            canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
-                        }
-                        this.ngZone.run(function () { return _this.setDate(); });
-                    }
-                };
                 AppComponent.prototype.togglePlay = function () {
                     this.isRunning = !this.isRunning;
                     if (this.isRunning) {
-                        this.playButtonText = "Stop";
+                        this.dateUnlocked = true;
+                        this.playButtonText = "Pause Animation";
                     }
                     else {
-                        this.playButtonText = "Play";
+                        this.dateUnlocked = false;
+                        this.playButtonText = "Resume Animation";
                     }
                 };
                 AppComponent.prototype.onTimeSubmit = function () {
-                    this.actualDate = this.currentDateY * 366 + this.currentDateM * 28 + this.currentDateD;
+                    var newDate = (+this.currentDateY * 366) + (+this.currentDateM * 28) + +this.currentDateD;
+                    this.dateUnlocked = true;
+                    this.actualDate = newDate;
+                    this.setPlanetPositions();
+                };
+                AppComponent.prototype.lockTime = function () {
+                    this.dateUnlocked = false;
+                };
+                AppComponent.prototype.tick = function () {
+                    var _this = this;
+                    requestAnimationFrame(function () { return _this.tick(); });
+                    // Update Time
+                    this.updateTime();
+                    if (this.isRunning) {
+                        // Increment current date
+                        this.actualDate += (this.simSpeed * this.deltaTime);
+                    }
+                    // Update position of all objects
+                    this.updateObjects();
+                    // Render all objects
+                    this.render();
+                    // update Form objecst & GUI
+                    this.updateGUI();
+                };
+                AppComponent.prototype.updateObjects = function () {
+                    // Update Planets
+                    for (var p = 0; p < this.planets.length; p++) {
+                        this.planets[p].setAngle(this.actualDate);
+                        this.planets[p].updatePosition(new vector2d_1.vector2d(0, 0));
+                        // Update Moons
+                        if (this.planets[p].moons.length) {
+                            for (var m = 0; p < this.planets[p].moons.length; m++) {
+                                this.planets[p].moons[m].setAngle(this.actualDate);
+                                this.planets[p].moons[m].updatePosition(this.planets[p].currentPosition);
+                            }
+                        }
+                    }
+                };
+                AppComponent.prototype.render = function () {
+                    // deal with Canvas & Background
                     var ctx = this.context;
                     canvasManager_1.canvasManager.clearCanvas(ctx);
                     canvasManager_1.canvasManager.drawSky(ctx);
-                    for (var i = 0; i < this.planets.length; i++) {
-                        this.planets[i].setPosition(this.actualDate);
-                        if (this.showMoons && this.planets[i].moons.length) {
-                            for (var o = 0; o < this.planets[i].moons.length; o++) {
-                                this.planets[i].moons[o].updatePosition(this.simSpeed / 10, this.planets[i].currentPosition);
+                    // draw all the planets
+                    for (var p = 0; p < this.planets.length; p++) {
+                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.zoomLevel);
+                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel);
+                        // Update Moons
+                        if (this.showMoons && this.planets[p].moons.length) {
+                            for (var m = 0; p < this.planets[p].moons.length; m++) {
+                                this.planets[p].moons[m].setAngle(this.actualDate);
+                                this.planets[p].moons[m].updatePosition(this.planets[p].currentPosition);
                             }
                         }
-                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[i], this.zoomLevel);
-                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[i], this.zoomLevel);
                     }
                 };
-                AppComponent.prototype.setDate = function () {
-                    var dateRemainder = this.actualDate;
+                AppComponent.prototype.updateGUI = function () {
+                    var _this = this;
+                    if (this.dateUnlocked) {
+                        this.ngZone.run(function () { return _this.setDate(_this.actualDate); });
+                    }
+                };
+                AppComponent.prototype.setPlanetPositions = function () {
+                    for (var p = 0; p < this.planets.length; p++) {
+                        this.planets[p].setAngle(this.actualDate);
+                    }
+                };
+                AppComponent.prototype.updateTime = function () {
+                    this.nowTime = Date.now();
+                    this.deltaTime = (this.nowTime - this.thenTime) / 1000; // seconds since last frame
+                    this.thenTime = this.nowTime;
+                };
+                AppComponent.prototype.setDate = function (newDate) {
+                    var dateRemainder = newDate;
                     var year = Math.floor(dateRemainder / 336);
                     dateRemainder = +dateRemainder - (year * 336);
                     this.currentDateY = year;

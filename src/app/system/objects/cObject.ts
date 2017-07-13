@@ -19,6 +19,7 @@ export class cObject {
 
         this.currentAngle = vector2d.ToRadian(initialAngle);
         this.initialAngle = vector2d.ToRadian(initialAngle);
+        console.log(this.initialAngle);
 
         this.orbitRadius = orbitRadius; 
 
@@ -32,20 +33,14 @@ export class cObject {
     }
 
     // Update position relative to a central point (a planet, usually)
-    updatePosition(simSpeed:number, planetPosition: vector2d) {
-        this.currentAngle =+this.currentAngle - (this.radialVelocity*simSpeed);
-
-        this.currentPosition.x = planetPosition.x + this.orbitRadius * Math.cos(this.currentAngle);
-        this.currentPosition.y = planetPosition.y + this.orbitRadius * Math.sin(this.currentAngle);
-
-        if(this.currentAngle >= (Math.PI * 2)){
-            this.currentAngle -= +(Math.PI * 2);  
-        }
+    updatePosition(zeroPosition: vector2d) {
+        this.currentPosition.x = zeroPosition.x + this.orbitRadius * Math.cos(this.currentAngle);
+        this.currentPosition.y = zeroPosition.y + this.orbitRadius * Math.sin(this.currentAngle);
     }
 
-    setPosition(currentDate:number)
+    setAngle(currentDate:number)
     {
-        let newAngle = this.initialAngle + (currentDate * this.radialVelocity);
+        let newAngle = this.initialAngle - (currentDate * this.radialVelocity);
         newAngle = newAngle%(Math.PI*2);
 
         this.currentAngle = newAngle;

@@ -8,8 +8,10 @@ export class planet extends cObject
     size:number;
     moons:moon [] = [];
 
-    constructor(name:string, initialAngle:number, distance:number, velocity:number,  planetSize:number, planetColor:string, moons:moon[]) {
+    constructor(name:string, initialAngle:number, distance:number, velocity:number,  planetSize:number, planetColor:string, moons:moon[]) 
+    {
         super(name, distance, initialAngle, velocity);
+        console.log(initialAngle);
         this.size = planetSize;
         this.color = planetColor;
         this.moons = moons;
