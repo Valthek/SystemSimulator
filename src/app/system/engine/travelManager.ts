@@ -76,7 +76,7 @@ export class travelManager {
     static calculateLaunchTiming(source:cObject, destination:cObject)
     {
         console.log("==================================================");
-        console.log("======== Calculate Hohman Launch Timing ==========");
+        console.log("======== Calculate Hohman Launch Angle ===========");
         console.log("==================================================");
         
         let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
@@ -84,8 +84,26 @@ export class travelManager {
         let inner = Math.pow(sourceOrbit/destinationOrbit+1, 3);
         let angleRadian = Math.PI * (1-(0.35355*Math.sqrt(inner)));
         let angleDegrees = angleRadian*(180/Math.PI);
-        console.log("Tranfer Launch Timing for " + source.name + " to " + destination.name + ": " + angleDegrees + "°");
+        console.log("Tranfer Launch Angle for " + source.name + " to " + destination.name + ": " + angleDegrees + "°");
         return angleRadian;
+    }
+
+    static calculateDaysToNextHohmanTravelDate(source:cObject, destination:cObject, actualDate:number)
+    {
+        console.log("==================================================");
+        console.log("========= Calculate Next Hohman Window ===========");
+        console.log("==================================================");
+        let currentDate = Math.floor(actualDate);
+        let initialDate = currentDate;
+        let goalAngle = Math.floor(100 * travelManager.calculateLaunchTiming(source, destination));
+        let currentAngle = Math.floor(100* (source.currentAngle - destination.currentAngle));
+        while ( currentAngle != goalAngle)
+            {
+                currentDate ++;
+                currentAngle = Math.floor(100* (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate)));
+            } 
+        console.log("Next transfer from " + source.name + " to "+ destination.name + " is in " + (currentDate - initialDate) + " days");
+        return currentDate;
     }
 
     static calculateBrachistochroneDeltaV(source:cObject, destination:cObject, thrustInG:number)

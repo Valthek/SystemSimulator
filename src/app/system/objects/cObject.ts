@@ -46,4 +46,11 @@ export class cObject {
 
         this.currentAngle = newAngle;
     }
+
+    getAngleForDate(date:number)
+    {
+        let angle = this.initialAngle - (date * this.radialVelocity);
+        angle = angle%(Math.PI*2);
+        return angle;
+    }
 }

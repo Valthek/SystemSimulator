@@ -86,12 +86,13 @@ export class AppComponent implements AfterViewInit {
 
     calculateTravelOptions()
     {
-        travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01);
-        travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01);
+        /* travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]); */
+        /* travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]); */
+        /* travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]); */
+        /* travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]); */
+        /* travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01); */
+        /* travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01); */
+       travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
     }
 
     lockTime() {

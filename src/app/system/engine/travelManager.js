@@ -87,15 +87,30 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                 };
                 travelManager.calculateLaunchTiming = function (source, destination) {
                     console.log("==================================================");
-                    console.log("======== Calculate Hohman Launch Timing ==========");
+                    console.log("======== Calculate Hohman Launch Angle ===========");
                     console.log("==================================================");
                     var sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
                     var destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
                     var inner = Math.pow(sourceOrbit / destinationOrbit + 1, 3);
                     var angleRadian = Math.PI * (1 - (0.35355 * Math.sqrt(inner)));
                     var angleDegrees = angleRadian * (180 / Math.PI);
-                    console.log("Tranfer Launch Timing for " + source.name + " to " + destination.name + ": " + angleDegrees + "°");
+                    console.log("Tranfer Launch Angle for " + source.name + " to " + destination.name + ": " + angleDegrees + "°");
                     return angleRadian;
+                };
+                travelManager.calculateDaysToNextHohmanTravelDate = function (source, destination, actualDate) {
+                    console.log("==================================================");
+                    console.log("========= Calculate Next Hohman Window ===========");
+                    console.log("==================================================");
+                    var currentDate = Math.floor(actualDate);
+                    var initialDate = currentDate;
+                    var goalAngle = Math.floor(100 * travelManager.calculateLaunchTiming(source, destination));
+                    var currentAngle = Math.floor(100 * (source.currentAngle - destination.currentAngle));
+                    while (currentAngle != goalAngle) {
+                        currentDate++;
+                        currentAngle = Math.floor(100 * (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate)));
+                    }
+                    console.log("Next transfer from " + source.name + " to " + destination.name + " is in " + (currentDate - initialDate) + " days");
+                    return currentDate;
                 };
                 travelManager.calculateBrachistochroneDeltaV = function (source, destination, thrustInG) {
                     // Calculate DeltaV requirement for Brachistochrone transfer

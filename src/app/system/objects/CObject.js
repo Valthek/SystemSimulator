@@ -32,6 +32,11 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
                     newAngle = newAngle % (Math.PI * 2);
                     this.currentAngle = newAngle;
                 };
+                cObject.prototype.getAngleForDate = function (date) {
+                    var angle = this.initialAngle - (date * this.radialVelocity);
+                    angle = angle % (Math.PI * 2);
+                    return angle;
+                };
                 return cObject;
             }());
             exports_1("cObject", cObject);
