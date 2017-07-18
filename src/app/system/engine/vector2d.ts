@@ -14,7 +14,6 @@ export class vector2d{
 
     static ToRadian(degrees:number)
     {
-        console.log("degrees: " + degrees);
         return degrees*(Math.PI/180);
     }
 

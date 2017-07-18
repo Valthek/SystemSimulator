@@ -27,13 +27,13 @@ export class loadObjects {
               let moonSpeed = $(this).find("moonSpeed").text();
               let moonStartAngle =  $(this).find("moonStartAngle").text();
               let moonColor = $(this).find("moonColor").text();
-              let m: moon = new moon(moonName, moonStartAngle, 5, moonSpeed, 1, moonColor);
+              let m: moon = new moon(moonName, moonStartAngle, radius*0.03 , moonSpeed, radius, moonColor);
               moons.push(m);
-              console.log(m);
+              console.log(m)
             });
           let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons);
-          planets.push(p);
-          console.log(p);          
+          planets.push(p);       
+          console.log(p);
         });  
       },
       error: function () {
@@ -43,7 +43,7 @@ export class loadObjects {
     return planets;
   }
 
-  static loadCObkects(): cObject[] {
+  static loadCObjects(): cObject[] {
     let cObjects: cObject[] = [];
     $.ajax({
       type: "GET",

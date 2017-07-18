@@ -19,8 +19,7 @@ System.register(["./cObject"], function(exports_1, context_1) {
                 function planet(name, initialAngle, distance, velocity, planetSize, planetColor, moons) {
                     _super.call(this, name, distance, initialAngle, velocity);
                     this.moons = [];
-                    console.log(initialAngle);
-                    this.size = planetSize;
+                    this.size = Math.ceil(planetSize * 1.5);
                     this.color = planetColor;
                     this.moons = moons;
                 }

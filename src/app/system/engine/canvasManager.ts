@@ -1,5 +1,7 @@
 //Class to draw animations on the canvas
 import { planet } from "./../objects/planet";
+import { moon } from "./../objects/moon";
+import { cObject } from "./../objects/cObject";
 
 export class canvasManager {
     // clear canvas
@@ -24,13 +26,32 @@ export class canvasManager {
         context.fillText(planet.name, (x - 15 ), y+15);
     }
 
+    static drawMoon(context, moon:moon, zoomLevel:number, showName:boolean)
+    {
+        // Draw a moon at their appropriate coordinates
+        // Coordinates are absolute for the planet compared to the mother planet's
+        context.beginPath();
+            context.fillStyle = moon.color;
+            let x = ((moon.currentPosition.x)*zoomLevel + context.canvas.clientWidth/2);
+            let y = ((moon.currentPosition.y)*zoomLevel + context.canvas.clientHeight/2); 
+            context.moveTo(x, y);
+            context.arc(x, y, moon.size, 0, Math.PI * 2);
+        context.fill();
+        if (showName)
+        {
+            context.fillStyle = "#00ee00";
+            context.font = "10px Arial";
+        context.fillText(moon.name, (x - 15 ), y+15);
+        }
+    }
+
     // Draw a circle indicating the planet's orbit
-    static drawOrbit(context, planet:planet, zoomLevel:number)
+    static drawOrbit(context, planet:cObject, parent:cObject, zoomLevel:number)
     {
         context.beginPath();
             context.strokeStyle = "#00ee00";
-            let x = context.canvas.clientWidth/2;
-            let y = context.canvas.clientHeight/2; 
+            let x = (parent.currentPosition.x*zoomLevel) + context.canvas.clientWidth/2;
+            let y = (parent.currentPosition.y*zoomLevel) + context.canvas.clientHeight/2; 
             context.arc(x,y, planet.orbitRadius * zoomLevel,0, Math.PI * 2);
         context.stroke();
     }

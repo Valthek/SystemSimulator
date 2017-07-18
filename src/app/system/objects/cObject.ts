@@ -19,7 +19,6 @@ export class cObject {
 
         this.currentAngle = vector2d.ToRadian(initialAngle);
         this.initialAngle = vector2d.ToRadian(initialAngle);
-        console.log(this.initialAngle);
 
         this.orbitRadius = orbitRadius; 
 
@@ -32,10 +31,10 @@ export class cObject {
         this.currentPosition = new vector2d(x, y);
     }
 
-    // Update position relative to a central point (a planet, usually)
+    // Update position relative to a central point (a planet or the sun, usually)
     updatePosition(zeroPosition: vector2d) {
-        this.currentPosition.x = zeroPosition.x + this.orbitRadius * Math.cos(this.currentAngle);
-        this.currentPosition.y = zeroPosition.y + this.orbitRadius * Math.sin(this.currentAngle);
+        this.currentPosition.x =  zeroPosition.x + (this.orbitRadius * Math.cos(this.currentAngle));
+        this.currentPosition.y =  zeroPosition.y + (this.orbitRadius * Math.sin(this.currentAngle));
     }
 
     setAngle(currentDate:number)

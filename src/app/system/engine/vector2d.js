@@ -12,7 +12,6 @@ System.register([], function(exports_1, context_1) {
                     this.y = y;
                 }
                 vector2d.ToRadian = function (degrees) {
-                    console.log("degrees: " + degrees);
                     return degrees * (Math.PI / 180);
                 };
                 vector2d.ToDegrees = function (radian) {

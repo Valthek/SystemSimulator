@@ -11,8 +11,7 @@ export class planet extends cObject
     constructor(name:string, initialAngle:number, distance:number, velocity:number,  planetSize:number, planetColor:string, moons:moon[]) 
     {
         super(name, distance, initialAngle, velocity);
-        console.log(initialAngle);
-        this.size = planetSize;
+        this.size = Math.ceil(planetSize*1.5);
         this.color = planetColor;
         this.moons = moons;
     }    

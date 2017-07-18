@@ -1,9 +1,11 @@
-import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef } from "angular2/core";
+import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef  } from "angular2/core";
+import { FORM_DIRECTIVES } from 'angular2/common';
 import { planet } from "./system/objects/planet";
 import { vector2d } from "./system/engine/vector2d";
 import { cObject } from "./system/objects/cObject";
 import { loadObjects } from "./system/loadObjects";
 import { canvasManager } from "./system/engine/canvasManager";
+import { travelManager } from "./system/engine/travelManager";
 
 @Component({
     selector: 'simulator',
@@ -28,6 +30,9 @@ export class AppComponent implements AfterViewInit {
     currentDateY: number = 0;
     currentDateM: number = 0;
     currentDateD: number = 0;
+
+    travelDestination:cObject = new cObject("blank", 0,0,0);
+    travelSource: cObject= new cObject("blank", 0,0,0);
 
     // Visualisation Options
     simSpeed: number = 1;
@@ -79,6 +84,16 @@ export class AppComponent implements AfterViewInit {
         this.setPlanetPositions();
     }
 
+    travelChange(newValue)
+    {
+        console.log(newValue);
+    }
+    calculateTravelOptions()
+    {
+        console.log("============================================");
+        travelManager.calculateHohmanDeltaV(this.planets[1], this.travelDestination);
+    }
+
     lockTime() {
         this.dateUnlocked = false;
     }
@@ -107,8 +122,8 @@ export class AppComponent implements AfterViewInit {
             this.planets[p].setAngle(this.actualDate);
             this.planets[p].updatePosition(new vector2d(0, 0));
             // Update Moons
-            if (this.planets[p].moons.length) {
-                for (let m = 0; p < this.planets[p].moons.length; m++) {
+            if (this.planets[p].moons.length > 0) {
+                for (let m = 0; m < this.planets[p].moons.length; m++) {
                     this.planets[p].moons[m].setAngle(this.actualDate);
                     this.planets[p].moons[m].updatePosition(this.planets[p].currentPosition);
                 }
@@ -116,20 +131,20 @@ export class AppComponent implements AfterViewInit {
         }
     }
 
-    private render() {
+    private render() { 
         // deal with Canvas & Background
         var ctx = this.context;
         canvasManager.clearCanvas(ctx);
         canvasManager.drawSky(ctx);
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
-            canvasManager.drawOrbit(ctx, this.planets[p], this.zoomLevel);
+            canvasManager.drawOrbit(ctx, this.planets[p], this.planets[0], this.zoomLevel);
             canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel);
             // Update Moons
-            if (this.showMoons && this.planets[p].moons.length) {
-                for (let m = 0; p < this.planets[p].moons.length; m++) {
-                    this.planets[p].moons[m].setAngle(this.actualDate);
-                    this.planets[p].moons[m].updatePosition(this.planets[p].currentPosition);
+            if (this.showMoons && this.planets[p].moons.length != 0) {
+                for (let m = 0; m < this.planets[p].moons.length; m++) {
+                    //canvasManager.drawOrbit(ctx, this.planets[p].moons[m], this.planets[p], this.zoomLevel);
+                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.zoomLevel, false);
                 }
             }
         }

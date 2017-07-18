@@ -26,12 +26,28 @@ System.register([], function(exports_1, context_1) {
                     context.font = "10px Arial";
                     context.fillText(planet.name, (x - 15), y + 15);
                 };
+                canvasManager.drawMoon = function (context, moon, zoomLevel, showName) {
+                    // Draw a moon at their appropriate coordinates
+                    // Coordinates are absolute for the planet compared to the mother planet's
+                    context.beginPath();
+                    context.fillStyle = moon.color;
+                    var x = ((moon.currentPosition.x) * zoomLevel + context.canvas.clientWidth / 2);
+                    var y = ((moon.currentPosition.y) * zoomLevel + context.canvas.clientHeight / 2);
+                    context.moveTo(x, y);
+                    context.arc(x, y, moon.size, 0, Math.PI * 2);
+                    context.fill();
+                    if (showName) {
+                        context.fillStyle = "#00ee00";
+                        context.font = "10px Arial";
+                        context.fillText(moon.name, (x - 15), y + 15);
+                    }
+                };
                 // Draw a circle indicating the planet's orbit
-                canvasManager.drawOrbit = function (context, planet, zoomLevel) {
+                canvasManager.drawOrbit = function (context, planet, parent, zoomLevel) {
                     context.beginPath();
                     context.strokeStyle = "#00ee00";
-                    var x = context.canvas.clientWidth / 2;
-                    var y = context.canvas.clientHeight / 2;
+                    var x = (parent.currentPosition.x * zoomLevel) + context.canvas.clientWidth / 2;
+                    var y = (parent.currentPosition.y * zoomLevel) + context.canvas.clientHeight / 2;
                     context.arc(x, y, planet.orbitRadius * zoomLevel, 0, Math.PI * 2);
                     context.stroke();
                 };

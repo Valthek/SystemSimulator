@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObjects", "./system/engine/canvasManager"], function(exports_1, context_1) {
+System.register(["angular2/core", "./system/engine/vector2d", "./system/objects/cObject", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, vector2d_1, loadObjects_1, canvasManager_1;
+    var core_1, vector2d_1, cObject_1, loadObjects_1, canvasManager_1, travelManager_1;
     var AppComponent;
     return {
         setters:[
@@ -20,11 +20,17 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
             function (vector2d_1_1) {
                 vector2d_1 = vector2d_1_1;
             },
+            function (cObject_1_1) {
+                cObject_1 = cObject_1_1;
+            },
             function (loadObjects_1_1) {
                 loadObjects_1 = loadObjects_1_1;
             },
             function (canvasManager_1_1) {
                 canvasManager_1 = canvasManager_1_1;
+            },
+            function (travelManager_1_1) {
+                travelManager_1 = travelManager_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -37,6 +43,8 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.currentDateY = 0;
                     this.currentDateM = 0;
                     this.currentDateD = 0;
+                    this.travelDestination = new cObject_1.cObject("blank", 0, 0, 0);
+                    this.travelSource = new cObject_1.cObject("blank", 0, 0, 0);
                     // Visualisation Options
                     this.simSpeed = 1;
                     this.zoomLevel = 23;
@@ -78,6 +86,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.actualDate = newDate;
                     this.setPlanetPositions();
                 };
+                AppComponent.prototype.travelChange = function (newValue) {
+                    console.log(newValue);
+                };
+                AppComponent.prototype.calculateTravelOptions = function () {
+                    console.log("============================================");
+                    travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[1], this.travelDestination);
+                };
                 AppComponent.prototype.lockTime = function () {
                     this.dateUnlocked = false;
                 };
@@ -103,8 +118,8 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                         this.planets[p].setAngle(this.actualDate);
                         this.planets[p].updatePosition(new vector2d_1.vector2d(0, 0));
                         // Update Moons
-                        if (this.planets[p].moons.length) {
-                            for (var m = 0; p < this.planets[p].moons.length; m++) {
+                        if (this.planets[p].moons.length > 0) {
+                            for (var m = 0; m < this.planets[p].moons.length; m++) {
                                 this.planets[p].moons[m].setAngle(this.actualDate);
                                 this.planets[p].moons[m].updatePosition(this.planets[p].currentPosition);
                             }
@@ -118,13 +133,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     canvasManager_1.canvasManager.drawSky(ctx);
                     // draw all the planets
                     for (var p = 0; p < this.planets.length; p++) {
-                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.zoomLevel);
+                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.planets[0], this.zoomLevel);
                         canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel);
                         // Update Moons
-                        if (this.showMoons && this.planets[p].moons.length) {
-                            for (var m = 0; p < this.planets[p].moons.length; m++) {
-                                this.planets[p].moons[m].setAngle(this.actualDate);
-                                this.planets[p].moons[m].updatePosition(this.planets[p].currentPosition);
+                        if (this.showMoons && this.planets[p].moons.length != 0) {
+                            for (var m = 0; m < this.planets[p].moons.length; m++) {
+                                //canvasManager.drawOrbit(ctx, this.planets[p].moons[m], this.planets[p], this.zoomLevel);
+                                canvasManager_1.canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.zoomLevel, false);
                             }
                         }
                     }

@@ -38,7 +38,7 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                                     var moonSpeed = $(this).find("moonSpeed").text();
                                     var moonStartAngle = $(this).find("moonStartAngle").text();
                                     var moonColor = $(this).find("moonColor").text();
-                                    var m = new moon_1.moon(moonName, moonStartAngle, 5, moonSpeed, 1, moonColor);
+                                    var m = new moon_1.moon(moonName, moonStartAngle, radius * 0.03, moonSpeed, radius, moonColor);
                                     moons.push(m);
                                     console.log(m);
                                 });
@@ -53,7 +53,7 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                     });
                     return planets;
                 };
-                loadObjects.loadCObkects = function () {
+                loadObjects.loadCObjects = function () {
                     var cObjects = [];
                     $.ajax({
                         type: "GET",
