@@ -9,12 +9,14 @@ export class loadObjects {
 
   static loadPlanets(): planet[] {
     let planets: planet[] = [];
+    let planetNumber:number = 0;
     $.ajax({
       type: "GET",
       url: "/data/system.xml",
       dataType: "xml",
       success: function (data) {
         $(data).find("planet").each(function (index) {
+          let moonNumber = 0;
           let name = $(this).find("name").text();
           let distanceToOrigin = $(this).find("distance").text();
           let radialVelocity = $(this).find("radialVelocity").text();
@@ -27,13 +29,15 @@ export class loadObjects {
               let moonSpeed = $(this).find("moonSpeed").text();
               let moonStartAngle =  $(this).find("moonStartAngle").text();
               let moonColor = $(this).find("moonColor").text();
-              let m: moon = new moon(moonName, moonStartAngle, radius*0.03 , moonSpeed, radius, moonColor);
+              let m: moon = new moon(moonName, moonStartAngle, radius*0.03 , moonSpeed, radius, moonColor, moonNumber);
               moons.push(m);
-              console.log(m)
+              console.log(m);
+              moonNumber++;
             });
-          let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons);
+          let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons, planetNumber);
           planets.push(p);       
           console.log(p);
+          planetNumber++;
         });  
       },
       error: function () {

@@ -87,9 +87,13 @@
   </div>
   <div class="travel-plot">
     <form (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
+      <span>From: </span>
+      <select [(ngModel)]="travelSource">
+      <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+      </select>
     <span>To: </span>
-    <select [(ngModel)]="travelDestination" (change)="travelChange(p)">
-      <option *ngFor="#p of planets" [value]="p"> {{p.name}}</option>
+    <select [(ngModel)]="travelDestination">
+      <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
       </select>
     <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
     </form>

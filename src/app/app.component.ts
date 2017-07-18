@@ -31,8 +31,8 @@ export class AppComponent implements AfterViewInit {
     currentDateM: number = 0;
     currentDateD: number = 0;
 
-    travelDestination:cObject = new cObject("blank", 0,0,0);
-    travelSource: cObject= new cObject("blank", 0,0,0);
+    travelDestination:number = 0;
+    travelSource: number= 0;
 
     // Visualisation Options
     simSpeed: number = 1;
@@ -84,14 +84,14 @@ export class AppComponent implements AfterViewInit {
         this.setPlanetPositions();
     }
 
-    travelChange(newValue)
-    {
-        console.log(newValue);
-    }
     calculateTravelOptions()
     {
-        console.log("============================================");
-        travelManager.calculateHohmanDeltaV(this.planets[1], this.travelDestination);
+        travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01);
+        travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01);
     }
 
     lockTime() {

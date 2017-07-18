@@ -10,8 +10,9 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
             }],
         execute: function() {
             cObject = (function () {
-                function cObject(name, orbitRadius, initialAngle, velocity) {
+                function cObject(name, orbitRadius, initialAngle, velocity, objectID) {
                     this.name = name;
+                    this.objectID = objectID;
                     this.currentAngle = vector2d_1.vector2d.ToRadian(initialAngle);
                     this.initialAngle = vector2d_1.vector2d.ToRadian(initialAngle);
                     this.orbitRadius = orbitRadius;

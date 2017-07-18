@@ -33,19 +33,19 @@
 		<planetColor>#0066cc</planetColor>
 		<moon>
 			<moonName>Ashakar</moonName>
-			<moonSpeed>2</moonSpeed>
+			<moonSpeed>12</moonSpeed>
 			<moonStartAngle>140</moonStartAngle>
 			<moonColor>#ffdddd</moonColor>
 		</moon>
 		 <moon>
 			<moonName>Dirak </moonName>
-			<moonSpeed>2</moonSpeed>
+			<moonSpeed>12</moonSpeed>
 			<moonStartAngle>350</moonStartAngle>
 			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Aman</moonName>
-			<moonSpeed>2</moonSpeed>
+			<moonSpeed>12</moonSpeed>
 			<moonStartAngle>40</moonStartAngle>
 			<moonColor>#ffdddd</moonColor>
 		</moon> 

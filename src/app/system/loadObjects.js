@@ -20,12 +20,14 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                 }
                 loadObjects.loadPlanets = function () {
                     var planets = [];
+                    var planetNumber = 0;
                     $.ajax({
                         type: "GET",
                         url: "/data/system.xml",
                         dataType: "xml",
                         success: function (data) {
                             $(data).find("planet").each(function (index) {
+                                var moonNumber = 0;
                                 var name = $(this).find("name").text();
                                 var distanceToOrigin = $(this).find("distance").text();
                                 var radialVelocity = $(this).find("radialVelocity").text();
@@ -38,13 +40,15 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                                     var moonSpeed = $(this).find("moonSpeed").text();
                                     var moonStartAngle = $(this).find("moonStartAngle").text();
                                     var moonColor = $(this).find("moonColor").text();
-                                    var m = new moon_1.moon(moonName, moonStartAngle, radius * 0.03, moonSpeed, radius, moonColor);
+                                    var m = new moon_1.moon(moonName, moonStartAngle, radius * 0.03, moonSpeed, radius, moonColor, moonNumber);
                                     moons.push(m);
                                     console.log(m);
+                                    moonNumber++;
                                 });
-                                var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons);
+                                var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons, planetNumber);
                                 planets.push(p);
                                 console.log(p);
+                                planetNumber++;
                             });
                         },
                         error: function () {

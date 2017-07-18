@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./system/engine/vector2d", "./system/objects/cObject", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
+System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/objects/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, vector2d_1, cObject_1, loadObjects_1, canvasManager_1, travelManager_1;
+    var core_1, vector2d_1, loadObjects_1, canvasManager_1, travelManager_1;
     var AppComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/objects/
             },
             function (vector2d_1_1) {
                 vector2d_1 = vector2d_1_1;
-            },
-            function (cObject_1_1) {
-                cObject_1 = cObject_1_1;
             },
             function (loadObjects_1_1) {
                 loadObjects_1 = loadObjects_1_1;
@@ -43,8 +40,8 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/objects/
                     this.currentDateY = 0;
                     this.currentDateM = 0;
                     this.currentDateD = 0;
-                    this.travelDestination = new cObject_1.cObject("blank", 0, 0, 0);
-                    this.travelSource = new cObject_1.cObject("blank", 0, 0, 0);
+                    this.travelDestination = 0;
+                    this.travelSource = 0;
                     // Visualisation Options
                     this.simSpeed = 1;
                     this.zoomLevel = 23;
@@ -86,12 +83,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/objects/
                     this.actualDate = newDate;
                     this.setPlanetPositions();
                 };
-                AppComponent.prototype.travelChange = function (newValue) {
-                    console.log(newValue);
-                };
                 AppComponent.prototype.calculateTravelOptions = function () {
-                    console.log("============================================");
-                    travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[1], this.travelDestination);
+                    travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01);
+                    travelManager_1.travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01);
                 };
                 AppComponent.prototype.lockTime = function () {
                     this.dateUnlocked = false;

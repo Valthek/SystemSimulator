@@ -6,8 +6,8 @@ export class moon extends cObject
     size: number;
     color: string;
 
-    constructor(name:string, initialAngle:number, distance:number, velocity:number,  planetSize:number, moonColor:string) {
-        super(name, planetSize*planetSize * 0.005, initialAngle, velocity);
+    constructor(name:string, initialAngle:number, distance:number, velocity:number,  planetSize:number, moonColor:string, objectID:number) {
+        super(name, planetSize*planetSize * 0.005, initialAngle, velocity, objectID);
 
         this.size = 1;
         this.color = moonColor;
