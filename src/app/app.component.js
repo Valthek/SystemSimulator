@@ -42,6 +42,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.currentDateD = 0;
                     this.travelDestination = 0;
                     this.travelSource = 0;
+                    this.shipThrustInG = 0;
                     // Visualisation Options
                     this.simSpeed = 1;
                     this.zoomLevel = 23;
@@ -84,12 +85,12 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.setPlanetPositions();
                 };
                 AppComponent.prototype.calculateTravelOptions = function () {
-                    /* travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-                    /* travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-                    /* travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-                    /* travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-                    /* travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01); */
-                    /* travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01); */
+                    travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    travelManager_1.travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+                    travelManager_1.travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
                     travelManager_1.travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
                 };
                 AppComponent.prototype.lockTime = function () {

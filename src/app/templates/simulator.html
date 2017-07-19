@@ -95,6 +95,7 @@
     <select [(ngModel)]="travelDestination">
       <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
       </select>
+    <input type="text" [(ngModel)]="shipThrustInG" required>
     <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
     </form>
   </div>

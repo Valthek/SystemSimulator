@@ -1,4 +1,4 @@
-import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef  } from "angular2/core";
+import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef } from "angular2/core";
 import { FORM_DIRECTIVES } from 'angular2/common';
 import { planet } from "./system/objects/planet";
 import { vector2d } from "./system/engine/vector2d";
@@ -31,8 +31,9 @@ export class AppComponent implements AfterViewInit {
     currentDateM: number = 0;
     currentDateD: number = 0;
 
-    travelDestination:number = 0;
-    travelSource: number= 0;
+    travelDestination: number = 0;
+    travelSource: number = 0;
+    shipThrustInG:number = 0;
 
     // Visualisation Options
     simSpeed: number = 1;
@@ -84,15 +85,14 @@ export class AppComponent implements AfterViewInit {
         this.setPlanetPositions();
     }
 
-    calculateTravelOptions()
-    {
-        /* travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-        /* travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-        /* travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-        /* travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]); */
-        /* travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01); */
-        /* travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], 0.01); */
-       travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+    calculateTravelOptions() {
+        travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+        travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+        travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
     }
 
     lockTime() {
@@ -108,13 +108,13 @@ export class AppComponent implements AfterViewInit {
             // Increment current date
             this.actualDate += (this.simSpeed * this.deltaTime);
         }
-            // Update position of all objects
-            this.updateObjects();
-            // Render all objects
-            this.render();
-            // update Form objecst & GUI
-            this.updateGUI();
-        
+        // Update position of all objects
+        this.updateObjects();
+        // Render all objects
+        this.render();
+        // update Form objecst & GUI
+        this.updateGUI();
+
     }
 
     private updateObjects() {
@@ -132,7 +132,7 @@ export class AppComponent implements AfterViewInit {
         }
     }
 
-    private render() { 
+    private render() {
         // deal with Canvas & Background
         var ctx = this.context;
         canvasManager.clearCanvas(ctx);
