@@ -69,7 +69,7 @@ export class travelManager {
         let orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / Library.gravitationConstant);
         let synodicPeriod = 1 / ((1 / orbitPeriodI) - (1 / orbitPeriodS));
         let window: number = synodicPeriod / 86400;
-        console.log("Next Launch Window for " + source.name + " to " + destination.name + " is in " + Math.floor(window) + " days");
+        console.log("The Launch Window for " + source.name + " to " + destination.name + " is every " + Math.floor(window) + " days");
         return window;
     }
 

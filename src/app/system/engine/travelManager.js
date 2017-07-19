@@ -82,7 +82,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                     var orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / Library.gravitationConstant);
                     var synodicPeriod = 1 / ((1 / orbitPeriodI) - (1 / orbitPeriodS));
                     var window = synodicPeriod / 86400;
-                    console.log("Next Launch Window for " + source.name + " to " + destination.name + " is in " + Math.floor(window) + " days");
+                    console.log("The Launch Window for " + source.name + " to " + destination.name + " is every " + Math.floor(window) + " days");
                     return window;
                 };
                 travelManager.calculateLaunchTiming = function (source, destination) {
