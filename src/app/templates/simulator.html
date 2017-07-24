@@ -1,16 +1,9 @@
-<!--<h1>Antara</h1>
-<ul class="planets">
-  <li *ngFor="#planet of planets">
-      <span>{{planet.name}}</span>
-      <span>distance: {{planet.radius}} and velocity {{planet.radialVelocity}}</span>
-    </li>
-</ul>-->
 <div>
-  <canvas #simulatorCanvas width="900" height="900" style="background:lightgray;"></canvas>
+  <canvas #simulatorCanvas width="900" height="900" style="background:lightgray;" (mousedown)="canvasMouseDown()"></canvas>
   <div class="animationControls">
     <input id="timeScale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/second</label><br
     />
-    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="23" max="320" [(ngModel)]="zoomLevel" /><br />
+    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="10" max="340" [(ngModel)]="zoomLevel" />{{zoomLevel}}<br />
     <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
       <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
         <option value="0" selected>01</option>
@@ -79,6 +72,36 @@
           <option value="18"> 18 AT</option>
           <option value="19"> 19 AT</option>
           <option value="20"> 20 AT</option>
+          <option value="21"> 21 AT</option>
+          <option value="22"> 22 AT</option>
+          <option value="23"> 23 AT</option>
+          <option value="24"> 24 AT</option>
+          <option value="25"> 25 AT</option>
+          <option value="26"> 26 AT</option>
+          <option value="27"> 27 AT</option>
+          <option value="28"> 28 AT</option>
+          <option value="29"> 29 AT</option>
+          <option value="30"> 30 AT</option>
+          <option value="31"> 31 AT</option>
+          <option value="32"> 32 AT</option>
+          <option value="33"> 33 AT</option>
+          <option value="34"> 34 AT</option>
+          <option value="35"> 35 AT</option>
+          <option value="36"> 36 AT</option>
+          <option value="37"> 37 AT</option>
+          <option value="38"> 38 AT</option>
+          <option value="39"> 39 AT</option>
+          <option value="40"> 40 AT</option>
+          <option value="41"> 41 AT</option>
+          <option value="42"> 42 AT</option>
+          <option value="43"> 43 AT</option>
+          <option value="44"> 44 AT</option>
+          <option value="45"> 45 AT</option>
+          <option value="46"> 46 AT</option>
+          <option value="47"> 47 AT</option>
+          <option value="48"> 48 AT</option>
+          <option value="49"> 49 AT</option>
+          <option value="50"> 50 AT</option>
         </select>
 
       <button type="submit" class="btn btn-success">Change Date</button>

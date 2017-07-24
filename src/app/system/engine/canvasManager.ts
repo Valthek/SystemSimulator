@@ -9,7 +9,7 @@ export class canvasManager {
         context.clearRect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
     }
 
-    static drawPlanet(context, planet:planet, zoomLevel:number)
+    static drawPlanet(context, planet:cObject, zoomLevel:number, showName:boolean)
     {
         // Draw a planet at their appropriate coordinates
         // Coordinates are absolute for the planet compared to origin, centered on canvas
@@ -20,10 +20,12 @@ export class canvasManager {
             context.moveTo(x, y);
             context.arc(x, y, planet.size, 0, Math.PI * 2);
         context.fill();
-
+        if (showName)
+        {
             context.fillStyle = "#00ee00";
             context.font = "10px Arial";
         context.fillText(planet.name, (x - 15 ), y+15);
+        }
     }
 
     static drawMoon(context, moon:moon, zoomLevel:number, showName:boolean)
@@ -45,15 +47,35 @@ export class canvasManager {
         }
     }
 
-    // Draw a circle indicating the planet's orbit
-    static drawOrbit(context, planet:cObject, parent:cObject, zoomLevel:number)
+    // Draw a circle indicating a celestial object's orbit
+    static drawOrbit(context, object:cObject, parent:cObject, zoomLevel:number, width:number)
     {
         context.beginPath();
+            context.lineWidth = 1;
             context.strokeStyle = "#00ee00";
             let x = (parent.currentPosition.x*zoomLevel) + context.canvas.clientWidth/2;
             let y = (parent.currentPosition.y*zoomLevel) + context.canvas.clientHeight/2; 
-            context.arc(x,y, planet.orbitRadius * zoomLevel,0, Math.PI * 2);
+            context.arc(x,y, object.orbitRadius * zoomLevel,0, Math.PI * 2);
         context.stroke();
+        
+    }
+
+    // Fill in an area with color to indicate the aproximate location of an object's orbit
+    static drawObjectArea(context, object:cObject, objectOrbitWidth:number,  zoomLevel:number, showName: boolean)
+    {
+        context.beginPath();
+            context.strokeStyle = object.color;
+            context.lineWidth = object.size;
+            let x = context.canvas.clientWidth/2;
+            let y = context.canvas.clientHeight/2; 
+            context.arc(x,y, object.orbitRadius * zoomLevel,0, Math.PI * 2);
+        context.stroke();
+        if (showName)
+        {
+            context.fillStyle = "#00ee00";
+            context.font = "10px Arial";
+            context.fillText(object.name, x - 25, y + (object.orbitRadius * zoomLevel)+15);
+        }
     }
 
     // Draw the background for the map (dark blue/black)

@@ -9,7 +9,7 @@ export class loadObjects {
 
   static loadPlanets(): planet[] {
     let planets: planet[] = [];
-    let planetNumber:number = 0;
+    let planetNumber: number = 0;
     $.ajax({
       type: "GET",
       url: "/data/system.xml",
@@ -24,21 +24,21 @@ export class loadObjects {
           let radius = $(this).find("displayRadius").text();
           let planetColor = $(this).find("planetColor").text();
           let moons: moon[] = [];
-            $(this).find("moon").each(function (){
-              let moonName = $(this).find("moonName").text();
-              let moonSpeed = $(this).find("moonSpeed").text();
-              let moonStartAngle =  $(this).find("moonStartAngle").text();
-              let moonColor = $(this).find("moonColor").text();
-              let m: moon = new moon(moonName, moonStartAngle, radius*0.03 , moonSpeed, radius, moonColor, moonNumber);
-              moons.push(m);
-              console.log(m);
-              moonNumber++;
-            });
-          let p: planet = new planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons, planetNumber);
-          planets.push(p);       
+          $(this).find("moon").each(function () {
+            let moonName = $(this).find("moonName").text();
+            let moonSpeed = $(this).find("moonSpeed").text();
+            let moonStartAngle = $(this).find("moonStartAngle").text();
+            let moonColor = $(this).find("moonColor").text();
+            let m: moon = new moon(moonNumber, moonName, radius * 0.25, moonColor, 0.05, moonSpeed, moonStartAngle);
+            moons.push(m);
+            console.log(m);
+            moonNumber++;
+          });
+          let p: planet = new planet(planetNumber,name,planetColor,radius,moons, distanceToOrigin, radialVelocity,initialAngle);
+          planets.push(p);
           console.log(p);
           planetNumber++;
-        });  
+        });
       },
       error: function () {
         console.log("An error loading the xml file has occured");
@@ -49,21 +49,25 @@ export class loadObjects {
 
   static loadCObjects(): cObject[] {
     let cObjects: cObject[] = [];
+    let cObjectNumber:number = 0;
     $.ajax({
       type: "GET",
       url: "/data/system.xml",
       dataType: "xml",
       success: function (data) {
-        $(data).find("CObject").each(function (index) {
+        $(data).find("cObject").each(function (index) {
           let name = $(this).find("name").text();
           let distanceToOrigin = $(this).find("distance").text();
           let initialAngle = $(this).find("startAngle").text();
           let radialVelocity = $(this).find("radialVelocity").text();
-
-          let o: cObject = new cObject(name, distanceToOrigin, initialAngle , radialVelocity);
-          cObjects.push(o);         
-        }); 
-      }, 
+          let objectColor = $(this).find("objectColor").text();
+          let objectSize = $(this).find("displayRadius").text();
+          let o: cObject = new cObject(cObjectNumber,name, objectColor, objectSize, distanceToOrigin,  radialVelocity,initialAngle);
+          cObjects.push(o);
+          console.log(o);
+          cObjectNumber++;
+        });
+      },
       error: function () {
         console.log("An error loading the xml file has occured");
       }

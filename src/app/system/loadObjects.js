@@ -40,12 +40,12 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                                     var moonSpeed = $(this).find("moonSpeed").text();
                                     var moonStartAngle = $(this).find("moonStartAngle").text();
                                     var moonColor = $(this).find("moonColor").text();
-                                    var m = new moon_1.moon(moonName, moonStartAngle, radius * 0.03, moonSpeed, radius, moonColor, moonNumber);
+                                    var m = new moon_1.moon(moonNumber, moonName, radius * 0.25, moonColor, 0.05, moonSpeed, moonStartAngle);
                                     moons.push(m);
                                     console.log(m);
                                     moonNumber++;
                                 });
-                                var p = new planet_1.planet(name, initialAngle, distanceToOrigin, radialVelocity, radius, planetColor, moons, planetNumber);
+                                var p = new planet_1.planet(planetNumber, name, planetColor, radius, moons, distanceToOrigin, radialVelocity, initialAngle);
                                 planets.push(p);
                                 console.log(p);
                                 planetNumber++;
@@ -59,18 +59,23 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                 };
                 loadObjects.loadCObjects = function () {
                     var cObjects = [];
+                    var cObjectNumber = 0;
                     $.ajax({
                         type: "GET",
                         url: "/data/system.xml",
                         dataType: "xml",
                         success: function (data) {
-                            $(data).find("CObject").each(function (index) {
+                            $(data).find("cObject").each(function (index) {
                                 var name = $(this).find("name").text();
                                 var distanceToOrigin = $(this).find("distance").text();
                                 var initialAngle = $(this).find("startAngle").text();
                                 var radialVelocity = $(this).find("radialVelocity").text();
-                                var o = new cObject_1.cObject(name, distanceToOrigin, initialAngle, radialVelocity);
+                                var objectColor = $(this).find("objectColor").text();
+                                var objectSize = $(this).find("displayRadius").text();
+                                var o = new cObject_1.cObject(cObjectNumber, name, objectColor, objectSize, distanceToOrigin, radialVelocity, initialAngle);
                                 cObjects.push(o);
+                                console.log(o);
+                                cObjectNumber++;
                             });
                         },
                         error: function () {

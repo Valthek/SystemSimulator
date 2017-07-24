@@ -53,14 +53,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.dateUnlocked = true;
                     // internal data
                     this.actualDate = 0;
-                    this.planets = loadObjects_1.loadObjects.loadPlanets();
                     this.thenTime = Date.now();
-                    //this.cObjects = loadObjects.loadCObjects();
+                    this.loadAllObjects();
                     console.log("The simulator has loaded. Starting...");
+                    this.isRunning = true;
                 }
                 AppComponent.prototype.ngAfterViewInit = function () {
                     var _this = this;
-                    this.isRunning = true;
                     this.context = this.myCanvas.nativeElement.getContext("2d");
                     this.ngZone.runOutsideAngular(function () { return _this.tick(); });
                 };
@@ -79,10 +78,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     }
                 };
                 AppComponent.prototype.onTimeSubmit = function () {
+                    console.log(this.actualDate);
+                    console.log(this.currentDateY * 366 + "y" + this.currentDateM * 28 + "m" + this.currentDateD + "d");
                     var newDate = (+this.currentDateY * 366) + (+this.currentDateM * 28) + +this.currentDateD;
+                    console.log(newDate);
                     this.dateUnlocked = true;
                     this.actualDate = newDate;
-                    this.setPlanetPositions();
+                    this.updateObjects();
                 };
                 AppComponent.prototype.calculateTravelOptions = function () {
                     travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
@@ -92,6 +94,9 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     travelManager_1.travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
                     travelManager_1.travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
                     travelManager_1.travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+                };
+                AppComponent.prototype.canvasMouseDown = function () {
+                    console.log("mouse down");
                 };
                 AppComponent.prototype.lockTime = function () {
                     this.dateUnlocked = false;
@@ -105,10 +110,12 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                         // Increment current date
                         this.actualDate += (this.simSpeed * this.deltaTime);
                     }
-                    // Update position of all objects
-                    this.updateObjects();
-                    // Render all objects
-                    this.render();
+                    if (this.cObjects.length > 0 && this.planets.length > 0) {
+                        // Update position of all objects
+                        this.updateObjects();
+                        // Render all objects
+                        this.render();
+                    }
                     // update Form objecst & GUI
                     this.updateGUI();
                 };
@@ -116,7 +123,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     // Update Planets
                     for (var p = 0; p < this.planets.length; p++) {
                         this.planets[p].setAngle(this.actualDate);
-                        this.planets[p].updatePosition(new vector2d_1.vector2d(0, 0));
+                        this.planets[p].updatePosition(this.cObjects[0].currentPosition);
                         // Update Moons
                         if (this.planets[p].moons.length > 0) {
                             for (var m = 0; m < this.planets[p].moons.length; m++) {
@@ -133,26 +140,25 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     canvasManager_1.canvasManager.drawSky(ctx);
                     // draw all the planets
                     for (var p = 0; p < this.planets.length; p++) {
-                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.planets[0], this.zoomLevel);
-                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel);
-                        // Update Moons
+                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.zoomLevel, 1);
+                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel, true);
+                        // Update Moons 
                         if (this.showMoons && this.planets[p].moons.length != 0) {
                             for (var m = 0; m < this.planets[p].moons.length; m++) {
-                                //canvasManager.drawOrbit(ctx, this.planets[p].moons[m], this.planets[p], this.zoomLevel);
                                 canvasManager_1.canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.zoomLevel, false);
                             }
                         }
+                    }
+                    canvasManager_1.canvasManager.drawPlanet(ctx, this.cObjects[0], this.zoomLevel, false);
+                    // draw empty or unidentified orbits
+                    for (var c = 1; c < this.cObjects.length; c++) {
+                        canvasManager_1.canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.zoomLevel, true);
                     }
                 };
                 AppComponent.prototype.updateGUI = function () {
                     var _this = this;
                     if (this.dateUnlocked) {
                         this.ngZone.run(function () { return _this.setDate(_this.actualDate); });
-                    }
-                };
-                AppComponent.prototype.setPlanetPositions = function () {
-                    for (var p = 0; p < this.planets.length; p++) {
-                        this.planets[p].setAngle(this.actualDate);
                     }
                 };
                 AppComponent.prototype.updateTime = function () {
@@ -169,6 +175,10 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     dateRemainder = +dateRemainder - (month * 28);
                     this.currentDateM = month;
                     this.currentDateD = Math.floor(dateRemainder);
+                };
+                AppComponent.prototype.loadAllObjects = function () {
+                    this.cObjects = loadObjects_1.loadObjects.loadCObjects();
+                    this.planets = loadObjects_1.loadObjects.loadPlanets();
                 };
                 __decorate([
                     core_1.ViewChild("simulatorCanvas"), 

@@ -4,15 +4,11 @@ import { moon } from "./moon";
 
 export class planet extends cObject
 {
-    color:string;
-    size:number;
-    moons:moon [] = [];
+    moons:cObject [] = [];
 
-    constructor(name:string, initialAngle:number, distance:number, velocity:number,  planetSize:number, planetColor:string, moons:moon[], objectID:number) 
+    constructor(objectID:number, name:string, planetColor:string, planetSize:number, moons:moon[], distance:number, velocity:number, initialAngle:number ) 
     {
-        super(name, distance, initialAngle, velocity, objectID);
-        this.size = Math.ceil(planetSize*1.5);
-        this.color = planetColor;
+        super(objectID, name, planetColor, Math.ceil(planetSize*1.5), distance,velocity, initialAngle);
         this.moons = moons;
     }    
-}
+}  

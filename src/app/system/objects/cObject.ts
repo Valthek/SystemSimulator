@@ -2,23 +2,28 @@
 import { vector2d } from "./../engine/vector2d";
 
 export class cObject {
-    // changing values
-    currentPosition: vector2d;
-    // currentAngle is in radians for ease of calculation
-    currentAngle: number;
-    // static values
-    name: string;
-    // initialAngle is in radians for ease of calculation
-    initialAngle: number;
-    // radialVelocity is in radians for ease of calculation
-    radialVelocity: number;
-    orbitRadius: number;
+    // Identity Values
     objectID:number;
+    name: string;
+    color:string;
+    size:number;
 
-    constructor(name: string, orbitRadius: number, initialAngle: number, velocity: number, objectID:number) {
-        this.name = name;
+    // Object Values
+    orbitRadius: number;
+    radialVelocity: number;
+    initialAngle: number;
+    currentAngle: number;
+
+    // internal values
+    currentPosition: vector2d;
+    
+    constructor(objectID:number, name: string, color:string, objectSize:number, orbitRadius: number, velocity: number,initialAngle: number ) {
         this.objectID = objectID;
+        this.name = name;
+        this.color = color;
+        this.size = objectSize;
 
+        // angles must be in radians for Math.cos & Math.sin to work
         this.currentAngle = vector2d.ToRadian(initialAngle);
         this.initialAngle = vector2d.ToRadian(initialAngle);
 
@@ -39,14 +44,13 @@ export class cObject {
         this.currentPosition.y =  zeroPosition.y + (this.orbitRadius * Math.sin(this.currentAngle));
     }
 
+    // set the object's angle to that corresponding with a specific date
     setAngle(currentDate:number)
     {
-        let newAngle = this.initialAngle - (currentDate * this.radialVelocity);
-        newAngle = newAngle%(Math.PI*2);
-
-        this.currentAngle = newAngle;
+        this.currentAngle = this.getAngleForDate(currentDate);
     }
 
+    // get the object's angle for a specific date without updating the position
     getAngleForDate(date:number)
     {
         let angle = this.initialAngle - (date * this.radialVelocity);
