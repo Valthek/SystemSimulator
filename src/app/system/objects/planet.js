@@ -16,8 +16,8 @@ System.register(["./cObject"], function(exports_1, context_1) {
         execute: function() {
             planet = (function (_super) {
                 __extends(planet, _super);
-                function planet(objectID, name, planetColor, planetSize, moons, distance, velocity, initialAngle) {
-                    _super.call(this, objectID, name, planetColor, Math.ceil(planetSize * 1.5), distance, velocity, initialAngle);
+                function planet(objectID, name, planetColor, planetSize, realDiameter, moons, distance, velocity, initialAngle) {
+                    _super.call(this, objectID, name, planetColor, planetSize, realDiameter, distance, velocity, initialAngle);
                     this.moons = [];
                     this.moons = moons;
                 }

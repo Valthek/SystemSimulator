@@ -12,9 +12,7 @@ export class Library {
 export class travelManager {
 
     static calculateHohmanDeltaV(source: cObject, destination: cObject) {
-        console.log("==================================================");
         console.log("========= Calculating Hohman Maneuver ============");
-        console.log("==================================================");
         let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
         let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
         let smAxis = this.calculateSMAxis(source, destination);
@@ -40,9 +38,7 @@ export class travelManager {
     }
 
     static calculateHohmanTransferTime(source: cObject, destination: cObject) {
-        console.log("==================================================");
         console.log("======= Calculating Hohman Transfer Time =========");
-        console.log("==================================================");
         let piSquared = Math.pow(Math.PI, 2);
         let smAxis = Math.pow(this.calculateSMAxis(source, destination), 3);
         let timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / Library.gravitationConstant);
@@ -52,9 +48,7 @@ export class travelManager {
     }
 
     static calculateHohmanTransferWindow(source: cObject, destination: cObject) {
-        console.log("==================================================");
         console.log("======= Calculating Hohman Launch Window =========");
-        console.log("==================================================");
         var inferiorOrbit = 0;
         var superiorOrbit = 0;
         if (source.orbitRadius > destination.orbitRadius) {
@@ -74,9 +68,7 @@ export class travelManager {
     }
 
     static calculateLaunchTiming(source: cObject, destination: cObject) {
-        console.log("==================================================");
         console.log("======= Calculating Hohman Launch Angle ==========");
-        console.log("==================================================");
 
         let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
         let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
@@ -89,19 +81,18 @@ export class travelManager {
     }
 
     static calculateDaysToNextHohmanTravelDate(source: cObject, destination: cObject, actualDate: number) {
-        console.log("==================================================");
         console.log("======== Calculating Next Hohman Window ==========");
-        console.log("==================================================");
         let currentDate = Math.floor(actualDate);
         let initialDate = currentDate;
-        let goalAngle = Math.floor(100 * travelManager.calculateLaunchTiming(source, destination));
-        let currentAngle = Math.floor(100 * (source.currentAngle - destination.currentAngle));
+        let goalAngle = travelManager.calculateLaunchTiming(source, destination);
+        let lastDeltaAngle = goalAngle - (source.currentAngle - destination.currentAngle);
         while ((currentDate - initialDate) < 40320) {
             currentDate++;
-            currentAngle = Math.floor(100 * (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate)));
-            if (currentAngle == goalAngle) {
+            let newAngle = (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate));
+            if (Math.abs(goalAngle - newAngle) < Math.abs(goalAngle - lastDeltaAngle)) {
                 break;
             }
+            lastDeltaAngle = newAngle;
         }
         if ((currentDate - initialDate) == 40320) {
             console.log("Next transfer from " + source.name + " to " + destination.name + " is not happening in your lifetime");
@@ -115,9 +106,7 @@ export class travelManager {
     static calculateBrachistochroneDeltaV(source: cObject, destination: cObject, thrustInG: number) {
         // Calculate DeltaV requirement for Brachistochrone transfer
         // Acceleration input is in G
-        console.log("==================================================");
         console.log("====== Calculating Brachistochrone DeltaV ========");
-        console.log("==================================================");
         let acceleration = thrustInG * 9.81;
         let travelDistance = this.calculateTravelDistanceMeters(source, destination);
         let transitDeltaV = 2 * Math.sqrt(travelDistance * acceleration);
@@ -126,9 +115,7 @@ export class travelManager {
     }
 
     static calculateBrachistochroneTransitTime(source: cObject, destination: cObject, thrustInG: number) {
-        console.log("==================================================");
         console.log("==== Calculating Brachistochrone Travel Time =====");
-        console.log("==================================================");
         let acceleration = thrustInG * 9.81;
         let travelDistance = this.calculateTravelDistanceMeters(source, destination);
         let transitTime = 2 * Math.sqrt(travelDistance / acceleration);

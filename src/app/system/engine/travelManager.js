@@ -31,9 +31,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                 function travelManager() {
                 }
                 travelManager.calculateHohmanDeltaV = function (source, destination) {
-                    console.log("==================================================");
                     console.log("========= Calculating Hohman Maneuver ============");
-                    console.log("==================================================");
                     var sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
                     var destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
                     var smAxis = this.calculateSMAxis(source, destination);
@@ -54,9 +52,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                     return Math.abs(deltaVI) + Math.abs(deltaVA);
                 };
                 travelManager.calculateHohmanTransferTime = function (source, destination) {
-                    console.log("==================================================");
                     console.log("======= Calculating Hohman Transfer Time =========");
-                    console.log("==================================================");
                     var piSquared = Math.pow(Math.PI, 2);
                     var smAxis = Math.pow(this.calculateSMAxis(source, destination), 3);
                     var timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / Library.gravitationConstant);
@@ -65,9 +61,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                     return time;
                 };
                 travelManager.calculateHohmanTransferWindow = function (source, destination) {
-                    console.log("==================================================");
                     console.log("======= Calculating Hohman Launch Window =========");
-                    console.log("==================================================");
                     var inferiorOrbit = 0;
                     var superiorOrbit = 0;
                     if (source.orbitRadius > destination.orbitRadius) {
@@ -86,9 +80,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                     return window;
                 };
                 travelManager.calculateLaunchTiming = function (source, destination) {
-                    console.log("==================================================");
                     console.log("======= Calculating Hohman Launch Angle ==========");
-                    console.log("==================================================");
                     var sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
                     var destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
                     var inner = Math.pow(sourceOrbit / destinationOrbit + 1, 3);
@@ -99,19 +91,18 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                     return angleRadian;
                 };
                 travelManager.calculateDaysToNextHohmanTravelDate = function (source, destination, actualDate) {
-                    console.log("==================================================");
                     console.log("======== Calculating Next Hohman Window ==========");
-                    console.log("==================================================");
                     var currentDate = Math.floor(actualDate);
                     var initialDate = currentDate;
-                    var goalAngle = Math.floor(100 * travelManager.calculateLaunchTiming(source, destination));
-                    var currentAngle = Math.floor(100 * (source.currentAngle - destination.currentAngle));
+                    var goalAngle = travelManager.calculateLaunchTiming(source, destination);
+                    var lastDeltaAngle = goalAngle - (source.currentAngle - destination.currentAngle);
                     while ((currentDate - initialDate) < 40320) {
                         currentDate++;
-                        currentAngle = Math.floor(100 * (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate)));
-                        if (currentAngle == goalAngle) {
+                        var newAngle = (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate));
+                        if (Math.abs(goalAngle - newAngle) < Math.abs(goalAngle - lastDeltaAngle)) {
                             break;
                         }
+                        lastDeltaAngle = newAngle;
                     }
                     if ((currentDate - initialDate) == 40320) {
                         console.log("Next transfer from " + source.name + " to " + destination.name + " is not happening in your lifetime");
@@ -124,9 +115,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                 travelManager.calculateBrachistochroneDeltaV = function (source, destination, thrustInG) {
                     // Calculate DeltaV requirement for Brachistochrone transfer
                     // Acceleration input is in G
-                    console.log("==================================================");
                     console.log("====== Calculating Brachistochrone DeltaV ========");
-                    console.log("==================================================");
                     var acceleration = thrustInG * 9.81;
                     var travelDistance = this.calculateTravelDistanceMeters(source, destination);
                     var transitDeltaV = 2 * Math.sqrt(travelDistance * acceleration);
@@ -134,9 +123,7 @@ System.register(["./vector2d"], function(exports_1, context_1) {
                     return transitDeltaV;
                 };
                 travelManager.calculateBrachistochroneTransitTime = function (source, destination, thrustInG) {
-                    console.log("==================================================");
                     console.log("==== Calculating Brachistochrone Travel Time =====");
-                    console.log("==================================================");
                     var acceleration = thrustInG * 9.81;
                     var travelDistance = this.calculateTravelDistanceMeters(source, destination);
                     var transitTime = 2 * Math.sqrt(travelDistance / acceleration);

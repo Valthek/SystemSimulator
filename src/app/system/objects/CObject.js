@@ -10,11 +10,12 @@ System.register(["./../engine/vector2d"], function(exports_1, context_1) {
             }],
         execute: function() {
             cObject = (function () {
-                function cObject(objectID, name, color, objectSize, orbitRadius, velocity, initialAngle) {
+                function cObject(objectID, name, color, objectSize, actualDiameter, orbitRadius, velocity, initialAngle) {
                     this.objectID = objectID;
                     this.name = name;
                     this.color = color;
-                    this.size = objectSize;
+                    this.actualDiameter = actualDiameter;
+                    this.size = Math.floor(Math.log(actualDiameter)) - 5;
                     // angles must be in radians for Math.cos & Math.sin to work
                     this.currentAngle = vector2d_1.vector2d.ToRadian(initialAngle);
                     this.initialAngle = vector2d_1.vector2d.ToRadian(initialAngle);

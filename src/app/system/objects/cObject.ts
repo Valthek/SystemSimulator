@@ -7,6 +7,7 @@ export class cObject {
     name: string;
     color:string;
     size:number;
+    actualDiameter:number;
 
     // Object Values
     orbitRadius: number;
@@ -17,11 +18,12 @@ export class cObject {
     // internal values
     currentPosition: vector2d;
     
-    constructor(objectID:number, name: string, color:string, objectSize:number, orbitRadius: number, velocity: number,initialAngle: number ) {
+    constructor(objectID:number, name: string, color:string, objectSize:number, actualDiameter:number, orbitRadius: number, velocity: number,initialAngle: number ) {
         this.objectID = objectID;
         this.name = name;
         this.color = color;
-        this.size = objectSize;
+        this.actualDiameter = actualDiameter;
+        this.size = Math.floor(Math.log(actualDiameter)) - 5;
 
         // angles must be in radians for Math.cos & Math.sin to work
         this.currentAngle = vector2d.ToRadian(initialAngle);

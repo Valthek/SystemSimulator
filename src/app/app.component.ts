@@ -79,16 +79,15 @@ export class AppComponent implements AfterViewInit {
     }
 
     onTimeSubmit() {
-        console.log(this.actualDate);
-        console.log(this.currentDateY * 366 + "y" + this.currentDateM * 28 + "m" + this.currentDateD + "d");
-        let newDate: number = (+this.currentDateY * 366) + (+this.currentDateM * 28) + +this.currentDateD;
-        console.log(newDate);
-        this.dateUnlocked = true;
+        let newDate: number = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
         this.actualDate = newDate;
         this.updateObjects();
+        this.dateUnlocked = true;
+
     }
 
     calculateTravelOptions() {
+        console.log("On " + this.currentDateD + "/" + this.currentDateM + "/"+ this.currentDateY + " the following values are true: ");
         travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
         travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
         travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);

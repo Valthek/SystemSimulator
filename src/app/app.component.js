@@ -78,15 +78,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     }
                 };
                 AppComponent.prototype.onTimeSubmit = function () {
-                    console.log(this.actualDate);
-                    console.log(this.currentDateY * 366 + "y" + this.currentDateM * 28 + "m" + this.currentDateD + "d");
-                    var newDate = (+this.currentDateY * 366) + (+this.currentDateM * 28) + +this.currentDateD;
-                    console.log(newDate);
-                    this.dateUnlocked = true;
+                    var newDate = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
                     this.actualDate = newDate;
                     this.updateObjects();
+                    this.dateUnlocked = true;
                 };
                 AppComponent.prototype.calculateTravelOptions = function () {
+                    console.log("On " + this.currentDateD + "/" + this.currentDateM + "/" + this.currentDateY + " the following values are true: ");
                     travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
                     travelManager_1.travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
                     travelManager_1.travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);

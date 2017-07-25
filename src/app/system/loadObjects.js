@@ -34,18 +34,20 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                                 var initialAngle = $(this).find("startAngle").text();
                                 var radius = $(this).find("displayRadius").text();
                                 var planetColor = $(this).find("planetColor").text();
+                                var actualDiameter = $(this).find("realDiameter").text();
                                 var moons = [];
                                 $(this).find("moon").each(function () {
                                     var moonName = $(this).find("moonName").text();
                                     var moonSpeed = $(this).find("moonSpeed").text();
                                     var moonStartAngle = $(this).find("moonStartAngle").text();
                                     var moonColor = $(this).find("moonColor").text();
-                                    var m = new moon_1.moon(moonNumber, moonName, radius * 0.25, moonColor, 0.05, moonSpeed, moonStartAngle);
+                                    var moonActualDiameter = $(this).find("realMoonDiameter").text();
+                                    var m = new moon_1.moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, 0.05, moonSpeed, moonStartAngle);
                                     moons.push(m);
                                     console.log(m);
                                     moonNumber++;
                                 });
-                                var p = new planet_1.planet(planetNumber, name, planetColor, radius, moons, distanceToOrigin, radialVelocity, initialAngle);
+                                var p = new planet_1.planet(planetNumber, name, planetColor, radius, actualDiameter, moons, distanceToOrigin, radialVelocity, initialAngle);
                                 planets.push(p);
                                 console.log(p);
                                 planetNumber++;
@@ -72,7 +74,8 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                                 var radialVelocity = $(this).find("radialVelocity").text();
                                 var objectColor = $(this).find("objectColor").text();
                                 var objectSize = $(this).find("displayRadius").text();
-                                var o = new cObject_1.cObject(cObjectNumber, name, objectColor, objectSize, distanceToOrigin, radialVelocity, initialAngle);
+                                var actualDiameter = $(this).find("realDiameter").text();
+                                var o = new cObject_1.cObject(cObjectNumber, name, objectColor, objectSize, actualDiameter, distanceToOrigin, radialVelocity, initialAngle);
                                 cObjects.push(o);
                                 console.log(o);
                                 cObjectNumber++;

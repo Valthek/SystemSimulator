@@ -23,18 +23,20 @@ export class loadObjects {
           let initialAngle = $(this).find("startAngle").text();
           let radius = $(this).find("displayRadius").text();
           let planetColor = $(this).find("planetColor").text();
+          let actualDiameter = $(this).find("realDiameter").text();
           let moons: moon[] = [];
           $(this).find("moon").each(function () {
             let moonName = $(this).find("moonName").text();
             let moonSpeed = $(this).find("moonSpeed").text();
             let moonStartAngle = $(this).find("moonStartAngle").text();
             let moonColor = $(this).find("moonColor").text();
-            let m: moon = new moon(moonNumber, moonName, radius * 0.25, moonColor, 0.05, moonSpeed, moonStartAngle);
+            let moonActualDiameter = $(this).find("realMoonDiameter").text();
+            let m: moon = new moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, 0.05, moonSpeed, moonStartAngle);
             moons.push(m);
             console.log(m);
             moonNumber++;
           });
-          let p: planet = new planet(planetNumber,name,planetColor,radius,moons, distanceToOrigin, radialVelocity,initialAngle);
+          let p: planet = new planet(planetNumber,name,planetColor,radius, actualDiameter,moons, distanceToOrigin, radialVelocity,initialAngle);
           planets.push(p);
           console.log(p);
           planetNumber++;
@@ -62,7 +64,8 @@ export class loadObjects {
           let radialVelocity = $(this).find("radialVelocity").text();
           let objectColor = $(this).find("objectColor").text();
           let objectSize = $(this).find("displayRadius").text();
-          let o: cObject = new cObject(cObjectNumber,name, objectColor, objectSize, distanceToOrigin,  radialVelocity,initialAngle);
+          let actualDiameter = $(this).find("realDiameter").text();
+          let o: cObject = new cObject(cObjectNumber,name, objectColor, objectSize, actualDiameter, distanceToOrigin,  radialVelocity,initialAngle);
           cObjects.push(o);
           console.log(o);
           cObjectNumber++;
