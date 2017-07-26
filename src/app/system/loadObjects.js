@@ -42,7 +42,7 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                                     var moonStartAngle = $(this).find("moonStartAngle").text();
                                     var moonColor = $(this).find("moonColor").text();
                                     var moonActualDiameter = $(this).find("realMoonDiameter").text();
-                                    var m = new moon_1.moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, 0.05, moonSpeed, moonStartAngle);
+                                    var m = new moon_1.moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, distanceToOrigin, moonSpeed, moonStartAngle);
                                     moons.push(m);
                                     console.log(m);
                                     moonNumber++;

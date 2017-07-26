@@ -3,7 +3,7 @@
   <div class="animationControls">
     <input id="timeScale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/second</label><br
     />
-    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="15" max="340" [(ngModel)]="zoomLevel" />{{zoomLevel}}<br />
+    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="1" max="300" [(ngModel)]="zoomLevel" />{{actualZoom}}<br />
     <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
       <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
         <option value="0" selected>01</option>

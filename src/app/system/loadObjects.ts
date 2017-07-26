@@ -31,7 +31,7 @@ export class loadObjects {
             let moonStartAngle = $(this).find("moonStartAngle").text();
             let moonColor = $(this).find("moonColor").text();
             let moonActualDiameter = $(this).find("realMoonDiameter").text();
-            let m: moon = new moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, 0.05, moonSpeed, moonStartAngle);
+            let m: moon = new moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, distanceToOrigin, moonSpeed, moonStartAngle);
             moons.push(m);
             console.log(m);
             moonNumber++;

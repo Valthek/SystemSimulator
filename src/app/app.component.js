@@ -45,7 +45,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.shipThrustInG = 0;
                     // Visualisation Options
                     this.simSpeed = 1;
-                    this.zoomLevel = 23;
+                    this.zoomLevel = 1;
                     this.isRunning = true;
                     this.showMoons = true;
                     this.playButtonText = "Pause Animation";
@@ -53,6 +53,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.dateUnlocked = true;
                     // internal data
                     this.actualDate = 0;
+                    this.actualZoom = 0;
                     this.thenTime = Date.now();
                     this.loadAllObjects();
                     console.log("The simulator has loaded. Starting...");
@@ -104,6 +105,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     requestAnimationFrame(function () { return _this.tick(); });
                     // Update Time
                     this.updateTime();
+                    this.updateZoom();
                     if (this.isRunning) {
                         // Increment current date
                         this.actualDate += (this.simSpeed * this.deltaTime);
@@ -138,19 +140,19 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     canvasManager_1.canvasManager.drawSky(ctx);
                     // draw all the planets
                     for (var p = 0; p < this.planets.length; p++) {
-                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.zoomLevel, 1);
-                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel, true);
+                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1);
+                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.actualZoom, true);
                         // Update Moons 
                         if (this.showMoons && this.planets[p].moons.length != 0) {
                             for (var m = 0; m < this.planets[p].moons.length; m++) {
-                                canvasManager_1.canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.zoomLevel, false);
+                                canvasManager_1.canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false);
                             }
                         }
                     }
-                    canvasManager_1.canvasManager.drawPlanet(ctx, this.cObjects[0], this.zoomLevel, false);
+                    canvasManager_1.canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, false);
                     // draw empty or unidentified orbits
                     for (var c = 1; c < this.cObjects.length; c++) {
-                        canvasManager_1.canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.zoomLevel, true);
+                        canvasManager_1.canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true);
                     }
                 };
                 AppComponent.prototype.updateGUI = function () {
@@ -163,6 +165,9 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.nowTime = Date.now();
                     this.deltaTime = (this.nowTime - this.thenTime) / 1000; // seconds since last frame
                     this.thenTime = this.nowTime;
+                };
+                AppComponent.prototype.updateZoom = function () {
+                    this.actualZoom = this.zoomLevel / 10;
                 };
                 AppComponent.prototype.setDate = function (newDate) {
                     var dateRemainder = newDate;

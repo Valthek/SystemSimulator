@@ -3,11 +3,8 @@ import { planet } from "./../objects/planet";
 import { moon } from "./../objects/moon";
 import { cObject } from "./../objects/cObject";
 import { vector2d } from "./vector2d";
+import { Library } from "./Library";
 
-export class Library {
-    public static get astronomicalUnit() { return 149597870700 };
-    public static get gravitationConstant() { return 116798853600000000000 };
-}
 
 export class travelManager {
 
@@ -20,15 +17,14 @@ export class travelManager {
         // Calculate deltaV for Insertion Burn (in m/s)
         let orbitVelocitySource = Math.sqrt(Library.gravitationConstant / sourceOrbit);
         let velocityI = Math.sqrt(Library.gravitationConstant * ((2 / sourceOrbit) - (1 / smAxis)));
-        console.log("orbitVelocityI: " + velocityI);
         let deltaVI = velocityI - orbitVelocitySource;
-        console.log(source.name + " DeltaVi (m/s): " + deltaVI);
+        console.log("Insertion Burn for: " + source.name + + ": " + Math.ceil(deltaVI) + "m/s" );
 
         // Calculate deltaV for Arrival Burn (in m/s)
         let orbitVelocityDestination = Math.sqrt(Library.gravitationConstant / destinationOrbit);
         let velocityA = Math.sqrt(Library.gravitationConstant * ((2 / destinationOrbit) - (1 / smAxis)));
         let deltaVA = velocityA - orbitVelocityDestination;
-        console.log(destination.name + " DeltaVa (m/s): " + deltaVA);
+        console.log("Arrival Burn for: " + destination.name + ": " + Math.ceil(deltaVA)+ "m/s");
 
         // Calculate total deltaV (in m/s)
         let deltaV = Math.abs(deltaVI) + Math.abs(deltaVA);
@@ -100,7 +96,7 @@ export class travelManager {
         else {
             console.log("Next transfer from " + source.name + " to " + destination.name + " is in " + (currentDate - initialDate) + " days");
         }
-        return currentDate;
+        return currentDate-1;
     }
 
     static calculateBrachistochroneDeltaV(source: cObject, destination: cObject, thrustInG: number) {

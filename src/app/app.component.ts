@@ -1,3 +1,4 @@
+import { Library } from './system/engine/Library';
 import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef } from "angular2/core";
 import { FORM_DIRECTIVES } from 'angular2/common';
 import { planet } from "./system/objects/planet";
@@ -31,13 +32,14 @@ export class AppComponent implements AfterViewInit {
     currentDateM: number = 0;
     currentDateD: number = 0;
 
+
     travelDestination: number = 0;
     travelSource: number = 0;
     shipThrustInG: number = 0;
 
     // Visualisation Options
     simSpeed: number = 1;
-    zoomLevel: number = 23;
+    zoomLevel: number = 1;
     isRunning: boolean = true;
     showMoons: boolean = true;
     playButtonText: string = "Pause Animation";
@@ -46,6 +48,7 @@ export class AppComponent implements AfterViewInit {
 
     // internal data
     private actualDate: number = 0;
+    private actualZoom: number = 0;
 
 
     constructor(private ngZone: NgZone) {
@@ -109,6 +112,7 @@ export class AppComponent implements AfterViewInit {
         requestAnimationFrame(() => this.tick());
         // Update Time
         this.updateTime();
+        this.updateZoom();
 
         if (this.isRunning) {
             // Increment current date
@@ -146,19 +150,19 @@ export class AppComponent implements AfterViewInit {
         canvasManager.drawSky(ctx);
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
-            canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.zoomLevel, 1);
-            canvasManager.drawPlanet(ctx, this.planets[p], this.zoomLevel, true);
+            canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1);
+            canvasManager.drawPlanet(ctx, this.planets[p], this.actualZoom, true);
             // Update Moons 
             if (this.showMoons && this.planets[p].moons.length != 0) {
                 for (let m = 0; m < this.planets[p].moons.length; m++) {
-                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.zoomLevel, false);
+                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false);
                 }
             }
         }
-        canvasManager.drawPlanet(ctx, this.cObjects[0], this.zoomLevel, false);
+        canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, false);
         // draw empty or unidentified orbits
         for (let c = 1; c < this.cObjects.length; c++) {
-            canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.zoomLevel, true);
+            canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true);
         }
     }
 
@@ -172,6 +176,10 @@ export class AppComponent implements AfterViewInit {
         this.nowTime = Date.now();
         this.deltaTime = (this.nowTime - this.thenTime) / 1000; // seconds since last frame
         this.thenTime = this.nowTime;
+    }
+
+    private updateZoom() {
+        this.actualZoom = this.zoomLevel/10;
     }
 
     private setDate(newDate: number) {

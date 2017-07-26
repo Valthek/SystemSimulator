@@ -15,8 +15,8 @@ export class canvasManager {
         // Coordinates are absolute for the planet compared to origin, centered on canvas
         context.beginPath();
             context.fillStyle = planet.color;
-            let x = ((planet.currentPosition.x)*zoomLevel + context.canvas.clientWidth/2);
-            let y = ((planet.currentPosition.y)*zoomLevel + context.canvas.clientHeight/2); 
+            let x = ((planet.currentPosition.x)*((context.canvas.clientWidth/2)/zoomLevel) + context.canvas.clientWidth/2);
+            let y = ((planet.currentPosition.y)*((context.canvas.clientHeight/2)/zoomLevel) + context.canvas.clientHeight/2); 
             context.moveTo(x, y);
             context.arc(x, y, planet.size, 0, Math.PI * 2);
         context.fill();
@@ -34,8 +34,8 @@ export class canvasManager {
         // Coordinates are absolute for the planet compared to the mother planet's
         context.beginPath();
             context.fillStyle = moon.color;
-            let x = ((moon.currentPosition.x)*zoomLevel + context.canvas.clientWidth/2);
-            let y = ((moon.currentPosition.y)*zoomLevel + context.canvas.clientHeight/2); 
+            let x = ((moon.currentPosition.x)*((context.canvas.clientWidth/2)/zoomLevel)  + context.canvas.clientWidth/2);
+            let y = ((moon.currentPosition.y)*((context.canvas.clientHeight/2)/zoomLevel) + context.canvas.clientHeight/2); 
             context.moveTo(x, y);
             context.arc(x, y, moon.size, 0, Math.PI * 2);
         context.fill();
@@ -53,9 +53,9 @@ export class canvasManager {
         context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = "#00ee00";
-            let x = (parent.currentPosition.x*zoomLevel) + context.canvas.clientWidth/2;
-            let y = (parent.currentPosition.y*zoomLevel) + context.canvas.clientHeight/2; 
-            context.arc(x,y, object.orbitRadius * zoomLevel,0, Math.PI * 2);
+            let x = (parent.currentPosition.x)*((context.canvas.clientWidth/2)/zoomLevel)  + context.canvas.clientWidth/2;
+            let y = (parent.currentPosition.y)*((context.canvas.clientHeight/2)/zoomLevel) + context.canvas.clientHeight/2; 
+            context.arc(x,y, object.orbitRadius * ((context.canvas.clientWidth/2)/zoomLevel),0, Math.PI * 2);
         context.stroke();
         
     }
@@ -68,13 +68,13 @@ export class canvasManager {
             context.lineWidth = object.size;
             let x = context.canvas.clientWidth/2;
             let y = context.canvas.clientHeight/2; 
-            context.arc(x,y, object.orbitRadius * zoomLevel,0, Math.PI * 2);
+            context.arc(x,y, object.orbitRadius * ((context.canvas.clientWidth/2)/zoomLevel),0, Math.PI * 2);
         context.stroke();
         if (showName)
         {
             context.fillStyle = "#00ee00";
             context.font = "10px Arial";
-            context.fillText(object.name, x - 25, y + (object.orbitRadius * zoomLevel)+15);
+            context.fillText(object.name, x-25, y+(object.orbitRadius*((context.canvas.clientHeight/2)/zoomLevel))+15);
         }
     }
 
@@ -83,7 +83,7 @@ export class canvasManager {
     {
         context.beginPath();
             context.rect(0,0,context.canvas.clientWidth, context.canvas.clientHeight);
-            context.fillStyle= "#282832";
+            context.fillStyle= "#282838";
         context.fill();
     }
 

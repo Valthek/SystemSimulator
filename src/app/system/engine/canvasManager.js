@@ -17,8 +17,8 @@ System.register([], function(exports_1, context_1) {
                     // Coordinates are absolute for the planet compared to origin, centered on canvas
                     context.beginPath();
                     context.fillStyle = planet.color;
-                    var x = ((planet.currentPosition.x) * zoomLevel + context.canvas.clientWidth / 2);
-                    var y = ((planet.currentPosition.y) * zoomLevel + context.canvas.clientHeight / 2);
+                    var x = ((planet.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2);
+                    var y = ((planet.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2);
                     context.moveTo(x, y);
                     context.arc(x, y, planet.size, 0, Math.PI * 2);
                     context.fill();
@@ -33,8 +33,8 @@ System.register([], function(exports_1, context_1) {
                     // Coordinates are absolute for the planet compared to the mother planet's
                     context.beginPath();
                     context.fillStyle = moon.color;
-                    var x = ((moon.currentPosition.x) * zoomLevel + context.canvas.clientWidth / 2);
-                    var y = ((moon.currentPosition.y) * zoomLevel + context.canvas.clientHeight / 2);
+                    var x = ((moon.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2);
+                    var y = ((moon.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2);
                     context.moveTo(x, y);
                     context.arc(x, y, moon.size, 0, Math.PI * 2);
                     context.fill();
@@ -49,9 +49,9 @@ System.register([], function(exports_1, context_1) {
                     context.beginPath();
                     context.lineWidth = 1;
                     context.strokeStyle = "#00ee00";
-                    var x = (parent.currentPosition.x * zoomLevel) + context.canvas.clientWidth / 2;
-                    var y = (parent.currentPosition.y * zoomLevel) + context.canvas.clientHeight / 2;
-                    context.arc(x, y, object.orbitRadius * zoomLevel, 0, Math.PI * 2);
+                    var x = (parent.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2;
+                    var y = (parent.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2;
+                    context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
                     context.stroke();
                 };
                 // Fill in an area with color to indicate the aproximate location of an object's orbit
@@ -61,19 +61,19 @@ System.register([], function(exports_1, context_1) {
                     context.lineWidth = object.size;
                     var x = context.canvas.clientWidth / 2;
                     var y = context.canvas.clientHeight / 2;
-                    context.arc(x, y, object.orbitRadius * zoomLevel, 0, Math.PI * 2);
+                    context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
                     context.stroke();
                     if (showName) {
                         context.fillStyle = "#00ee00";
                         context.font = "10px Arial";
-                        context.fillText(object.name, x - 25, y + (object.orbitRadius * zoomLevel) + 15);
+                        context.fillText(object.name, x - 25, y + (object.orbitRadius * ((context.canvas.clientHeight / 2) / zoomLevel)) + 15);
                     }
                 };
                 // Draw the background for the map (dark blue/black)
                 canvasManager.drawSky = function (context) {
                     context.beginPath();
                     context.rect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
-                    context.fillStyle = "#282832";
+                    context.fillStyle = "#282838";
                     context.fill();
                 };
                 // Render framerate in top left corner (render text, technically speaking)
