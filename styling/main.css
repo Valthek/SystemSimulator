@@ -2,11 +2,11 @@ html, body {
   height: 100%; }
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   margin: 0px; }
 
 * {
-  color: #28c5f8; }
+  color: #00cc00; }
 
 .plot_container {
   position: fixed;
@@ -94,15 +94,3 @@ label[for="time_toggle"]:hover {
 
 .time_toggle + label, .time_container {
   transition: bottom 0.2s; }
-
-.simulation_container {
-  position: relative;
-  background-color: #fff;
-  min-height: 100%;
-  min-width: 100%;
-  top: 0;
-  bottom: 100%;
-  left: 0;
-  z-index: 1;
-  padding: 4em;
-  background-size: 200%; }

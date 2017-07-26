@@ -42,6 +42,9 @@ System.register([], function(exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
+                Library.arbitraryArray = function (size) {
+                    return size ? Library.arbitraryArray(size - 1).concat(size) : [];
+                };
                 return Library;
             }());
             exports_1("Library", Library);

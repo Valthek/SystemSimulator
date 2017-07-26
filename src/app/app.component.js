@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
+System.register(['./system/engine/Library', "angular2/core", "./system/engine/vector2d", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,10 +10,13 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, vector2d_1, loadObjects_1, canvasManager_1, travelManager_1;
+    var Library_1, core_1, vector2d_1, loadObjects_1, canvasManager_1, travelManager_1;
     var AppComponent;
     return {
         setters:[
+            function (Library_1_1) {
+                Library_1 = Library_1_1;
+            },
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -45,16 +48,19 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.shipThrustInG = 0;
                     // Visualisation Options
                     this.simSpeed = 1;
-                    this.zoomLevel = 1;
+                    this.zoomLevel = 2;
                     this.isRunning = true;
                     this.showMoons = true;
                     this.playButtonText = "Pause Animation";
                     this.systemPositionOffset = new vector2d_1.vector2d(0, 0);
                     this.dateUnlocked = true;
+                    this.daysList = [];
+                    this.yearsList = [];
                     // internal data
                     this.actualDate = 0;
-                    this.actualZoom = 0;
+                    this.actualZoom = 0.2;
                     this.thenTime = Date.now();
+                    this.loadDateVisualisation();
                     this.loadAllObjects();
                     console.log("The simulator has loaded. Starting...");
                     this.isRunning = true;
@@ -62,6 +68,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                 AppComponent.prototype.ngAfterViewInit = function () {
                     var _this = this;
                     this.context = this.myCanvas.nativeElement.getContext("2d");
+                    this.updateCanvas();
                     this.ngZone.runOutsideAngular(function () { return _this.tick(); });
                 };
                 AppComponent.prototype.ngOnDestroy = function () {
@@ -79,6 +86,9 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     }
                 };
                 AppComponent.prototype.onTimeSubmit = function () {
+                    console.log(this.currentDateD);
+                    console.log(this.currentDateM);
+                    console.log(this.currentDateY);
                     var newDate = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
                     this.actualDate = newDate;
                     this.updateObjects();
@@ -105,7 +115,8 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     requestAnimationFrame(function () { return _this.tick(); });
                     // Update Time
                     this.updateTime();
-                    this.updateZoom();
+                    this.updateCanvas();
+                    var ctx = this.context;
                     if (this.isRunning) {
                         // Increment current date
                         this.actualDate += (this.simSpeed * this.deltaTime);
@@ -114,7 +125,7 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                         // Update position of all objects
                         this.updateObjects();
                         // Render all objects
-                        this.render();
+                        this.render(ctx);
                     }
                     // update Form objecst & GUI
                     this.updateGUI();
@@ -133,9 +144,8 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                         }
                     }
                 };
-                AppComponent.prototype.render = function () {
+                AppComponent.prototype.render = function (ctx) {
                     // deal with Canvas & Background
-                    var ctx = this.context;
                     canvasManager_1.canvasManager.clearCanvas(ctx);
                     canvasManager_1.canvasManager.drawSky(ctx);
                     // draw all the planets
@@ -166,8 +176,37 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                     this.deltaTime = (this.nowTime - this.thenTime) / 1000; // seconds since last frame
                     this.thenTime = this.nowTime;
                 };
-                AppComponent.prototype.updateZoom = function () {
+                AppComponent.prototype.updateCanvas = function () {
                     this.actualZoom = this.zoomLevel / 10;
+                    var viewPortWidth;
+                    var viewPortHeight;
+                    // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+                    if (typeof window.innerWidth != 'undefined') {
+                        viewPortWidth = window.innerWidth,
+                            viewPortHeight = window.innerHeight;
+                    }
+                    else if (typeof document.documentElement != 'undefined'
+                        && typeof document.documentElement.clientWidth !=
+                            'undefined' && document.documentElement.clientWidth != 0) {
+                        viewPortWidth = document.documentElement.clientWidth,
+                            viewPortHeight = document.documentElement.clientHeight;
+                    }
+                    else {
+                        viewPortWidth = document.getElementsByTagName('body')[0].clientWidth,
+                            viewPortHeight = document.getElementsByTagName('body')[0].clientHeight;
+                    }
+                    // Canvas should be square and fit to screen
+                    if (viewPortHeight < viewPortWidth) {
+                        this.viewportWidth = viewPortHeight;
+                        this.viewportHeight = viewPortHeight;
+                    }
+                    else {
+                        this.viewportWidth = viewPortWidth;
+                        this.viewportHeight = viewPortWidth;
+                    }
+                    var doc = document.getElementById("simulatorCanvas");
+                    doc.setAttribute('width', "" + this.viewportWidth);
+                    doc.setAttribute('height', "" + this.viewportHeight);
                 };
                 AppComponent.prototype.setDate = function (newDate) {
                     var dateRemainder = newDate;
@@ -182,6 +221,11 @@ System.register(["angular2/core", "./system/engine/vector2d", "./system/loadObje
                 AppComponent.prototype.loadAllObjects = function () {
                     this.cObjects = loadObjects_1.loadObjects.loadCObjects();
                     this.planets = loadObjects_1.loadObjects.loadPlanets();
+                };
+                AppComponent.prototype.loadDateVisualisation = function () {
+                    this.daysList = Library_1.Library.arbitraryArray(28);
+                    this.monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    this.yearsList = Library_1.Library.arbitraryArray(50);
                 };
                 __decorate([
                     core_1.ViewChild("simulatorCanvas"), 

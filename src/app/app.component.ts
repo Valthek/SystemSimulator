@@ -39,20 +39,26 @@ export class AppComponent implements AfterViewInit {
 
     // Visualisation Options
     simSpeed: number = 1;
-    zoomLevel: number = 1;
+    zoomLevel: number = 2;
     isRunning: boolean = true;
     showMoons: boolean = true;
     playButtonText: string = "Pause Animation";
     systemPositionOffset: vector2d = new vector2d(0, 0);
     dateUnlocked: boolean = true;
+    monthsList: string[];
+    daysList: number[] = [];
+    yearsList: number[] = [];
+    viewportWidth: number;
+    viewportHeight: number;
 
     // internal data
     private actualDate: number = 0;
-    private actualZoom: number = 0;
+    private actualZoom: number = 0.2;
 
 
     constructor(private ngZone: NgZone) {
         this.thenTime = Date.now();
+        this.loadDateVisualisation();
         this.loadAllObjects();
         console.log("The simulator has loaded. Starting...");
         this.isRunning = true;
@@ -62,6 +68,7 @@ export class AppComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.context = this.myCanvas.nativeElement.getContext("2d");
+        this.updateCanvas();
         this.ngZone.runOutsideAngular(() => this.tick());
     }
 
@@ -82,6 +89,9 @@ export class AppComponent implements AfterViewInit {
     }
 
     onTimeSubmit() {
+        console.log(this.currentDateD);
+        console.log(this.currentDateM);
+        console.log(this.currentDateY);
         let newDate: number = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
         this.actualDate = newDate;
         this.updateObjects();
@@ -90,7 +100,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     calculateTravelOptions() {
-        console.log("On " + this.currentDateD + "/" + this.currentDateM + "/"+ this.currentDateY + " the following values are true: ");
+        console.log("On " + this.currentDateD + "/" + this.currentDateM + "/" + this.currentDateY + " the following values are true: ");
         travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
         travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
         travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
@@ -112,7 +122,8 @@ export class AppComponent implements AfterViewInit {
         requestAnimationFrame(() => this.tick());
         // Update Time
         this.updateTime();
-        this.updateZoom();
+        this.updateCanvas();
+        var ctx = this.context;
 
         if (this.isRunning) {
             // Increment current date
@@ -122,7 +133,7 @@ export class AppComponent implements AfterViewInit {
             // Update position of all objects
             this.updateObjects();
             // Render all objects
-            this.render();
+            this.render(ctx);
         }
         // update Form objecst & GUI
         this.updateGUI();
@@ -143,9 +154,8 @@ export class AppComponent implements AfterViewInit {
         }
     }
 
-    private render() {
+    private render(ctx) {
         // deal with Canvas & Background
-        var ctx = this.context;
         canvasManager.clearCanvas(ctx);
         canvasManager.drawSky(ctx);
         // draw all the planets
@@ -178,8 +188,44 @@ export class AppComponent implements AfterViewInit {
         this.thenTime = this.nowTime;
     }
 
-    private updateZoom() {
-        this.actualZoom = this.zoomLevel/10;
+    private updateCanvas() {
+        this.actualZoom = this.zoomLevel / 10;
+        let viewPortWidth;
+        let viewPortHeight;
+
+        // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+        if (typeof window.innerWidth != 'undefined') {
+            viewPortWidth = window.innerWidth,
+                viewPortHeight = window.innerHeight
+        }
+
+        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+        else if (typeof document.documentElement != 'undefined'
+            && typeof document.documentElement.clientWidth !=
+            'undefined' && document.documentElement.clientWidth != 0) {
+            viewPortWidth = document.documentElement.clientWidth,
+                viewPortHeight = document.documentElement.clientHeight
+        }
+
+        // older versions of IE
+        else {
+            viewPortWidth = document.getElementsByTagName('body')[0].clientWidth,
+                viewPortHeight = document.getElementsByTagName('body')[0].clientHeight
+        }
+        // Canvas should be square and fit to screen
+        if (viewPortHeight < viewPortWidth)
+            {
+                this.viewportWidth = viewPortHeight;
+                this.viewportHeight = viewPortHeight;
+            }
+            else{
+                this.viewportWidth = viewPortWidth;
+                this.viewportHeight = viewPortWidth;
+            }
+
+        let doc = document.getElementById("simulatorCanvas");
+        doc.setAttribute('width', ""+this.viewportWidth);
+        doc.setAttribute('height', ""+this.viewportHeight);
     }
 
     private setDate(newDate: number) {
@@ -196,5 +242,11 @@ export class AppComponent implements AfterViewInit {
     private loadAllObjects() {
         this.cObjects = loadObjects.loadCObjects();
         this.planets = loadObjects.loadPlanets();
+    }
+
+    private loadDateVisualisation() {
+        this.daysList = Library.arbitraryArray(28);
+        this.monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        this.yearsList = Library.arbitraryArray(50);
     }
 }

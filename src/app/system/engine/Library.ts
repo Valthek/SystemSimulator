@@ -18,4 +18,9 @@ export class Library {
         }
         return months;
     }
+
+    public static arbitraryArray(size)
+    {
+        return size?Library.arbitraryArray(size-1).concat(size):[]
+    }
 }

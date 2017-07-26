@@ -94,7 +94,7 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     else {
                         console.log("Next transfer from " + source.name + " to " + destination.name + " is in " + (currentDate - initialDate) + " days");
                     }
-                    return currentDate;
+                    return currentDate - 1;
                 };
                 travelManager.calculateBrachistochroneDeltaV = function (source, destination, thrustInG) {
                     // Calculate DeltaV requirement for Brachistochrone transfer
