@@ -1,35 +1,59 @@
 <div id="simulator">
   <canvas id="simulatorCanvas" #simulatorCanvas width="900" height="900" style="background:lightgray;" (mousedown)="canvasMouseDown()"></canvas>
-  <div class="animationControls">
-    <input id="timeScale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/second</label><br/>
-    <label for="zoom">Zoom: </label><input id="zoom" type="range" min="1" max="300" [(ngModel)]="zoomLevel" />{{actualZoom}}<br />
-    <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
-      <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
+  <label class="menuLabel" for="menuToggle">Show Menu</label>
+  <input type="checkbox" id="menuToggle" />
+  <div id="menu">
+    <div id="animationControls">
+      <input id="timeScale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/second</label><br/>
+      <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />{{actualZoom}}
+      <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
+        <div class="formElement">
+          <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
         <option *ngFor="#day of daysList; #i = index" [value]="i">{{day}}</option>
         </select>
-      <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()" >
+
+          <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()">
         <option *ngFor="#month of monthsList; #i = index" [value]="i">{{month}}</option>
       </select>
-      <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
+          <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
           <option *ngFor="#year of yearsList; #i = index" [value]="i">{{year}} AT</option>
         </select>
-
-      <button type="submit" class="btn btn-success">Change Date</button>
-    </form>
-    <button id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
-  </div>
-  <div class="travelControls">
-    <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
-      <span>From: </span>
-      <select [(ngModel)]="travelSource">
+        </div>
+        <div class="formElement">
+          <button type="submit" class="btn btn-success">Change Date</button>
+        </div>
+      </form>
+      <div class="formElement">
+        <button id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
+      </div>
+    </div>
+    <div id="travelControls">
+      <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
+        <div class="formElement">
+          <span>From: </span>
+          <select [(ngModel)]="travelSource">
       <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
       </select>
-    <span>To: </span>
-    <select [(ngModel)]="travelDestination">
+        </div>
+        <div class="formElement">
+          <span>To: </span>
+          <select [(ngModel)]="travelDestination">
       <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
       </select>
-    <input type="text" [(ngModel)]="shipThrustInG" required>
-    <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
-    </form>
+        </div>
+        <div class="formElement">
+          <span>Thrust: </span>
+          <input type="text" [(ngModel)]="shipThrustInG" required>
+        </div>
+        <div class="formElement">
+          <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
+        </div>
+      </form>
+    </div>
+    <div id="directFlight">
+      <form id="directFlightOptions" (ngSubmit)="calculateDirectFlight()" #travelForm="ngForm">
+        <!-- TBD -->
+      </form>
+    </div>
   </div>
 </div>

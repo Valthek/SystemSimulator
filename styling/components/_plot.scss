@@ -1,51 +1,24 @@
-@import "_colors.scss";
-
-.plot_container{
-    position: fixed;
-    height: 100%; 
-    width: 100%; 
-    right:-100%;
-    z-index: 2;
-    background-color: $background;
-    border-left: 2px solid $borders;
-}
-
-.plot_toggle {
+#travelControls{
     position: absolute;
-    clip: rect(0,0,0,0);
-}
+    z-index:1;
+    right: 0px;
+    top: 0px;
 
-label[for="plot_toggle"] {
-  position: fixed;
-  top: 15px;
-  right: 0px;
-  z-index: 3;
-  width: 40px;
-  height: 60px;
-  cursor: pointer;
-  background-image: url("../images/toggle-horizontal.png");
-  background-position: right 40px bottom 0px; }
+    .formElement{
+        margin: 10px;
+        display: flex;
+        justify-content: space-between;
 
-  label[for="plot_toggle"]:hover {
-    background-image: url("../images/toggle-horizontal.png");
-    background-position: right 0px bottom 0px;
-  }
-
-.plot_toggle:checked + label{
-    right: 40%;
-    background-position: right 0px bottom 0px;
-}
-
-.plot_toggle:checked + label:hover{
-    right: 40%;
-    background-position: right 40px bottom 0px;
-}
-
-.plot_toggle:checked ~ .plot_container{
-    right: -60%;
-    background-color: $background;
-}
-
-.plot_toggle + label, .plot_container{
-    transition: right 0.2s;
+    input, select{
+        width:125px;
+        padding: 5px 8px;
+        box-sizing: border-box;
+        background-color: $lightBackroundColor;
+        border: 1px solid $borderColor;
+        border-radius: 3px;
+        :focus{
+            border: 1px solid $lightBorderColor;
+        }
+    }
+    }
 }

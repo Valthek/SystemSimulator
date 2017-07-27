@@ -1,96 +1,64 @@
+#simulatorCanvas {
+  z-index: -1;
+  border-right: 1px solid #00cc00; }
+
+#travelControls {
+  position: absolute;
+  z-index: 1;
+  right: 0px;
+  top: 0px; }
+  #travelControls .formElement {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between; }
+    #travelControls .formElement input, #travelControls .formElement select {
+      width: 125px;
+      padding: 5px 8px;
+      box-sizing: border-box;
+      background-color: #393949;
+      border: 1px solid #009922;
+      border-radius: 3px; }
+      #travelControls .formElement input :focus, #travelControls .formElement select :focus {
+        border: 1px solid #00bb22; }
+
+#animationControls {
+  position: absolute;
+  z-index: 1;
+  right: 0px;
+  top: 250px; }
+  #animationControls .formElement {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between; }
+
 html, body {
   height: 100%; }
 
 body {
   overflow: hidden;
-  margin: 0px; }
+  margin: 0px;
+  background-color: #282838; }
 
 * {
   color: #00cc00; }
 
-.plot_container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  right: -100%;
-  z-index: 2;
-  background-color: rgba(40, 200, 250, 0.5);
-  border-left: 2px solid #28c5f8; }
-
-.plot_toggle {
+.menuLabel {
   position: absolute;
-  clip: rect(0, 0, 0, 0); }
-
-label[for="plot_toggle"] {
-  position: fixed;
-  top: 15px;
   right: 0px;
-  z-index: 3;
-  width: 40px;
-  height: 60px;
-  cursor: pointer;
-  background-image: url("../images/toggle-horizontal.png");
-  background-position: right 40px bottom 0px; }
-
-label[for="plot_toggle"]:hover {
-  background-image: url("../images/toggle-horizontal.png");
-  background-position: right 0px bottom 0px; }
-
-.plot_toggle:checked + label {
-  right: 40%;
-  background-position: right 0px bottom 0px; }
-
-.plot_toggle:checked + label:hover {
-  right: 40%;
-  background-position: right 40px bottom 0px; }
-
-.plot_toggle:checked ~ .plot_container {
-  right: -60%;
-  background-color: rgba(40, 200, 250, 0.5); }
-
-.plot_toggle + label, .plot_container {
-  transition: right 0.2s; }
-
-.time_container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  bottom: -100%;
-  z-index: 2;
-  background-color: rgba(40, 200, 250, 0.5);
-  border-top: 2px solid #28c5f8; }
-
-.time_toggle {
-  position: absolute;
-  clip: rect(0, 0, 0, 0); }
-
-label[for="time_toggle"] {
-  position: fixed;
   bottom: 0px;
-  right: 50%;
-  z-index: 3;
-  width: 60px;
-  height: 40px;
-  cursor: pointer;
-  background-image: url("../images/toggle-vertical.png");
-  background-position: right 0px bottom 40px;
-  margin-bottom: 0px; }
+  cursor: pointer; }
 
-label[for="time_toggle"]:hover {
-  background-image: url("../images/toggle-vertical.png");
-  background-position: right 0px bottom 0px; }
+#menuToggle {
+  display: none;
+  /* hide the checkbox */ }
 
-.time_toggle:checked + label {
-  bottom: 40%;
-  background-position: right 0px bottom 0px; }
+#menu {
+  display: none; }
 
-.time_toggle:checked + label:hover {
-  bottom: 40%;
-  background-position: right 0px bottom 40px; }
+#menu {
+  position: absolute;
+  right: 0px;
+  top: 0px; }
 
-.time_toggle:checked ~ .time_container {
-  bottom: -60%;
-  background-color: rgba(40, 200, 250, 0.5); }
-
-.time_toggle + label, .time_container {
-  transition: bottom 0.2s; }
+#menuToggle:checked + #menu {
+  display: block; }

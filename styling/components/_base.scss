@@ -3,10 +3,35 @@ html, body{
 }
 
 body{
-    overflow-x: hidden;
+    overflow: hidden;
     margin: 0px;
+    background-color: $backgroundColor;
 }
 
 *{
-    color: #28c5f8;
+    color: $textColor;
 }
+
+.menuLabel {
+    position: absolute;
+    right:0px;
+    bottom:0px;
+    cursor: pointer;
+}
+    #menuToggle {
+      display: none; /* hide the checkbox */
+    }
+
+    #menu{ 
+      display: none;
+    }
+    
+    #menu {
+        position: absolute;
+        right: 0px;
+        top:0px;
+    }
+
+    #menuToggle:checked + #menu,{
+      display: block;
+    }

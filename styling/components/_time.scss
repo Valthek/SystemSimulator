@@ -1,53 +1,12 @@
-@import "_colors.scss";
-
-.time_container{
-    position: fixed;
-    height: 100%; 
-    width: 100%; 
-    bottom:-100%;
-    z-index: 2;
-    background-color: $background;
-    border-top: 2px solid $borders;
-}
-
-.time_toggle {
+#animationControls{
     position: absolute;
-    clip: rect(0,0,0,0);
+    z-index:1;
+    right: 0px;
+    top: 250px;
+
+    .formElement{
+        margin: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
 }
-
-label[for="time_toggle"] {
-  position: fixed;
-  bottom: 0px;
-  right: 50%;
-  z-index: 3;
-  width: 60px;
-  height: 40px;
-  cursor: pointer;
-  background-image: url("../images/toggle-vertical.png");
-  background-position: right 0px bottom 40px;
-  margin-bottom: 0px; }
-
-  label[for="time_toggle"]:hover {
-    background-image: url("../images/toggle-vertical.png");
-    background-position: right 0px bottom 0px;
-  }
-
-.time_toggle:checked + label{
-    bottom: 40%;
-    background-position: right 0px bottom 0px;
-}
-
-.time_toggle:checked + label:hover{
-    bottom: 40%;
-    background-position: right 0px bottom 40px;
-}
-
-.time_toggle:checked ~ .time_container{
-    bottom: -60%;
-    background-color: $background;
-}
-
-.time_toggle + label, .time_container{
-    transition: bottom 0.2s;
-}
-
