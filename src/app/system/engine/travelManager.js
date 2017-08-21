@@ -16,6 +16,7 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                 function travelManager() {
                 }
                 travelManager.calculateHohmanDeltaV = function (source, destination) {
+                    var hohmanResults = [];
                     console.log("========= Calculating Hohman Maneuver ============");
                     var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
                     var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
@@ -33,7 +34,10 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     // Calculate total deltaV (in m/s)
                     var deltaV = Math.abs(deltaVI) + Math.abs(deltaVA);
                     console.log("Total Delta V: " + (Math.floor(deltaV) / 1000) + "km/s");
-                    return Math.abs(deltaVI) + Math.abs(deltaVA);
+                    hohmanResults.push(Math.floor(deltaV) / 1000);
+                    hohmanResults.push(Math.floor(deltaVI));
+                    hohmanResults.push(Math.floor(deltaVA));
+                    return hohmanResults;
                 };
                 travelManager.calculateHohmanTransferTime = function (source, destination) {
                     console.log("======= Calculating Hohman Transfer Time =========");
@@ -42,7 +46,7 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     var timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / Library_1.Library.gravitationConstant);
                     var time = timeSeconds / 86400;
                     console.log("Time in days from " + source.name + " to " + destination.name + ": " + Math.floor(time) + " days");
-                    return time;
+                    return Math.floor(time);
                 };
                 travelManager.calculateHohmanTransferWindow = function (source, destination) {
                     console.log("======= Calculating Hohman Launch Window =========");
@@ -61,9 +65,9 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     var synodicPeriod = 1 / ((1 / orbitPeriodI) - (1 / orbitPeriodS));
                     var window = synodicPeriod / 86400;
                     console.log("The Launch Window for " + source.name + " to " + destination.name + " is every " + Math.floor(window) + " days");
-                    return window;
+                    return Math.floor(window);
                 };
-                travelManager.calculateLaunchTiming = function (source, destination) {
+                travelManager.calculateHohmanLaunchTiming = function (source, destination) {
                     console.log("======= Calculating Hohman Launch Angle ==========");
                     var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
                     var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
@@ -76,10 +80,51 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                 };
                 travelManager.calculateDaysToNextHohmanTravelDate = function (source, destination, actualDate) {
                     console.log("======== Calculating Next Hohman Window ==========");
+                    var goalAngle = travelManager.calculateHohmanLaunchTiming(source, destination);
+                    var daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle);
+                    return (daysToAngle);
+                };
+                travelManager.calculateBrachistochroneDeltaVNow = function (source, destination, thrustInG) {
+                    // Calculate DeltaV requirement for Brachistochrone transfer
+                    // Acceleration input is in G
+                    console.log("====== Calculating Brachistochrone DeltaV ========");
+                    var acceleration = thrustInG * 9.81;
+                    var travelDistance = this.calculateTravelDistanceMeters(source, destination);
+                    var transitDeltaV = 2 * Math.sqrt(travelDistance * acceleration);
+                    console.log("DeltaV Required for Brachistochrone from " + source.name + " to " + destination.name + " is " + Math.floor(transitDeltaV / 1000) + " km/s");
+                    return Math.floor(transitDeltaV / 1000);
+                };
+                travelManager.calculateBrachistochroneTransitTimeNow = function (source, destination, thrustInG) {
+                    console.log("==== Calculating Brachistochrone Travel Time =====");
+                    var acceleration = thrustInG * 9.81;
+                    var travelDistance = this.calculateTravelDistanceMeters(source, destination);
+                    var transitTime = 2 * Math.sqrt(travelDistance / acceleration);
+                    var transitTimeDays = transitTime / 86400;
+                    console.log("Time required for travel from " + source.name + " to " + destination.name + " at " + thrustInG + "G is " + Math.floor(transitTimeDays) + " days");
+                    return Math.floor(transitTimeDays);
+                };
+                travelManager.calculateNextBrachistochroneTransit = function (source, destination, thrustInG, actualDate) {
+                    var goalAngle = 0;
+                    var daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle);
+                    var travelTime = this.calculateBrachistochroneTransitTimeNow(source, destination, thrustInG);
+                    return (daysToAngle - travelTime);
+                };
+                travelManager.calculateSMAxis = function (source, destination) {
+                    var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
+                    var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
+                    var smAxis = (+sourceOrbit + +destinationOrbit) / 2;
+                    return smAxis;
+                };
+                travelManager.calculateTravelDistanceMeters = function (source, destination) {
+                    var travelDistance = vector2d_1.vector2d.CalculateDistance(source.currentPosition, destination.currentPosition);
+                    var travelDistanceMeters = travelDistance * Library_1.Library.astronomicalUnit;
+                    return travelDistanceMeters;
+                };
+                travelManager.findDateForObjectangle = function (source, destination, actualDate, targetAngle) {
                     var currentDate = Math.floor(actualDate);
                     var initialDate = currentDate;
-                    var goalAngle = travelManager.calculateLaunchTiming(source, destination);
-                    var lastDeltaAngle = goalAngle - (source.currentAngle - destination.currentAngle);
+                    var goalAngle = targetAngle;
+                    var lastDeltaAngle = (source.currentAngle - destination.currentAngle);
                     while ((currentDate - initialDate) < 40320) {
                         currentDate++;
                         var newAngle = (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate));
@@ -94,37 +139,8 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     else {
                         console.log("Next transfer from " + source.name + " to " + destination.name + " is in " + (currentDate - initialDate) + " days");
                     }
-                    return currentDate - 1;
-                };
-                travelManager.calculateBrachistochroneDeltaV = function (source, destination, thrustInG) {
-                    // Calculate DeltaV requirement for Brachistochrone transfer
-                    // Acceleration input is in G
-                    console.log("====== Calculating Brachistochrone DeltaV ========");
-                    var acceleration = thrustInG * 9.81;
-                    var travelDistance = this.calculateTravelDistanceMeters(source, destination);
-                    var transitDeltaV = 2 * Math.sqrt(travelDistance * acceleration);
-                    console.log("DeltaV Required for Brachistochrone from " + source.name + " to " + destination.name + " is " + Math.floor(transitDeltaV / 1000) + " km/s");
-                    return transitDeltaV;
-                };
-                travelManager.calculateBrachistochroneTransitTime = function (source, destination, thrustInG) {
-                    console.log("==== Calculating Brachistochrone Travel Time =====");
-                    var acceleration = thrustInG * 9.81;
-                    var travelDistance = this.calculateTravelDistanceMeters(source, destination);
-                    var transitTime = 2 * Math.sqrt(travelDistance / acceleration);
-                    var transitTimeDays = transitTime / 86400;
-                    console.log("Time required for travel from " + source.name + " to " + destination.name + " at " + thrustInG + "G is " + Math.floor(transitTimeDays) + " days");
-                    return transitTime;
-                };
-                travelManager.calculateSMAxis = function (source, destination) {
-                    var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
-                    var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
-                    var smAxis = (+sourceOrbit + +destinationOrbit) / 2;
-                    return smAxis;
-                };
-                travelManager.calculateTravelDistanceMeters = function (source, destination) {
-                    var travelDistance = vector2d_1.vector2d.CalculateDistance(source.currentPosition, destination.currentPosition);
-                    var travelDistanceMeters = travelDistance * Library_1.Library.astronomicalUnit;
-                    return travelDistanceMeters;
+                    var result = (currentDate - initialDate) - 1;
+                    return result;
                 };
                 return travelManager;
             }());

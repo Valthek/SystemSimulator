@@ -1,11 +1,15 @@
 <div id="simulator">
-  <canvas id="simulatorCanvas" #simulatorCanvas width="900" height="900" style="background:lightgray;" (mousedown)="canvasMouseDown()"></canvas>
-  <label class="menuLabel" for="menuToggle">Show Menu</label>
+  <canvas id="simulatorCanvas" #simulatorCanvas width="900" height="900" style="background:lightgray;" (mousedown)="canvasMouseDown()" (mouseup)="canvasMouseUp"></canvas>
   <input type="checkbox" id="menuToggle" />
+  <label class="menuLabel" for="menuToggle">Show Menu</label>
   <div id="menu">
     <div id="animationControls">
-      <input id="timeScale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><label for="timescale">{{simSpeed}} day(s)/second</label><br/>
-      <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />{{actualZoom}}
+      <div class="slider">
+        <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="1" max="28" [(ngModel)]="simSpeed" /><br/>
+      </div>
+      <div class="slider">
+        <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />
+      </div>
       <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
         <div class="formElement">
           <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
@@ -20,14 +24,13 @@
         </select>
         </div>
         <div class="formElement">
-          <button type="submit" class="btn btn-success">Change Date</button>
+          <button type="submit" class="formButton">Change Date</button>
+          <button type="button" class="formButton" id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
         </div>
       </form>
-      <div class="formElement">
-        <button id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
-      </div>
     </div>
     <div id="travelControls">
+      <span>Set travel route</span>
       <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
         <div class="formElement">
           <span>From: </span>
@@ -50,6 +53,28 @@
         </div>
       </form>
     </div>
+    <div id="travelCalculationResults">
+      <div *ngIf="showResults">
+        <span>Travel from {{planets[travelSource].name}} to {{planets[travelDestination].name}} on {{calculationDate[0]}} {{monthsList[calculationDate[1]]}}, {{calculationDate[2]}} AT </span>
+        <span class="title">Hohman Maneuver:</span>
+        <span>DeltaV required: {{hohmanResults[0]}} km/s</span>
+        <span>Insertion Burn at {{planets[travelSource].name}}: {{hohmanResults[1]}}m/s</span>
+        <span>Arrival Burn at {{planets[travelDestination].name}}: {{hohmanResults[2]}}m/s</span>
+        <span>Travel time: {{hohmanResults[3]}} days</span>
+        <span>Next travel window is in {{hohmanResults[5]}} days </span>
+        <span>Travel Window opens every {{hohmanResults[4]}} days </span>
+        <span class="title">Baristochrone Maneuver for {{shipThrustInG}}G: </span>
+        <span>DeltaV required: {{brachistochroneResults[0]}} km/s</span>
+        <span>Travel time: {{brachistochroneResults[1]}} days </span>
+        <span>Ideal launch time is in {{brachistochroneResults[2]}} days </span>
+        <span>DeltaV required at half thrust: {{brachistochroneResults[3]}}km/s</span>
+        <span>Travel time: {{brachistochroneResults[4]}} days</span>
+        <span>Ideal launch time for half thrust is in {{brachistochroneResults[5]}} days </span>
+        <span>DeltaV required at quarter thrust: {{brachistochroneResults[6]}}km/s</span>
+        <span>Travel time: {{brachistochroneResults[7]}} days</span>
+        <span>Ideal launch time for quarter thrust is in {{brachistochroneResults[5]}} days </span>
+        </div>
+      </div>
     <div id="directFlight">
       <form id="directFlightOptions" (ngSubmit)="calculateDirectFlight()" #travelForm="ngForm">
         <!-- TBD -->

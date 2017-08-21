@@ -1,12 +1,103 @@
 #animationControls{
-    position: absolute;
-    z-index:1;
-    right: 0px;
-    top: 250px;
+    display:inline-block;
+    width:100%;
+    border-bottom: 1px solid $borderColor;
+        
+        input, 
+        select,
+        button{
+            padding: 5px 8px;
+            box-sizing: border-box;
+            background-color: $lightBackroundColor;
+            border: 1px solid $borderColor;
+            border-radius: 3px;
+            :focus{
+                border: 1px solid $lightBorderColor;
+            }
+        }
+        button:hover {
+            background-color: $backgroundHoverColor;
+        }
 
     .formElement{
         margin: 10px;
         display: flex;
         justify-content: space-between;
+        
+        .formButton{
+            width:48%;
+        }        
+        .timeSet{
+            width:32%;
+        }
+    }
+    .slider{
+        width:95%;
+        margin:5px;
+        padding:5px;
+        display:inline-flex;
+        justify-content: space-between;
+
+        label{
+            width:25%;
+            text-transform: uppercase;
+        }
+        input {
+            width:70%;
+            border:none;
+        }
+
+
+    input[type=range] {
+          -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+          width: 75%; /* Specific width is required for Firefox. */
+          background: transparent; /* Otherwise white in Chrome */
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+        }
+
+        input[type=range]:focus {
+          outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+        }
+
+        input[type=range]::-ms-track {
+          width: 100%;
+          cursor: pointer;
+                  
+          /* Hides the slider so custom styles can be added */
+          background: transparent; 
+          border-color: transparent;
+          color: transparent;
+        }
+
+        /* Special styling for WebKit/Blink */
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          @include slider-thumb();
+          }
+
+        /* All the same stuff for Firefox */
+        input[type=range]::-moz-range-thumb {
+          @include slider-thumb();
+        }
+
+        /* All the same stuff for IE */
+        input[type=range]::-ms-thumb {
+          @include slider-thumb();
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            @include slider-track();
+        }
+
+        input[type=range]:focus::-webkit-slider-runnable-track {
+          background: $borderColor;
+        }
+
+        input[type=range]::-moz-range-track {
+           @include slider-track();
+        }
     }
 }

@@ -1,35 +1,156 @@
 #simulatorCanvas {
   z-index: -1;
-  border-right: 1px solid #00cc00; }
+  border: 1px solid #00cc00; }
 
 #travelControls {
-  position: absolute;
-  z-index: 1;
-  right: 0px;
-  top: 0px; }
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #009922;
+  padding: 5px 0px; }
+  #travelControls span {
+    width: 100%;
+    padding: 5px 8px;
+    text-transform: uppercase; }
   #travelControls .formElement {
     margin: 10px;
     display: flex;
     justify-content: space-between; }
-    #travelControls .formElement input, #travelControls .formElement select {
-      width: 125px;
+    #travelControls .formElement input,
+    #travelControls .formElement select,
+    #travelControls .formElement button {
       padding: 5px 8px;
       box-sizing: border-box;
       background-color: #393949;
       border: 1px solid #009922;
       border-radius: 3px; }
-      #travelControls .formElement input :focus, #travelControls .formElement select :focus {
+      #travelControls .formElement input :focus,
+      #travelControls .formElement select :focus,
+      #travelControls .formElement button :focus {
         border: 1px solid #00bb22; }
+    #travelControls .formElement button:hover {
+      background-color: #283338; }
+    #travelControls .formElement input,
+    #travelControls .formElement select {
+      width: 75%; }
+    #travelControls .formElement button {
+      width: 100%; }
+    #travelControls .formElement span {
+      width: 25%;
+      padding: 5px 8px;
+      text-transform: uppercase; }
 
 #animationControls {
-  position: absolute;
-  z-index: 1;
-  right: 0px;
-  top: 250px; }
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #009922; }
+  #animationControls input,
+  #animationControls select,
+  #animationControls button {
+    padding: 5px 8px;
+    box-sizing: border-box;
+    background-color: #393949;
+    border: 1px solid #009922;
+    border-radius: 3px; }
+    #animationControls input :focus,
+    #animationControls select :focus,
+    #animationControls button :focus {
+      border: 1px solid #00bb22; }
+  #animationControls button:hover {
+    background-color: #283338; }
   #animationControls .formElement {
     margin: 10px;
     display: flex;
     justify-content: space-between; }
+    #animationControls .formElement .formButton {
+      width: 48%; }
+    #animationControls .formElement .timeSet {
+      width: 32%; }
+  #animationControls .slider {
+    width: 95%;
+    margin: 5px;
+    padding: 5px;
+    display: inline-flex;
+    justify-content: space-between;
+    /* Special styling for WebKit/Blink */
+    /* All the same stuff for Firefox */
+    /* All the same stuff for IE */ }
+    #animationControls .slider label {
+      width: 25%;
+      text-transform: uppercase; }
+    #animationControls .slider input {
+      width: 70%;
+      border: none; }
+    #animationControls .slider input[type=range] {
+      -webkit-appearance: none;
+      /* Hides the slider so that custom slider can be made */
+      width: 75%;
+      /* Specific width is required for Firefox. */
+      background: transparent;
+      /* Otherwise white in Chrome */ }
+    #animationControls .slider input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; }
+    #animationControls .slider input[type=range]:focus {
+      outline: none;
+      /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
+    #animationControls .slider input[type=range]::-ms-track {
+      width: 100%;
+      cursor: pointer;
+      /* Hides the slider so custom styles can be added */
+      background: transparent;
+      border-color: transparent;
+      color: transparent; }
+    #animationControls .slider input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: 1px solid #009922;
+      height: 18px;
+      width: 14px;
+      border-radius: 3px;
+      background: #393949;
+      cursor: pointer;
+      margin-top: -7px;
+      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      /* Add cool effects to your sliders! */ }
+    #animationControls .slider input[type=range]::-moz-range-thumb {
+      border: 1px solid #009922;
+      height: 18px;
+      width: 14px;
+      border-radius: 3px;
+      background: #393949;
+      cursor: pointer;
+      margin-top: -7px;
+      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      /* Add cool effects to your sliders! */ }
+    #animationControls .slider input[type=range]::-ms-thumb {
+      border: 1px solid #009922;
+      height: 18px;
+      width: 14px;
+      border-radius: 3px;
+      background: #393949;
+      cursor: pointer;
+      margin-top: -7px;
+      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      /* Add cool effects to your sliders! */ }
+    #animationControls .slider input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8.4px;
+      cursor: pointer;
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      background: #008810;
+      border-radius: 1.3px;
+      border: 0.2px solid #393949; }
+    #animationControls .slider input[type=range]:focus::-webkit-slider-runnable-track {
+      background: #009922; }
+    #animationControls .slider input[type=range]::-moz-range-track {
+      width: 100%;
+      height: 8.4px;
+      cursor: pointer;
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      background: #008810;
+      border-radius: 1.3px;
+      border: 0.2px solid #393949; }
 
 html, body {
   height: 100%; }
@@ -37,7 +158,7 @@ html, body {
 body {
   overflow: hidden;
   margin: 0px;
-  background-color: #282838; }
+  background-color: #181828; }
 
 * {
   color: #00cc00; }
@@ -45,8 +166,9 @@ body {
 .menuLabel {
   position: absolute;
   right: 0px;
-  bottom: 0px;
-  cursor: pointer; }
+  top: 0px;
+  cursor: pointer;
+  margin: 5px; }
 
 #menuToggle {
   display: none;
@@ -58,7 +180,26 @@ body {
 #menu {
   position: absolute;
   right: 0px;
-  top: 0px; }
+  top: 0px;
+  height: 100%;
+  width: 400px;
+  border-left: 1px solid #00cc00;
+  background-color: rgba(10, 100, 10, 0.7); }
 
-#menuToggle:checked + #menu {
+#menuToggle:checked ~ .menuLabel {
+  right: 425px; }
+
+#menuToggle:checked ~ #menu {
   display: block; }
+
+#travelCalculationResults {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #009922; }
+  #travelCalculationResults span {
+    margin: 5px;
+    display: block; }
+  #travelCalculationResults .title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-transform: uppercase; }

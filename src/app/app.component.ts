@@ -39,7 +39,7 @@ export class AppComponent implements AfterViewInit {
 
     // Visualisation Options
     simSpeed: number = 1;
-    zoomLevel: number = 2;
+    zoomLevel: number = 10;
     isRunning: boolean = true;
     showMoons: boolean = true;
     playButtonText: string = "Pause Animation";
@@ -50,10 +50,14 @@ export class AppComponent implements AfterViewInit {
     yearsList: number[] = [];
     viewportWidth: number;
     viewportHeight: number;
+    calculationDate: string[] = new Array<string>(3);
+    hohmanResults:string[] = new Array<string>(5);
+    brachistochroneResults: string[] = new Array<string>(16);
+    showResults:boolean = false;
 
     // internal data
     private actualDate: number = 0;
-    private actualZoom: number = 0.2;
+    private actualZoom: number = 1;
 
 
     constructor(private ngZone: NgZone) {
@@ -89,9 +93,6 @@ export class AppComponent implements AfterViewInit {
     }
 
     onTimeSubmit() {
-        console.log(this.currentDateD);
-        console.log(this.currentDateM);
-        console.log(this.currentDateY);
         let newDate: number = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
         this.actualDate = newDate;
         this.updateObjects();
@@ -100,14 +101,29 @@ export class AppComponent implements AfterViewInit {
     }
 
     calculateTravelOptions() {
-        console.log("On " + this.currentDateD + "/" + this.currentDateM + "/" + this.currentDateY + " the following values are true: ");
-        travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
-        travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
-        travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        this.showResults = true;
+        this.calculationDate[0] = ""+this.currentDateD;
+        this.calculationDate[1] = ""+this.currentDateM;
+        this.calculationDate[2] = ""+this.currentDateY;
+        // hohman transfer results
+        this.hohmanResults[0] = /* total DeltaV*/ ""+travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[0];
+        this.hohmanResults[1] = /* insertion Burn */ ""+travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[1];
+        this.hohmanResults[2] = /* arrival Burn */ ""+travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[2];
+        this.hohmanResults[3] = /* travel time for hohman*/""+travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        this.hohmanResults[4] = /* launch window every x days*/""+travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        this.hohmanResults[5] = /* next window in days*/""+travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        // brachistochrone transfer results
+        this.brachistochroneResults[0] = ""+travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+        this.brachistochroneResults[1] = /* brachistochrone at full thrust*/""+travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+        this.brachistochroneResults[2] = ""+travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
+        
+        this.brachistochroneResults[3] = ""+travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/2);
+        this.brachistochroneResults[4] = /* brachistochrone at half thrust*/""+travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/2);
+        this.brachistochroneResults[5] = ""+travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/2, this.actualDate);
+
+        this.brachistochroneResults[6] = ""+travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/4);
+        this.brachistochroneResults[7] = /* brachistochrone at quarter thrust*/""+travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/4);
+        this.brachistochroneResults[8] = ""+travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/4, this.actualDate);
     }
 
     canvasMouseDown() {
@@ -212,16 +228,10 @@ export class AppComponent implements AfterViewInit {
             viewPortWidth = document.getElementsByTagName('body')[0].clientWidth,
                 viewPortHeight = document.getElementsByTagName('body')[0].clientHeight
         }
-        // Canvas should be square and fit to screen
-        if (viewPortHeight < viewPortWidth)
-            {
-                this.viewportWidth = viewPortHeight;
-                this.viewportHeight = viewPortHeight;
-            }
-            else{
+
                 this.viewportWidth = viewPortWidth;
-                this.viewportHeight = viewPortWidth;
-            }
+                this.viewportHeight = viewPortHeight;
+           
 
         let doc = document.getElementById("simulatorCanvas");
         doc.setAttribute('width', ""+this.viewportWidth);

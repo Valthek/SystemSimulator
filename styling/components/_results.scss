@@ -1,0 +1,15 @@
+#travelCalculationResults{
+    display:inline-block;
+    width:100%;
+    border-bottom: 1px solid $borderColor;
+
+    span {
+        margin: 5px;
+        display:block;
+    }
+    .title{
+        margin-top:10px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+}

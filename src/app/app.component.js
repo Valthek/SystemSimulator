@@ -48,7 +48,7 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     this.shipThrustInG = 0;
                     // Visualisation Options
                     this.simSpeed = 1;
-                    this.zoomLevel = 2;
+                    this.zoomLevel = 10;
                     this.isRunning = true;
                     this.showMoons = true;
                     this.playButtonText = "Pause Animation";
@@ -56,9 +56,13 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     this.dateUnlocked = true;
                     this.daysList = [];
                     this.yearsList = [];
+                    this.calculationDate = new Array(3);
+                    this.hohmanResults = new Array(5);
+                    this.brachistochroneResults = new Array(16);
+                    this.showResults = false;
                     // internal data
                     this.actualDate = 0;
-                    this.actualZoom = 0.2;
+                    this.actualZoom = 1;
                     this.thenTime = Date.now();
                     this.loadDateVisualisation();
                     this.loadAllObjects();
@@ -86,23 +90,33 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     }
                 };
                 AppComponent.prototype.onTimeSubmit = function () {
-                    console.log(this.currentDateD);
-                    console.log(this.currentDateM);
-                    console.log(this.currentDateY);
                     var newDate = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
                     this.actualDate = newDate;
                     this.updateObjects();
                     this.dateUnlocked = true;
                 };
                 AppComponent.prototype.calculateTravelOptions = function () {
-                    console.log("On " + this.currentDateD + "/" + this.currentDateM + "/" + this.currentDateY + " the following values are true: ");
-                    travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
-                    travelManager_1.travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
-                    travelManager_1.travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
-                    travelManager_1.travelManager.calculateLaunchTiming(this.planets[this.travelSource], this.planets[this.travelDestination]);
-                    travelManager_1.travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
-                    travelManager_1.travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
-                    travelManager_1.travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+                    this.showResults = true;
+                    this.calculationDate[0] = "" + this.currentDateD;
+                    this.calculationDate[1] = "" + this.currentDateM;
+                    this.calculationDate[2] = "" + this.currentDateY;
+                    // hohman transfer results
+                    this.hohmanResults[0] = "" + travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[0];
+                    this.hohmanResults[1] = "" + travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[1];
+                    this.hohmanResults[2] = "" + travelManager_1.travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[2];
+                    this.hohmanResults[3] = "" + travelManager_1.travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    this.hohmanResults[4] = "" + travelManager_1.travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+                    this.hohmanResults[5] = "" + travelManager_1.travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+                    // brachistochrone transfer results
+                    this.brachistochroneResults[0] = "" + travelManager_1.travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+                    this.brachistochroneResults[1] = "" + travelManager_1.travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
+                    this.brachistochroneResults[2] = "" + travelManager_1.travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
+                    this.brachistochroneResults[3] = "" + travelManager_1.travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
+                    this.brachistochroneResults[4] = "" + travelManager_1.travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
+                    this.brachistochroneResults[5] = "" + travelManager_1.travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2, this.actualDate);
+                    this.brachistochroneResults[6] = "" + travelManager_1.travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
+                    this.brachistochroneResults[7] = "" + travelManager_1.travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
+                    this.brachistochroneResults[8] = "" + travelManager_1.travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4, this.actualDate);
                 };
                 AppComponent.prototype.canvasMouseDown = function () {
                     console.log("mouse down");
@@ -195,15 +209,8 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                         viewPortWidth = document.getElementsByTagName('body')[0].clientWidth,
                             viewPortHeight = document.getElementsByTagName('body')[0].clientHeight;
                     }
-                    // Canvas should be square and fit to screen
-                    if (viewPortHeight < viewPortWidth) {
-                        this.viewportWidth = viewPortHeight;
-                        this.viewportHeight = viewPortHeight;
-                    }
-                    else {
-                        this.viewportWidth = viewPortWidth;
-                        this.viewportHeight = viewPortWidth;
-                    }
+                    this.viewportWidth = viewPortWidth;
+                    this.viewportHeight = viewPortHeight;
                     var doc = document.getElementById("simulatorCanvas");
                     doc.setAttribute('width', "" + this.viewportWidth);
                     doc.setAttribute('height', "" + this.viewportHeight);

@@ -1,6 +1,8 @@
-@import "components/_colors.scss";
+@import "components/reference/_colors.scss";
+@import "components/reference/_mixins.scss";
 
 @import "components/_simulation.scss";
 @import "components/_plot.scss"; 
 @import "components/_time.scss";
 @import "components/_base.scss";
+@import "components/_results.scss";

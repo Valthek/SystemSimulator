@@ -5,6 +5,6 @@ import {Library} from "./../engine/Library"
 export class moon extends cObject
 {
     constructor(objectID:number, name:string, moonSize:number, realDiameter:number, moonColor:string, planetOrbit:number,velocity:number, initialAngle:number) {
-        super(objectID, name, moonColor, moonSize, realDiameter, 0.025,velocity, initialAngle );
+        super(objectID, name, moonColor, moonSize, realDiameter, planetOrbit * 0.075,velocity, initialAngle );
     }    
 }
