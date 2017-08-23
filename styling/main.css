@@ -167,8 +167,19 @@ body {
   position: absolute;
   right: 0px;
   top: 0px;
+  width: 4%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  margin: 5px; }
+  background-color: rgba(10, 100, 10, 0.7);
+  border-left: 1px solid #00cc00; }
+  .menuLabel:hover {
+    background-color: rgba(20, 120, 20, 0.7); }
+  .menuLabel .menuLabelContent:before {
+    content: "<";
+    font-weight: bolder; }
 
 #menuToggle {
   display: none;
@@ -187,7 +198,10 @@ body {
   background-color: rgba(10, 100, 10, 0.7); }
 
 #menuToggle:checked ~ .menuLabel {
-  right: 425px; }
+  right: 400px; }
+  #menuToggle:checked ~ .menuLabel .menuLabelContent:before {
+    content: ">";
+    font-weight: bolder; }
 
 #menuToggle:checked ~ #menu {
   display: block; }

@@ -1,7 +1,9 @@
 <div id="simulator">
   <canvas id="simulatorCanvas" #simulatorCanvas width="900" height="900" style="background:lightgray;" (mousedown)="canvasMouseDown()" (mouseup)="canvasMouseUp"></canvas>
   <input type="checkbox" id="menuToggle" />
-  <label class="menuLabel" for="menuToggle">Show Menu</label>
+  <label class="menuLabel" for="menuToggle">
+    <div class="menuLabelContent"></div>
+  </label>
   <div id="menu">
     <div id="animationControls">
       <div class="slider">

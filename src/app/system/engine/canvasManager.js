@@ -18,7 +18,7 @@ System.register([], function(exports_1, context_1) {
                     context.beginPath();
                     context.fillStyle = planet.color;
                     var x = ((planet.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2);
-                    var y = ((planet.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2);
+                    var y = ((planet.currentPosition.y) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2);
                     context.moveTo(x, y);
                     context.arc(x, y, planet.size, 0, Math.PI * 2);
                     context.fill();
@@ -34,7 +34,7 @@ System.register([], function(exports_1, context_1) {
                     context.beginPath();
                     context.fillStyle = moon.color;
                     var x = ((moon.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2);
-                    var y = ((moon.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2);
+                    var y = ((moon.currentPosition.y) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2);
                     context.moveTo(x, y);
                     context.arc(x, y, moon.size, 0, Math.PI * 2);
                     context.fill();
@@ -50,7 +50,7 @@ System.register([], function(exports_1, context_1) {
                     context.lineWidth = 1;
                     context.strokeStyle = "#00ee00";
                     var x = (parent.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2;
-                    var y = (parent.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2;
+                    var y = (parent.currentPosition.y) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2;
                     context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
                     context.stroke();
                 };
@@ -60,13 +60,13 @@ System.register([], function(exports_1, context_1) {
                     context.strokeStyle = object.color;
                     context.lineWidth = object.size;
                     var x = context.canvas.clientWidth / 2;
-                    var y = context.canvas.clientHeight / 2;
+                    var y = context.canvas.clientWidth / 2;
                     context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
                     context.stroke();
                     if (showName) {
                         context.fillStyle = "#00ee00";
                         context.font = "10px Arial";
-                        context.fillText(object.name, x - 25, y + (object.orbitRadius * ((context.canvas.clientHeight / 2) / zoomLevel)) + 15);
+                        context.fillText(object.name, x - 25, y + (object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel)) + 15);
                     }
                 };
                 // Draw the background for the map (dark blue/black)

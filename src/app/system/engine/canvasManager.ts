@@ -16,7 +16,7 @@ export class canvasManager {
         context.beginPath();
             context.fillStyle = planet.color;
             let x = ((planet.currentPosition.x)*((context.canvas.clientWidth/2)/zoomLevel) + context.canvas.clientWidth/2);
-            let y = ((planet.currentPosition.y)*((context.canvas.clientHeight/2)/zoomLevel) + context.canvas.clientHeight/2); 
+            let y = ((planet.currentPosition.y)*((context.canvas.clientWidth/2)/zoomLevel) + context.canvas.clientWidth/2); 
             context.moveTo(x, y);
             context.arc(x, y, planet.size, 0, Math.PI * 2);
         context.fill();
@@ -35,7 +35,7 @@ export class canvasManager {
         context.beginPath();
             context.fillStyle = moon.color;
             let x = ((moon.currentPosition.x)*((context.canvas.clientWidth/2)/zoomLevel)  + context.canvas.clientWidth/2);
-            let y = ((moon.currentPosition.y)*((context.canvas.clientHeight/2)/zoomLevel) + context.canvas.clientHeight/2); 
+            let y = ((moon.currentPosition.y)*((context.canvas.clientWidth/2)/zoomLevel) + context.canvas.clientWidth/2); 
             context.moveTo(x, y);
             context.arc(x, y, moon.size, 0, Math.PI * 2);
         context.fill();
@@ -54,7 +54,7 @@ export class canvasManager {
             context.lineWidth = 1;
             context.strokeStyle = "#00ee00";
             let x = (parent.currentPosition.x)*((context.canvas.clientWidth/2)/zoomLevel)  + context.canvas.clientWidth/2;
-            let y = (parent.currentPosition.y)*((context.canvas.clientHeight/2)/zoomLevel) + context.canvas.clientHeight/2; 
+            let y = (parent.currentPosition.y)*((context.canvas.clientWidth/2)/zoomLevel) + context.canvas.clientWidth/2; 
             context.arc(x,y, object.orbitRadius * ((context.canvas.clientWidth/2)/zoomLevel),0, Math.PI * 2);
         context.stroke();
         
@@ -67,14 +67,14 @@ export class canvasManager {
             context.strokeStyle = object.color;
             context.lineWidth = object.size;
             let x = context.canvas.clientWidth/2;
-            let y = context.canvas.clientHeight/2; 
+            let y = context.canvas.clientWidth/2; 
             context.arc(x,y, object.orbitRadius * ((context.canvas.clientWidth/2)/zoomLevel),0, Math.PI * 2);
         context.stroke();
         if (showName)
         {
             context.fillStyle = "#00ee00";
             context.font = "10px Arial";
-            context.fillText(object.name, x-25, y+(object.orbitRadius*((context.canvas.clientHeight/2)/zoomLevel))+15);
+            context.fillText(object.name, x-25, y+(object.orbitRadius*((context.canvas.clientWidth/2)/zoomLevel))+15);
         }
     }
 

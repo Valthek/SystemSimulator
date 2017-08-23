@@ -18,3 +18,12 @@
           border-radius: 1.3px;
           border: 0.2px solid $lightBackroundColor;
         }
+
+@mixin symbol-content ($symbol) {
+    content: $symbol;
+    height: 100%;
+    opacity: 0;
+    position: relative;
+    right: 10px;
+    transition: 0.2s;
+}

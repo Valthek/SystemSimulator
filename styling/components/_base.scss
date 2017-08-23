@@ -16,10 +16,26 @@ body{
     position: absolute;
     right:0px;
     top:0px;
-    cursor: pointer;
-    margin: 5px;
+    width:4%;
+    height:100%;
 
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;    
+    background-color:$menuBackground;
+    border-left: 1px solid $textColor;
+
+    &:hover {
+        background-color: $menuBackgroundLight;
+    }
+
+    .menuLabelContent:before{
+        content: "<";
+        font-weight:bolder;
+    }
+} 
 
 #menuToggle {
   display: none; /* hide the checkbox */
@@ -40,8 +56,13 @@ body{
 
 }
 #menuToggle:checked ~ .menuLabel{
-    right:425px;
+    right:400px;
+
+    .menuLabelContent:before{
+        content: ">";
+        font-weight:bolder;
+    }
 }
 #menuToggle:checked ~ #menu,{
   display: block;
-}
+} 

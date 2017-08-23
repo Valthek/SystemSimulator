@@ -6,7 +6,7 @@ var sass = require('gulp-sass');
 gulp.task('styles', function() {
     gulp.src('styling/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./styling/'))
+        .pipe(gulp.dest('./styling/', {overwrite: true}));
 });
 
 //Watch task
