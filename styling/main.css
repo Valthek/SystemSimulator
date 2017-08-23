@@ -1,11 +1,11 @@
 #simulatorCanvas {
   z-index: -1;
-  border: 1px solid #00cc00; }
+  border: 1px solid #61DCEF; }
 
 #travelControls {
   display: inline-block;
   width: 100%;
-  border-bottom: 1px solid #009922;
+  border-bottom: 1px solid #6FCFDE;
   padding: 5px 0px; }
   #travelControls span {
     width: 100%;
@@ -21,12 +21,12 @@
       padding: 5px 8px;
       box-sizing: border-box;
       background-color: #393949;
-      border: 1px solid #009922;
+      border: 1px solid #6FCFDE;
       border-radius: 3px; }
       #travelControls .formElement input :focus,
       #travelControls .formElement select :focus,
       #travelControls .formElement button :focus {
-        border: 1px solid #00bb22; }
+        border: 1px solid #9EE2ED; }
     #travelControls .formElement button:hover {
       background-color: #283338; }
     #travelControls .formElement input,
@@ -42,19 +42,19 @@
 #animationControls {
   display: inline-block;
   width: 100%;
-  border-bottom: 1px solid #009922; }
+  border-bottom: 1px solid #6FCFDE; }
   #animationControls input,
   #animationControls select,
   #animationControls button {
     padding: 5px 8px;
     box-sizing: border-box;
     background-color: #393949;
-    border: 1px solid #009922;
+    border: 1px solid #6FCFDE;
     border-radius: 3px; }
     #animationControls input :focus,
     #animationControls select :focus,
     #animationControls button :focus {
-      border: 1px solid #00bb22; }
+      border: 1px solid #9EE2ED; }
   #animationControls button:hover {
     background-color: #283338; }
   #animationControls .formElement {
@@ -101,7 +101,7 @@
       color: transparent; }
     #animationControls .slider input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      border: 1px solid #009922;
+      border: 1px solid #6FCFDE;
       height: 18px;
       width: 14px;
       border-radius: 3px;
@@ -112,7 +112,7 @@
       box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
       /* Add cool effects to your sliders! */ }
     #animationControls .slider input[type=range]::-moz-range-thumb {
-      border: 1px solid #009922;
+      border: 1px solid #6FCFDE;
       height: 18px;
       width: 14px;
       border-radius: 3px;
@@ -123,7 +123,7 @@
       box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
       /* Add cool effects to your sliders! */ }
     #animationControls .slider input[type=range]::-ms-thumb {
-      border: 1px solid #009922;
+      border: 1px solid #6FCFDE;
       height: 18px;
       width: 14px;
       border-radius: 3px;
@@ -138,17 +138,17 @@
       height: 8.4px;
       cursor: pointer;
       box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      background: #008810;
+      background: #3FAFC0;
       border-radius: 1.3px;
       border: 0.2px solid #393949; }
     #animationControls .slider input[type=range]:focus::-webkit-slider-runnable-track {
-      background: #009922; }
+      background: #6FCFDE; }
     #animationControls .slider input[type=range]::-moz-range-track {
       width: 100%;
       height: 8.4px;
       cursor: pointer;
       box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      background: #008810;
+      background: #3FAFC0;
       border-radius: 1.3px;
       border: 0.2px solid #393949; }
 
@@ -161,7 +161,7 @@ body {
   background-color: #181828; }
 
 * {
-  color: #00cc00; }
+  color: #61DCEF; }
 
 .menuLabel {
   position: absolute;
@@ -173,10 +173,10 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: rgba(10, 100, 10, 0.7);
-  border-left: 1px solid #00cc00; }
+  background-color: rgba(12, 105, 124, 0.7);
+  border-left: 1px solid #61DCEF; }
   .menuLabel:hover {
-    background-color: rgba(20, 120, 20, 0.7); }
+    background-color: rgba(30, 135, 157, 0.7); }
   .menuLabel .menuLabelContent:before {
     content: "<";
     font-weight: bolder; }
@@ -194,8 +194,8 @@ body {
   top: 0px;
   height: 100%;
   width: 400px;
-  border-left: 1px solid #00cc00;
-  background-color: rgba(10, 100, 10, 0.7); }
+  border-left: 1px solid #61DCEF;
+  background-color: rgba(12, 105, 124, 0.7); }
 
 #menuToggle:checked ~ .menuLabel {
   right: 400px; }
@@ -209,7 +209,7 @@ body {
 #travelCalculationResults {
   display: inline-block;
   width: 100%;
-  border-bottom: 1px solid #009922; }
+  border-bottom: 1px solid #6FCFDE; }
   #travelCalculationResults span {
     margin: 5px;
     display: block; }
