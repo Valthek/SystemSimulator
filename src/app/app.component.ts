@@ -126,8 +126,8 @@ export class AppComponent implements AfterViewInit {
         this.brachistochroneResults[8] = ""+travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/4, this.actualDate);
     }
 
-    canvasMouseDown() {
-        console.log("mouse down");
+    canvasMouseDown(e) {
+        console.log("mouse down" + " " + e.offsetX + " " + e.offsetY );
     }
 
     lockTime() {

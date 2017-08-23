@@ -9,12 +9,14 @@ System.register([], function(exports_1, context_1) {
                 function Library() {
                 }
                 Object.defineProperty(Library, "astronomicalUnit", {
+                    //Astronomical unit in meters
                     get: function () { return 149597870700; },
                     enumerable: true,
                     configurable: true
                 });
                 ;
                 Object.defineProperty(Library, "gravitationConstant", {
+                    // gravitation constant for Antara TODO: make editable
                     get: function () { return 116798853600000000000; },
                     enumerable: true,
                     configurable: true
@@ -43,6 +45,7 @@ System.register([], function(exports_1, context_1) {
                     configurable: true
                 });
                 Library.arbitraryArray = function (size) {
+                    // return an arbitrarily large sized array (mostly for ngFor loops)
                     return size ? Library.arbitraryArray(size - 1).concat(size) : [];
                 };
                 return Library;

@@ -7,6 +7,8 @@
     "**/**.js.map":true,
     "**/**.log.**":true,
     "**/**.css":true,
-    "LICENSE":true
+    "LICENSE":true,
+    "**/**.bat":true,
+    "**/**.txt":true
   }
 }
