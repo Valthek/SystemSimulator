@@ -118,8 +118,8 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     this.brachistochroneResults[7] = "" + travelManager_1.travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
                     this.brachistochroneResults[8] = "" + travelManager_1.travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4, this.actualDate);
                 };
-                AppComponent.prototype.canvasMouseDown = function (e) {
-                    console.log("mouse down" + " " + e.offsetX + " " + e.offsetY);
+                AppComponent.prototype.canvasMouseDown = function () {
+                    console.log("mouse down");
                 };
                 AppComponent.prototype.lockTime = function () {
                     this.dateUnlocked = false;
@@ -211,6 +211,7 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     }
                     this.viewportWidth = viewPortWidth;
                     this.viewportHeight = viewPortHeight;
+                    console.log("viewport width: " + this.viewportWidth + " viewport height: " + this.viewportHeight);
                     var doc = document.getElementById("simulatorCanvas");
                     doc.setAttribute('width', "" + this.viewportWidth);
                     doc.setAttribute('height', "" + this.viewportHeight);

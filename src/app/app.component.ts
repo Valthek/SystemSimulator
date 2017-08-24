@@ -126,8 +126,8 @@ export class AppComponent implements AfterViewInit {
         this.brachistochroneResults[8] = ""+travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG/4, this.actualDate);
     }
 
-    canvasMouseDown(e) {
-        console.log("mouse down" + " " + e.offsetX + " " + e.offsetY );
+    canvasMouseDown() {
+        console.log("mouse down");
     }
 
     lockTime() {
@@ -229,10 +229,10 @@ export class AppComponent implements AfterViewInit {
                 viewPortHeight = document.getElementsByTagName('body')[0].clientHeight
         }
 
-                this.viewportWidth = viewPortWidth;
-                this.viewportHeight = viewPortHeight;
+        this.viewportWidth = viewPortWidth;
+        this.viewportHeight = viewPortHeight;
            
-
+        console.log("viewport width: " + this.viewportWidth + " viewport height: " + this.viewportHeight);
         let doc = document.getElementById("simulatorCanvas");
         doc.setAttribute('width', ""+this.viewportWidth);
         doc.setAttribute('height', ""+this.viewportHeight);

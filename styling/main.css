@@ -163,6 +163,11 @@ body {
 * {
   color: #61DCEF; }
 
+#simulator {
+  position: relative;
+  height: 100%;
+  width: 100%; }
+
 .menuLabel {
   position: absolute;
   right: 0px;
