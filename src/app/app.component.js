@@ -211,7 +211,7 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     }
                     this.viewportWidth = viewPortWidth;
                     this.viewportHeight = viewPortHeight;
-                    console.log("viewport width: " + this.viewportWidth + " viewport height: " + this.viewportHeight);
+                    //console.log("viewport width: " + this.viewportWidth + " viewport height: " + this.viewportHeight);
                     var doc = document.getElementById("simulatorCanvas");
                     doc.setAttribute('width', "" + this.viewportWidth);
                     doc.setAttribute('height', "" + this.viewportHeight);

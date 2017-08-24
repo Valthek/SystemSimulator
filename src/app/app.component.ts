@@ -232,7 +232,7 @@ export class AppComponent implements AfterViewInit {
         this.viewportWidth = viewPortWidth;
         this.viewportHeight = viewPortHeight;
            
-        console.log("viewport width: " + this.viewportWidth + " viewport height: " + this.viewportHeight);
+        //console.log("viewport width: " + this.viewportWidth + " viewport height: " + this.viewportHeight);
         let doc = document.getElementById("simulatorCanvas");
         doc.setAttribute('width', ""+this.viewportWidth);
         doc.setAttribute('height', ""+this.viewportHeight);

@@ -50,29 +50,31 @@ export class canvasManager {
 
     // Draw a circle indicating a celestial object's orbit
     static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number) {
+        let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.lineWidth = 1;
         context.strokeStyle = "#12B4CE";
-        let x = (parent.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2;
-        let y = (parent.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2;
-        context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
+        let x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2;
+        let y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2;
+        context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
 
     }
 
     // Fill in an area with color to indicate the aproximate location of an object's orbit
     static drawObjectArea(context, object: cObject, objectOrbitWidth: number, zoomLevel: number, showName: boolean) {
+        let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.strokeStyle = object.color;
         context.lineWidth = object.size;
         let x = context.canvas.clientWidth / 2;
         let y = context.canvas.clientHeight / 2;
-        context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
+        context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
         if (showName) {
             context.fillStyle = "#12B4CE";
             context.font = "10px Arial";
-            context.fillText(object.name, x - 25, y + (object.orbitRadius * ((context.canvas.clientHeight / 2) / zoomLevel)) + 15);
+            context.fillText(object.name, x - 25, y + (object.orbitRadius * zoom) + 15);
         }
     }
 

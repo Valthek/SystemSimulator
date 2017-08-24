@@ -48,27 +48,29 @@ System.register([], function(exports_1, context_1) {
                 };
                 // Draw a circle indicating a celestial object's orbit
                 canvasManager.drawOrbit = function (context, object, parent, zoomLevel, width) {
+                    var zoom = this.getZoom(context, zoomLevel);
                     context.beginPath();
                     context.lineWidth = 1;
                     context.strokeStyle = "#12B4CE";
-                    var x = (parent.currentPosition.x) * ((context.canvas.clientWidth / 2) / zoomLevel) + context.canvas.clientWidth / 2;
-                    var y = (parent.currentPosition.y) * ((context.canvas.clientHeight / 2) / zoomLevel) + context.canvas.clientHeight / 2;
-                    context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
+                    var x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2;
+                    var y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2;
+                    context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
                     context.stroke();
                 };
                 // Fill in an area with color to indicate the aproximate location of an object's orbit
                 canvasManager.drawObjectArea = function (context, object, objectOrbitWidth, zoomLevel, showName) {
+                    var zoom = this.getZoom(context, zoomLevel);
                     context.beginPath();
                     context.strokeStyle = object.color;
                     context.lineWidth = object.size;
                     var x = context.canvas.clientWidth / 2;
                     var y = context.canvas.clientHeight / 2;
-                    context.arc(x, y, object.orbitRadius * ((context.canvas.clientWidth / 2) / zoomLevel), 0, Math.PI * 2);
+                    context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
                     context.stroke();
                     if (showName) {
                         context.fillStyle = "#12B4CE";
                         context.font = "10px Arial";
-                        context.fillText(object.name, x - 25, y + (object.orbitRadius * ((context.canvas.clientHeight / 2) / zoomLevel)) + 15);
+                        context.fillText(object.name, x - 25, y + (object.orbitRadius * zoom) + 15);
                     }
                 };
                 // Draw the background for the map (dark blue/black)
