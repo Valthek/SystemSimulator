@@ -45,10 +45,17 @@ body{
 
 #menuToggle {
   display: none; /* hide the checkbox */
-}
+  &:checked ~ .menuLabel{
+    right:400px;
 
-#menu{ 
-  display: none;
+    .menuLabelContent:before{
+        content: ">";
+        font-weight:bolder;
+    }
+  }
+  &:checked ~ #menu,{
+        display: block;
+      } 
 }
 
 #menu {
@@ -61,14 +68,3 @@ body{
     background-color: $menuBackground;
 
 }
-#menuToggle:checked ~ .menuLabel{
-    right:400px;
-
-    .menuLabelContent:before{
-        content: ">";
-        font-weight:bolder;
-    }
-}
-#menuToggle:checked ~ #menu,{
-  display: block;
-} 

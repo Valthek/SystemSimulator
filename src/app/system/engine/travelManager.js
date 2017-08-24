@@ -1,15 +1,15 @@
-System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
+System.register(["./vector2d", "./library"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var vector2d_1, Library_1;
+    var vector2d_1, library_1;
     var travelManager;
     return {
         setters:[
             function (vector2d_1_1) {
                 vector2d_1 = vector2d_1_1;
             },
-            function (Library_1_1) {
-                Library_1 = Library_1_1;
+            function (library_1_1) {
+                library_1 = library_1_1;
             }],
         execute: function() {
             travelManager = (function () {
@@ -18,17 +18,17 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                 travelManager.calculateHohmanDeltaV = function (source, destination) {
                     var hohmanResults = [];
                     console.log("========= Calculating Hohman Maneuver ============");
-                    var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
-                    var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
+                    var sourceOrbit = source.orbitRadius * library_1.library.astronomicalUnit;
+                    var destinationOrbit = destination.orbitRadius * library_1.library.astronomicalUnit;
                     var smAxis = this.calculateSMAxis(source, destination);
                     // Calculate deltaV for Insertion Burn (in m/s)
-                    var orbitVelocitySource = Math.sqrt(Library_1.Library.gravitationConstant / sourceOrbit);
-                    var velocityI = Math.sqrt(Library_1.Library.gravitationConstant * ((2 / sourceOrbit) - (1 / smAxis)));
+                    var orbitVelocitySource = Math.sqrt(library_1.library.gravitationConstant / sourceOrbit);
+                    var velocityI = Math.sqrt(library_1.library.gravitationConstant * ((2 / sourceOrbit) - (1 / smAxis)));
                     var deltaVI = velocityI - orbitVelocitySource;
                     console.log("Insertion Burn for: " + source.name + +": " + Math.ceil(deltaVI) + "m/s");
                     // Calculate deltaV for Arrival Burn (in m/s)
-                    var orbitVelocityDestination = Math.sqrt(Library_1.Library.gravitationConstant / destinationOrbit);
-                    var velocityA = Math.sqrt(Library_1.Library.gravitationConstant * ((2 / destinationOrbit) - (1 / smAxis)));
+                    var orbitVelocityDestination = Math.sqrt(library_1.library.gravitationConstant / destinationOrbit);
+                    var velocityA = Math.sqrt(library_1.library.gravitationConstant * ((2 / destinationOrbit) - (1 / smAxis)));
                     var deltaVA = velocityA - orbitVelocityDestination;
                     console.log("Arrival Burn for: " + destination.name + ": " + Math.ceil(deltaVA) + "m/s");
                     // Calculate total deltaV (in m/s)
@@ -43,7 +43,7 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     console.log("======= Calculating Hohman Transfer Time =========");
                     var piSquared = Math.pow(Math.PI, 2);
                     var smAxis = Math.pow(this.calculateSMAxis(source, destination), 3);
-                    var timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / Library_1.Library.gravitationConstant);
+                    var timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / library_1.library.gravitationConstant);
                     var time = timeSeconds / 86400;
                     console.log("Time in days from " + source.name + " to " + destination.name + ": " + Math.floor(time) + " days");
                     return Math.floor(time);
@@ -53,15 +53,15 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     var inferiorOrbit = 0;
                     var superiorOrbit = 0;
                     if (source.orbitRadius > destination.orbitRadius) {
-                        inferiorOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
-                        superiorOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
+                        inferiorOrbit = destination.orbitRadius * library_1.library.astronomicalUnit;
+                        superiorOrbit = source.orbitRadius * library_1.library.astronomicalUnit;
                     }
                     else {
-                        inferiorOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
-                        superiorOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
+                        inferiorOrbit = source.orbitRadius * library_1.library.astronomicalUnit;
+                        superiorOrbit = destination.orbitRadius * library_1.library.astronomicalUnit;
                     }
-                    var orbitPeriodI = 2 * Math.PI * Math.sqrt(Math.pow(inferiorOrbit, 3) / Library_1.Library.gravitationConstant);
-                    var orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / Library_1.Library.gravitationConstant);
+                    var orbitPeriodI = 2 * Math.PI * Math.sqrt(Math.pow(inferiorOrbit, 3) / library_1.library.gravitationConstant);
+                    var orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / library_1.library.gravitationConstant);
                     var synodicPeriod = 1 / ((1 / orbitPeriodI) - (1 / orbitPeriodS));
                     var window = synodicPeriod / 86400;
                     console.log("The Launch Window for " + source.name + " to " + destination.name + " is every " + Math.floor(window) + " days");
@@ -69,8 +69,8 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                 };
                 travelManager.calculateHohmanLaunchTiming = function (source, destination) {
                     console.log("======= Calculating Hohman Launch Angle ==========");
-                    var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
-                    var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
+                    var sourceOrbit = source.orbitRadius * library_1.library.astronomicalUnit;
+                    var destinationOrbit = destination.orbitRadius * library_1.library.astronomicalUnit;
                     var inner = Math.pow(sourceOrbit / destinationOrbit + 1, 3);
                     var angleRadian = Math.PI * (1 - (0.35355 * Math.sqrt(inner)));
                     angleRadian = angleRadian % (Math.PI * 2);
@@ -110,14 +110,14 @@ System.register(["./vector2d", "./Library"], function(exports_1, context_1) {
                     return (daysToAngle - travelTime);
                 };
                 travelManager.calculateSMAxis = function (source, destination) {
-                    var sourceOrbit = source.orbitRadius * Library_1.Library.astronomicalUnit;
-                    var destinationOrbit = destination.orbitRadius * Library_1.Library.astronomicalUnit;
+                    var sourceOrbit = source.orbitRadius * library_1.library.astronomicalUnit;
+                    var destinationOrbit = destination.orbitRadius * library_1.library.astronomicalUnit;
                     var smAxis = (+sourceOrbit + +destinationOrbit) / 2;
                     return smAxis;
                 };
                 travelManager.calculateTravelDistanceMeters = function (source, destination) {
                     var travelDistance = vector2d_1.vector2d.CalculateDistance(source.currentPosition, destination.currentPosition);
-                    var travelDistanceMeters = travelDistance * Library_1.Library.astronomicalUnit;
+                    var travelDistanceMeters = travelDistance * library_1.library.astronomicalUnit;
                     return travelDistanceMeters;
                 };
                 travelManager.findDateForObjectangle = function (source, destination, actualDate, targetAngle) {

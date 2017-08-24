@@ -3,7 +3,7 @@ import { planet } from "./../objects/planet";
 import { moon } from "./../objects/moon";
 import { cObject } from "./../objects/cObject";
 import { vector2d } from "./vector2d";
-import { Library } from "./Library";
+import { library } from "./library";
 
 
 export class travelManager {
@@ -11,20 +11,20 @@ export class travelManager {
     static calculateHohmanDeltaV(source: cObject, destination: cObject) {
         let hohmanResults:number[] = [];
         console.log("========= Calculating Hohman Maneuver ============");
-        let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
-        let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
+        let sourceOrbit = source.orbitRadius * library.astronomicalUnit;
+        let destinationOrbit = destination.orbitRadius * library.astronomicalUnit;
         let smAxis = this.calculateSMAxis(source, destination);
 
         // Calculate deltaV for Insertion Burn (in m/s)
-        let orbitVelocitySource = Math.sqrt(Library.gravitationConstant / sourceOrbit);
-        let velocityI = Math.sqrt(Library.gravitationConstant * ((2 / sourceOrbit) - (1 / smAxis)));
+        let orbitVelocitySource = Math.sqrt(library.gravitationConstant / sourceOrbit);
+        let velocityI = Math.sqrt(library.gravitationConstant * ((2 / sourceOrbit) - (1 / smAxis)));
         let deltaVI = velocityI - orbitVelocitySource;
         console.log("Insertion Burn for: " + source.name + + ": " + Math.ceil(deltaVI) + "m/s" );
         
 
         // Calculate deltaV for Arrival Burn (in m/s)
-        let orbitVelocityDestination = Math.sqrt(Library.gravitationConstant / destinationOrbit);
-        let velocityA = Math.sqrt(Library.gravitationConstant * ((2 / destinationOrbit) - (1 / smAxis)));
+        let orbitVelocityDestination = Math.sqrt(library.gravitationConstant / destinationOrbit);
+        let velocityA = Math.sqrt(library.gravitationConstant * ((2 / destinationOrbit) - (1 / smAxis)));
         let deltaVA = velocityA - orbitVelocityDestination;
         console.log("Arrival Burn for: " + destination.name + ": " + Math.ceil(deltaVA)+ "m/s");
         
@@ -43,7 +43,7 @@ export class travelManager {
         console.log("======= Calculating Hohman Transfer Time =========");
         let piSquared = Math.pow(Math.PI, 2);
         let smAxis = Math.pow(this.calculateSMAxis(source, destination), 3);
-        let timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / Library.gravitationConstant);
+        let timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / library.gravitationConstant);
         let time = timeSeconds / 86400;
         console.log("Time in days from " + source.name + " to " + destination.name + ": " + Math.floor(time)+" days");
         return Math.floor(time);
@@ -54,15 +54,15 @@ export class travelManager {
         var inferiorOrbit = 0;
         var superiorOrbit = 0;
         if (source.orbitRadius > destination.orbitRadius) {
-            inferiorOrbit = destination.orbitRadius * Library.astronomicalUnit;
-            superiorOrbit = source.orbitRadius * Library.astronomicalUnit;
+            inferiorOrbit = destination.orbitRadius * library.astronomicalUnit;
+            superiorOrbit = source.orbitRadius * library.astronomicalUnit;
         }
         else {
-            inferiorOrbit = source.orbitRadius * Library.astronomicalUnit;
-            superiorOrbit = destination.orbitRadius * Library.astronomicalUnit;
+            inferiorOrbit = source.orbitRadius * library.astronomicalUnit;
+            superiorOrbit = destination.orbitRadius * library.astronomicalUnit;
         }
-        let orbitPeriodI = 2 * Math.PI * Math.sqrt(Math.pow(inferiorOrbit, 3) / Library.gravitationConstant);
-        let orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / Library.gravitationConstant);
+        let orbitPeriodI = 2 * Math.PI * Math.sqrt(Math.pow(inferiorOrbit, 3) / library.gravitationConstant);
+        let orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / library.gravitationConstant);
         let synodicPeriod = 1 / ((1 / orbitPeriodI) - (1 / orbitPeriodS));
         let window: number = synodicPeriod / 86400;
         console.log("The Launch Window for " + source.name + " to " + destination.name + " is every " + Math.floor(window) + " days");
@@ -72,8 +72,8 @@ export class travelManager {
     static calculateHohmanLaunchTiming(source: cObject, destination: cObject) {
         console.log("======= Calculating Hohman Launch Angle ==========");
 
-        let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
-        let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
+        let sourceOrbit = source.orbitRadius * library.astronomicalUnit;
+        let destinationOrbit = destination.orbitRadius * library.astronomicalUnit;
         let inner = Math.pow(sourceOrbit / destinationOrbit + 1, 3);
         let angleRadian = Math.PI * (1 - (0.35355 * Math.sqrt(inner)));
         angleRadian = angleRadian%(Math.PI*2);
@@ -120,15 +120,15 @@ export class travelManager {
 
 
     private static calculateSMAxis(source: cObject, destination: cObject) {
-        let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
-        let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
+        let sourceOrbit = source.orbitRadius * library.astronomicalUnit;
+        let destinationOrbit = destination.orbitRadius * library.astronomicalUnit;
         let smAxis = (+sourceOrbit + +destinationOrbit) / 2;
         return smAxis;
     }
 
     private static calculateTravelDistanceMeters(source: cObject, destination: cObject) {
         let travelDistance = vector2d.CalculateDistance(source.currentPosition, destination.currentPosition);
-        let travelDistanceMeters = travelDistance * Library.astronomicalUnit;
+        let travelDistanceMeters = travelDistance * library.astronomicalUnit;
         return travelDistanceMeters
     }
 

@@ -1,6 +1,59 @@
+html, body {
+  height: 100%; }
+
+body {
+  overflow: hidden;
+  margin: 0px;
+  background-color: #181828; }
+
+* {
+  color: #61DCEF; }
+
+#simulator {
+  position: relative;
+  height: 100%;
+  width: 100%; }
+
+.menuLabel {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 30px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(12, 105, 124, 0.7);
+  border-left: 1px solid #61DCEF; }
+  .menuLabel:hover {
+    background-color: rgba(30, 135, 157, 0.7); }
+  .menuLabel .menuLabelContent:before {
+    content: "<";
+    font-weight: bolder; }
+
+#menuToggle {
+  display: none;
+  /* hide the checkbox */ }
+  #menuToggle:checked ~ .menuLabel {
+    right: 400px; }
+    #menuToggle:checked ~ .menuLabel .menuLabelContent:before {
+      content: ">";
+      font-weight: bolder; }
+  #menuToggle:checked ~ #menu {
+    display: block; }
+
+#menu {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  width: 400px;
+  border-left: 1px solid #61DCEF;
+  background-color: rgba(12, 105, 124, 0.7); }
+
 #simulatorCanvas {
-  z-index: -1;
-  border: 1px solid #61DCEF; }
+  z-index: -1; }
 
 #travelControls {
   display: inline-block;
@@ -70,10 +123,7 @@
     margin: 5px;
     padding: 5px;
     display: inline-flex;
-    justify-content: space-between;
-    /* Special styling for WebKit/Blink */
-    /* All the same stuff for Firefox */
-    /* All the same stuff for IE */ }
+    justify-content: space-between; }
     #animationControls .slider label {
       width: 25%;
       text-transform: uppercase; }
@@ -86,130 +136,74 @@
       width: 75%;
       /* Specific width is required for Firefox. */
       background: transparent;
-      /* Otherwise white in Chrome */ }
-    #animationControls .slider input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; }
-    #animationControls .slider input[type=range]:focus {
-      outline: none;
-      /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
-    #animationControls .slider input[type=range]::-ms-track {
-      width: 100%;
-      cursor: pointer;
-      /* Hides the slider so custom styles can be added */
-      background: transparent;
-      border-color: transparent;
-      color: transparent; }
-    #animationControls .slider input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      border: 1px solid #6FCFDE;
-      height: 18px;
-      width: 14px;
-      border-radius: 3px;
-      background: #393949;
-      cursor: pointer;
-      margin-top: -7px;
-      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      /* Add cool effects to your sliders! */ }
-    #animationControls .slider input[type=range]::-moz-range-thumb {
-      border: 1px solid #6FCFDE;
-      height: 18px;
-      width: 14px;
-      border-radius: 3px;
-      background: #393949;
-      cursor: pointer;
-      margin-top: -7px;
-      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      /* Add cool effects to your sliders! */ }
-    #animationControls .slider input[type=range]::-ms-thumb {
-      border: 1px solid #6FCFDE;
-      height: 18px;
-      width: 14px;
-      border-radius: 3px;
-      background: #393949;
-      cursor: pointer;
-      margin-top: -7px;
-      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      /* Add cool effects to your sliders! */ }
-    #animationControls .slider input[type=range]::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 8.4px;
-      cursor: pointer;
-      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      background: #3FAFC0;
-      border-radius: 1.3px;
-      border: 0.2px solid #393949; }
-    #animationControls .slider input[type=range]:focus::-webkit-slider-runnable-track {
-      background: #6FCFDE; }
-    #animationControls .slider input[type=range]::-moz-range-track {
-      width: 100%;
-      height: 8.4px;
-      cursor: pointer;
-      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-      background: #3FAFC0;
-      border-radius: 1.3px;
-      border: 0.2px solid #393949; }
-
-html, body {
-  height: 100%; }
-
-body {
-  overflow: hidden;
-  margin: 0px;
-  background-color: #181828; }
-
-* {
-  color: #61DCEF; }
-
-#simulator {
-  position: relative;
-  height: 100%;
-  width: 100%; }
-
-.menuLabel {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  width: 4%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background-color: rgba(12, 105, 124, 0.7);
-  border-left: 1px solid #61DCEF; }
-  .menuLabel:hover {
-    background-color: rgba(30, 135, 157, 0.7); }
-  .menuLabel .menuLabelContent:before {
-    content: "<";
-    font-weight: bolder; }
-
-#menuToggle {
-  display: none;
-  /* hide the checkbox */ }
-
-#menu {
-  display: none; }
-
-#menu {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  height: 100%;
-  width: 400px;
-  border-left: 1px solid #61DCEF;
-  background-color: rgba(12, 105, 124, 0.7); }
-
-#menuToggle:checked ~ .menuLabel {
-  right: 400px; }
-  #menuToggle:checked ~ .menuLabel .menuLabelContent:before {
-    content: ">";
-    font-weight: bolder; }
-
-#menuToggle:checked ~ #menu {
-  display: block; }
+      /* Otherwise white in Chrome */
+      /* Special styling for WebKit/Blink */
+      /* All the same stuff for Firefox */
+      /* All the same stuff for IE */ }
+      #animationControls .slider input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none; }
+      #animationControls .slider input[type=range]:focus {
+        outline: none;
+        /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }
+      #animationControls .slider input[type=range]::-ms-track {
+        width: 100%;
+        cursor: pointer;
+        /* Hides the slider so custom styles can be added */
+        background: transparent;
+        border-color: transparent;
+        color: transparent; }
+      #animationControls .slider input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: 1px solid #6FCFDE;
+        height: 18px;
+        width: 14px;
+        border-radius: 3px;
+        background: #393949;
+        cursor: pointer;
+        margin-top: -7px;
+        /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        /* Add cool effects to your sliders! */ }
+      #animationControls .slider input[type=range]::-moz-range-thumb {
+        border: 1px solid #6FCFDE;
+        height: 18px;
+        width: 14px;
+        border-radius: 3px;
+        background: #393949;
+        cursor: pointer;
+        margin-top: -7px;
+        /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        /* Add cool effects to your sliders! */ }
+      #animationControls .slider input[type=range]::-ms-thumb {
+        border: 1px solid #6FCFDE;
+        height: 18px;
+        width: 14px;
+        border-radius: 3px;
+        background: #393949;
+        cursor: pointer;
+        margin-top: -7px;
+        /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        /* Add cool effects to your sliders! */ }
+      #animationControls .slider input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        background: #3FAFC0;
+        border-radius: 1.3px;
+        border: 0.2px solid #393949; }
+      #animationControls .slider input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #6FCFDE; }
+      #animationControls .slider input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        background: #3FAFC0;
+        border-radius: 1.3px;
+        border: 0.2px solid #393949; }
 
 #travelCalculationResults {
   display: inline-block;

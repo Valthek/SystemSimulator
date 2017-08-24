@@ -1,4 +1,4 @@
-export class Library {
+export class library {
     //Astronomical unit in meters
     public static get astronomicalUnit() { return 149597870700 };
     // gravitation constant for Antara TODO: make editable
@@ -24,6 +24,6 @@ export class Library {
     public static arbitraryArray(size)
     {
         // return an arbitrarily large sized array (mostly for ngFor loops)
-        return size?Library.arbitraryArray(size-1).concat(size):[]
+        return size?library.arbitraryArray(size-1).concat(size):[]
     }
 }

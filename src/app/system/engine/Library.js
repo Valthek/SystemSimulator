@@ -1,28 +1,28 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Library;
+    var library;
     return {
         setters:[],
         execute: function() {
-            Library = (function () {
-                function Library() {
+            library = (function () {
+                function library() {
                 }
-                Object.defineProperty(Library, "astronomicalUnit", {
+                Object.defineProperty(library, "astronomicalUnit", {
                     //Astronomical unit in meters
                     get: function () { return 149597870700; },
                     enumerable: true,
                     configurable: true
                 });
                 ;
-                Object.defineProperty(Library, "gravitationConstant", {
+                Object.defineProperty(library, "gravitationConstant", {
                     // gravitation constant for Antara TODO: make editable
                     get: function () { return 116798853600000000000; },
                     enumerable: true,
                     configurable: true
                 });
                 ;
-                Object.defineProperty(Library, "monthsInAYear", {
+                Object.defineProperty(library, "monthsInAYear", {
                     get: function () {
                         var months;
                         (function (months) {
@@ -44,13 +44,13 @@ System.register([], function(exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
-                Library.arbitraryArray = function (size) {
+                library.arbitraryArray = function (size) {
                     // return an arbitrarily large sized array (mostly for ngFor loops)
-                    return size ? Library.arbitraryArray(size - 1).concat(size) : [];
+                    return size ? library.arbitraryArray(size - 1).concat(size) : [];
                 };
-                return Library;
+                return library;
             }());
-            exports_1("Library", Library);
+            exports_1("library", library);
         }
     }
 });

@@ -1,4 +1,4 @@
-import { Library } from './system/engine/Library';
+import { library } from './system/engine/library';
 import { Component, Directive, View, ViewChild, AfterViewInit, NgZone, ElementRef } from "angular2/core";
 import { FORM_DIRECTIVES } from 'angular2/common';
 import { planet } from "./system/objects/planet";
@@ -255,8 +255,8 @@ export class AppComponent implements AfterViewInit {
     }
 
     private loadDateVisualisation() {
-        this.daysList = Library.arbitraryArray(28);
+        this.daysList = library.arbitraryArray(28);
         this.monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        this.yearsList = Library.arbitraryArray(50);
+        this.yearsList = library.arbitraryArray(50);
     }
 }

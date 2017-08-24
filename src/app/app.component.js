@@ -1,4 +1,4 @@
-System.register(['./system/engine/Library', "angular2/core", "./system/engine/vector2d", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
+System.register(['./system/engine/library', "angular2/core", "./system/engine/vector2d", "./system/loadObjects", "./system/engine/canvasManager", "./system/engine/travelManager"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,12 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var Library_1, core_1, vector2d_1, loadObjects_1, canvasManager_1, travelManager_1;
+    var library_1, core_1, vector2d_1, loadObjects_1, canvasManager_1, travelManager_1;
     var AppComponent;
     return {
         setters:[
-            function (Library_1_1) {
-                Library_1 = Library_1_1;
+            function (library_1_1) {
+                library_1 = library_1_1;
             },
             function (core_1_1) {
                 core_1 = core_1_1;
@@ -231,9 +231,9 @@ System.register(['./system/engine/Library', "angular2/core", "./system/engine/ve
                     this.planets = loadObjects_1.loadObjects.loadPlanets();
                 };
                 AppComponent.prototype.loadDateVisualisation = function () {
-                    this.daysList = Library_1.Library.arbitraryArray(28);
+                    this.daysList = library_1.library.arbitraryArray(28);
                     this.monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                    this.yearsList = Library_1.Library.arbitraryArray(50);
+                    this.yearsList = library_1.library.arbitraryArray(50);
                 };
                 __decorate([
                     core_1.ViewChild("simulatorCanvas"), 
