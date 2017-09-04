@@ -12,14 +12,14 @@ System.register([], function(exports_1, context_1) {
                 canvasManager.clearCanvas = function (context) {
                     context.clearRect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
                 };
-                canvasManager.drawPlanet = function (context, planet, zoomLevel, showName) {
+                canvasManager.drawPlanet = function (context, planet, zoomLevel, showName, positionOffset) {
                     // Draw a planet at their appropriate coordinates
                     // Coordinates are absolute for the planet compared to origin, centered on canvas
                     var zoom = this.getZoom(context, zoomLevel);
                     context.beginPath();
                     context.fillStyle = planet.color;
-                    var x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2);
-                    var y = ((planet.currentPosition.y) * zoom + context.canvas.clientHeight / 2);
+                    var x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2) + positionOffset.x;
+                    var y = ((planet.currentPosition.y) * zoom + context.canvas.clientHeight / 2) + positionOffset.y;
                     context.moveTo(x, y);
                     context.arc(x, y, planet.size, 0, Math.PI * 2);
                     context.fill();
@@ -29,14 +29,14 @@ System.register([], function(exports_1, context_1) {
                         context.fillText(planet.name, (x - 15), y + 15);
                     }
                 };
-                canvasManager.drawMoon = function (context, moon, zoomLevel, showName) {
+                canvasManager.drawMoon = function (context, moon, zoomLevel, showName, positionOffset) {
                     // Draw a moon at their appropriate coordinates
                     // Coordinates are absolute for the planet compared to the mother planet's
                     var zoom = this.getZoom(context, zoomLevel);
                     context.beginPath();
                     context.fillStyle = moon.color;
-                    var x = ((moon.currentPosition.x) * zoom + context.canvas.clientWidth / 2);
-                    var y = ((moon.currentPosition.y) * zoom + context.canvas.clientHeight / 2);
+                    var x = ((moon.currentPosition.x) * zoom + context.canvas.clientWidth / 2) + positionOffset.x;
+                    var y = ((moon.currentPosition.y) * zoom + context.canvas.clientHeight / 2) + positionOffset.y;
                     context.moveTo(x, y);
                     context.arc(x, y, moon.size, 0, Math.PI * 2);
                     context.fill();
@@ -47,24 +47,24 @@ System.register([], function(exports_1, context_1) {
                     }
                 };
                 // Draw a circle indicating a celestial object's orbit
-                canvasManager.drawOrbit = function (context, object, parent, zoomLevel, width) {
+                canvasManager.drawOrbit = function (context, object, parent, zoomLevel, width, positionOffset) {
                     var zoom = this.getZoom(context, zoomLevel);
                     context.beginPath();
                     context.lineWidth = 1;
                     context.strokeStyle = "#12B4CE";
-                    var x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2;
-                    var y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2;
+                    var x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
+                    var y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2 + positionOffset.y;
                     context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
                     context.stroke();
                 };
                 // Fill in an area with color to indicate the aproximate location of an object's orbit
-                canvasManager.drawObjectArea = function (context, object, objectOrbitWidth, zoomLevel, showName) {
+                canvasManager.drawObjectArea = function (context, object, objectOrbitWidth, zoomLevel, showName, positionOffset) {
                     var zoom = this.getZoom(context, zoomLevel);
                     context.beginPath();
                     context.strokeStyle = object.color;
                     context.lineWidth = object.size;
-                    var x = context.canvas.clientWidth / 2;
-                    var y = context.canvas.clientHeight / 2;
+                    var x = context.canvas.clientWidth / 2 + positionOffset.x;
+                    var y = context.canvas.clientHeight / 2 + positionOffset.y;
                     context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
                     context.stroke();
                     if (showName) {

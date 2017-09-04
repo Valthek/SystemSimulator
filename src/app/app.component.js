@@ -60,6 +60,8 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.hohmanResults = new Array(5);
                     this.brachistochroneResults = new Array(16);
                     this.showResults = false;
+                    // mouse variables
+                    this.mouseDown = false;
                     // internal data
                     this.actualDate = 0;
                     this.actualZoom = 1;
@@ -118,9 +120,31 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.brachistochroneResults[7] = "" + travelManager_1.travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
                     this.brachistochroneResults[8] = "" + travelManager_1.travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4, this.actualDate);
                 };
-                AppComponent.prototype.canvasMouseDown = function () {
-                    console.log("mouse down");
+                /* Mouse events */
+                AppComponent.prototype.onMousedown = function (event) {
+                    if (event.path[0].id == "simulatorCanvas") {
+                        this.mouseDown = true;
+                    }
                 };
+                AppComponent.prototype.onMouseScroll = function (event) {
+                    if (event.path[0].id == "simulatorCanvas") {
+                        this.zoomLevel += 0.01 * event.deltaY;
+                    }
+                    if (event.path[0].id == "menu") {
+                        this.simSpeed += 0.01 * event.deltaY;
+                    }
+                };
+                AppComponent.prototype.onMousemove = function (event) {
+                    if (this.mouseDown) {
+                        this.systemPositionOffset.x = event.clientX - (this.viewportWidth / 2);
+                        this.systemPositionOffset.y = event.clientY - (this.viewportHeight / 2);
+                        console.log("x: " + this.systemPositionOffset.x + " y: " + this.systemPositionOffset.y);
+                    }
+                };
+                AppComponent.prototype.onMouseup = function () {
+                    this.mouseDown = false;
+                };
+                /* Mouse events */
                 AppComponent.prototype.lockTime = function () {
                     this.dateUnlocked = false;
                 };
@@ -162,21 +186,21 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     // deal with Canvas & Background
                     canvasManager_1.canvasManager.clearCanvas(ctx);
                     canvasManager_1.canvasManager.drawSky(ctx);
+                    canvasManager_1.canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, false, this.systemPositionOffset);
                     // draw all the planets
                     for (var p = 0; p < this.planets.length; p++) {
-                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1);
-                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.actualZoom, true);
+                        canvasManager_1.canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset);
+                        canvasManager_1.canvasManager.drawPlanet(ctx, this.planets[p], this.actualZoom, true, this.systemPositionOffset);
                         // Update Moons 
                         if (this.showMoons && this.planets[p].moons.length != 0) {
                             for (var m = 0; m < this.planets[p].moons.length; m++) {
-                                canvasManager_1.canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false);
+                                canvasManager_1.canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false, this.systemPositionOffset);
                             }
                         }
                     }
-                    canvasManager_1.canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, false);
                     // draw empty or unidentified orbits
                     for (var c = 1; c < this.cObjects.length; c++) {
-                        canvasManager_1.canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true);
+                        canvasManager_1.canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true, this.systemPositionOffset);
                     }
                 };
                 AppComponent.prototype.updateGUI = function () {
@@ -239,6 +263,30 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     core_1.ViewChild("simulatorCanvas"), 
                     __metadata('design:type', core_1.ElementRef)
                 ], AppComponent.prototype, "myCanvas", void 0);
+                __decorate([
+                    core_1.HostListener('mousedown', ['$event']), 
+                    __metadata('design:type', Function), 
+                    __metadata('design:paramtypes', [Object]), 
+                    __metadata('design:returntype', void 0)
+                ], AppComponent.prototype, "onMousedown", null);
+                __decorate([
+                    core_1.HostListener('wheel', ['$event']), 
+                    __metadata('design:type', Function), 
+                    __metadata('design:paramtypes', [Object]), 
+                    __metadata('design:returntype', void 0)
+                ], AppComponent.prototype, "onMouseScroll", null);
+                __decorate([
+                    core_1.HostListener('mousemove', ['$event']), 
+                    __metadata('design:type', Function), 
+                    __metadata('design:paramtypes', [MouseEvent]), 
+                    __metadata('design:returntype', void 0)
+                ], AppComponent.prototype, "onMousemove", null);
+                __decorate([
+                    core_1.HostListener('mouseup'), 
+                    __metadata('design:type', Function), 
+                    __metadata('design:paramtypes', []), 
+                    __metadata('design:returntype', void 0)
+                ], AppComponent.prototype, "onMouseup", null);
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'simulator',

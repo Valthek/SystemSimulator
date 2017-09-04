@@ -10,15 +10,15 @@ export class canvasManager {
         context.clearRect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
     }
 
-    static drawPlanet(context, planet: cObject, zoomLevel: number, showName: boolean) {
+    static drawPlanet(context, planet: cObject, zoomLevel: number, showName: boolean, positionOffset:vector2d) {
         // Draw a planet at their appropriate coordinates
         // Coordinates are absolute for the planet compared to origin, centered on canvas
         let zoom:number = this.getZoom(context, zoomLevel);
 
         context.beginPath();
         context.fillStyle = planet.color;
-        let x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2);
-        let y = ((planet.currentPosition.y) * zoom + context.canvas.clientHeight / 2);
+        let x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2)  + positionOffset.x;
+        let y = ((planet.currentPosition.y) * zoom + context.canvas.clientHeight / 2) + positionOffset.y;
         context.moveTo(x, y);
         context.arc(x, y, planet.size, 0, Math.PI * 2);
         context.fill();
@@ -29,15 +29,15 @@ export class canvasManager {
         }
     }
 
-    static drawMoon(context, moon: moon, zoomLevel: number, showName: boolean) {
+    static drawMoon(context, moon: moon, zoomLevel: number, showName: boolean, positionOffset:vector2d) {
         // Draw a moon at their appropriate coordinates
         // Coordinates are absolute for the planet compared to the mother planet's
         let zoom:number = this.getZoom(context, zoomLevel);
 
         context.beginPath();
         context.fillStyle = moon.color;
-        let x = ((moon.currentPosition.x) * zoom + context.canvas.clientWidth / 2);
-        let y = ((moon.currentPosition.y) * zoom + context.canvas.clientHeight / 2);
+        let x = ((moon.currentPosition.x) * zoom + context.canvas.clientWidth / 2) + positionOffset.x;
+        let y = ((moon.currentPosition.y) * zoom + context.canvas.clientHeight / 2)+ positionOffset.y;
         context.moveTo(x, y);
         context.arc(x, y, moon.size, 0, Math.PI * 2);
         context.fill();
@@ -49,26 +49,26 @@ export class canvasManager {
     }
 
     // Draw a circle indicating a celestial object's orbit
-    static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number) {
+    static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number, positionOffset:vector2d) {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.lineWidth = 1;
         context.strokeStyle = "#12B4CE";
-        let x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2;
-        let y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2;
+        let x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
+        let y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2+ positionOffset.y;
         context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
 
     }
 
     // Fill in an area with color to indicate the aproximate location of an object's orbit
-    static drawObjectArea(context, object: cObject, objectOrbitWidth: number, zoomLevel: number, showName: boolean) {
+    static drawObjectArea(context, object: cObject, objectOrbitWidth: number, zoomLevel: number, showName: boolean, positionOffset:vector2d) {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.strokeStyle = object.color;
         context.lineWidth = object.size;
-        let x = context.canvas.clientWidth / 2;
-        let y = context.canvas.clientHeight / 2;
+        let x = context.canvas.clientWidth / 2 + positionOffset.x;
+        let y = context.canvas.clientHeight / 2+ positionOffset.y;
         context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
         if (showName) {
