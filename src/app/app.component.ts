@@ -57,6 +57,7 @@ export class AppComponent implements AfterViewInit {
 
     // mouse variables
     private mouseDown: boolean = false;
+    private lastMousePosition: vector2d = new vector2d(0,0);
 
     // internal data
     private actualDate: number = 0;
@@ -136,13 +137,18 @@ export class AppComponent implements AfterViewInit {
     onMousedown(event) {
         if (event.path[0].id == "simulatorCanvas") {
             this.mouseDown = true;
+            this.lastMousePosition = new vector2d(event.clientX - (this.viewportWidth / 2), event.clientY - (this.viewportHeight / 2));
         }
     }
 
     @HostListener('wheel', ['$event'])
     onMouseScroll(event){
         if (event.path[0].id == "simulatorCanvas") {
-            this.zoomLevel += 0.01 * event.deltaY;
+            if (this.zoomLevel + (0.01 * event.deltaY) > 0)
+                {
+                    this.zoomLevel = +(this.zoomLevel) +  +(0.01 * event.deltaY);
+                }
+            console.log(this.zoomLevel);
         }
         if (event.path[0].id == "menu") {
             this.simSpeed += 0.01 * event.deltaY;
@@ -153,9 +159,10 @@ export class AppComponent implements AfterViewInit {
     @HostListener('mousemove', ['$event'])
     onMousemove(event: MouseEvent) {
         if (this.mouseDown) {
-            this.systemPositionOffset.x = event.clientX - (this.viewportWidth / 2);
-            this.systemPositionOffset.y = event.clientY - (this.viewportHeight / 2);
+            this.systemPositionOffset.x += (event.clientX - (this.viewportWidth / 2) - this.lastMousePosition.x);
+            this.systemPositionOffset.y += (event.clientY - (this.viewportHeight / 2) - this.lastMousePosition.y);
             console.log("x: " + this.systemPositionOffset.x + " y: " + this.systemPositionOffset.y);
+            this.lastMousePosition = this.systemPositionOffset;
         }
     }
 
@@ -163,9 +170,6 @@ export class AppComponent implements AfterViewInit {
     onMouseup() {
         this.mouseDown = false;
     }
-
-
-
     /* Mouse events */
 
     lockTime() {

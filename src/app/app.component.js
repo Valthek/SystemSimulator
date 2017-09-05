@@ -62,6 +62,7 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.showResults = false;
                     // mouse variables
                     this.mouseDown = false;
+                    this.lastMousePosition = new vector2d_1.vector2d(0, 0);
                     // internal data
                     this.actualDate = 0;
                     this.actualZoom = 1;
@@ -124,11 +125,15 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                 AppComponent.prototype.onMousedown = function (event) {
                     if (event.path[0].id == "simulatorCanvas") {
                         this.mouseDown = true;
+                        this.lastMousePosition = new vector2d_1.vector2d(event.clientX - (this.viewportWidth / 2), event.clientY - (this.viewportHeight / 2));
                     }
                 };
                 AppComponent.prototype.onMouseScroll = function (event) {
                     if (event.path[0].id == "simulatorCanvas") {
-                        this.zoomLevel += 0.01 * event.deltaY;
+                        if (this.zoomLevel + (0.01 * event.deltaY) > 0) {
+                            this.zoomLevel = +(this.zoomLevel) + +(0.01 * event.deltaY);
+                        }
+                        console.log(this.zoomLevel);
                     }
                     if (event.path[0].id == "menu") {
                         this.simSpeed += 0.01 * event.deltaY;
@@ -136,9 +141,10 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                 };
                 AppComponent.prototype.onMousemove = function (event) {
                     if (this.mouseDown) {
-                        this.systemPositionOffset.x = event.clientX - (this.viewportWidth / 2);
-                        this.systemPositionOffset.y = event.clientY - (this.viewportHeight / 2);
+                        this.systemPositionOffset.x += (event.clientX - (this.viewportWidth / 2) - this.lastMousePosition.x);
+                        this.systemPositionOffset.y += (event.clientY - (this.viewportHeight / 2) - this.lastMousePosition.y);
                         console.log("x: " + this.systemPositionOffset.x + " y: " + this.systemPositionOffset.y);
+                        this.lastMousePosition = this.systemPositionOffset;
                     }
                 };
                 AppComponent.prototype.onMouseup = function () {
