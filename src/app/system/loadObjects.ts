@@ -7,12 +7,12 @@ declare var $: any;
 
 export class loadObjects {
 
-  static loadPlanets(): planet[] {
+  static loadPlanets(source:string): planet[] {
     let planets: planet[] = [];
     let planetNumber: number = 0;
     $.ajax({
       type: "GET",
-      url: "/data/system.xml",
+      url: "/data/" + source,
       dataType: "xml",
       success: function (data) {
         $(data).find("planet").each(function (index) {
@@ -49,12 +49,12 @@ export class loadObjects {
     return planets;
   }
 
-  static loadCObjects(): cObject[] {
+  static loadCObjects(source:string): cObject[] {
     let cObjects: cObject[] = [];
     let cObjectNumber:number = 0;
     $.ajax({
       type: "GET",
-      url: "/data/system.xml",
+      url: "/data/" + source,
       dataType: "xml",
       success: function (data) {
         $(data).find("cObject").each(function (index) {

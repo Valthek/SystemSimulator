@@ -68,7 +68,7 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.actualZoom = 1;
                     this.thenTime = Date.now();
                     this.loadDateVisualisation();
-                    this.loadAllObjects();
+                    this.loadAllObjects("antara_system.xml");
                     console.log("The simulator has loaded. Starting...");
                     this.isRunning = true;
                 }
@@ -256,9 +256,9 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.currentDateM = month;
                     this.currentDateD = Math.floor(dateRemainder);
                 };
-                AppComponent.prototype.loadAllObjects = function () {
-                    this.cObjects = loadObjects_1.loadObjects.loadCObjects();
-                    this.planets = loadObjects_1.loadObjects.loadPlanets();
+                AppComponent.prototype.loadAllObjects = function (source) {
+                    this.cObjects = loadObjects_1.loadObjects.loadCObjects(source);
+                    this.planets = loadObjects_1.loadObjects.loadPlanets(source);
                 };
                 AppComponent.prototype.loadDateVisualisation = function () {
                     this.daysList = library_1.library.arbitraryArray(28);

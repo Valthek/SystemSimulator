@@ -7,7 +7,8 @@
   <div id="menu">
     <div id="animationControls">
       <div class="slider">
-        <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed" /><br/>
+        <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed"
+        /><br/>
       </div>
       <div class="slider">
         <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />
@@ -75,11 +76,19 @@
         <span>DeltaV required at quarter thrust: {{brachistochroneResults[6]}}km/s</span>
         <span>Travel time: {{brachistochroneResults[7]}} days</span>
         <span>Ideal launch time for quarter thrust is in {{brachistochroneResults[5]}} days </span>
-        </div>
       </div>
+    </div>
     <div id="directFlight">
       <form id="directFlightOptions" (ngSubmit)="calculateDirectFlight()" #travelForm="ngForm">
         <!-- TBD -->
+      </form>
+    </div>
+    <div id="dataSource">
+      <form id="sourceSelectOptions" (ngSubmit)="changeSource()" #sourceForm="ngForm">
+        <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource">
+          <option value="antara_system.xml">Antara</option>
+          <option value="solSystem.xml">Sol</option>
+        </select>
       </form>
     </div>
   </div>

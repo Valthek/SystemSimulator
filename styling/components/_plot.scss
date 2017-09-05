@@ -1,4 +1,5 @@
-#travelControls{
+#travelControls,
+#dataSource{
     display:inline-block;
     width:100%;
     border-bottom: 1px solid $borderColor;
@@ -25,7 +26,7 @@
             border-radius: 3px;
             :focus{
                 border: 1px solid $lightBorderColor;
-            }
+            } 
         }
         button:hover {
             background-color: $backgroundHoverColor;

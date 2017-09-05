@@ -67,7 +67,7 @@ export class AppComponent implements AfterViewInit {
     constructor(private ngZone: NgZone) {
         this.thenTime = Date.now();
         this.loadDateVisualisation();
-        this.loadAllObjects();
+        this.loadAllObjects("antara_system.xml");
         console.log("The simulator has loaded. Starting...");
         this.isRunning = true;
 
@@ -291,9 +291,9 @@ export class AppComponent implements AfterViewInit {
         this.currentDateD = Math.floor(dateRemainder);
     }
 
-    private loadAllObjects() {
-        this.cObjects = loadObjects.loadCObjects();
-        this.planets = loadObjects.loadPlanets();
+    private loadAllObjects(source:string) {
+        this.cObjects = loadObjects.loadCObjects(source);
+        this.planets = loadObjects.loadPlanets(source);
     }
 
     private loadDateVisualisation() {

@@ -18,12 +18,12 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
             loadObjects = (function () {
                 function loadObjects() {
                 }
-                loadObjects.loadPlanets = function () {
+                loadObjects.loadPlanets = function (source) {
                     var planets = [];
                     var planetNumber = 0;
                     $.ajax({
                         type: "GET",
-                        url: "/data/system.xml",
+                        url: "/data/" + source,
                         dataType: "xml",
                         success: function (data) {
                             $(data).find("planet").each(function (index) {
@@ -59,12 +59,12 @@ System.register(["./objects/planet", "./objects/moon", "./objects/cObject"], fun
                     });
                     return planets;
                 };
-                loadObjects.loadCObjects = function () {
+                loadObjects.loadCObjects = function (source) {
                     var cObjects = [];
                     var cObjectNumber = 0;
                     $.ajax({
                         type: "GET",
-                        url: "/data/system.xml",
+                        url: "/data/" + source,
                         dataType: "xml",
                         success: function (data) {
                             $(data).find("cObject").each(function (index) {
