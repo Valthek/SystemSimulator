@@ -56,22 +56,28 @@ body {
 #simulatorCanvas {
   z-index: -1; }
 
-#travelControls {
+#travelControls,
+#dataSource {
   display: inline-block;
   width: 100%;
   border-bottom: 1px solid #6FCFDE;
   padding: 5px 0px; }
-  #travelControls span {
+  #travelControls span,
+  #dataSource span {
     width: 100%;
     padding: 5px 8px;
     text-transform: uppercase; }
-  #travelControls .formElement {
+  #travelControls .formElement,
+  #dataSource .formElement {
     margin: 10px;
     display: flex;
     justify-content: space-between; }
     #travelControls .formElement input,
     #travelControls .formElement select,
-    #travelControls .formElement button {
+    #travelControls .formElement button,
+    #dataSource .formElement input,
+    #dataSource .formElement select,
+    #dataSource .formElement button {
       padding: 5px 8px;
       box-sizing: border-box;
       background-color: #393949;
@@ -79,16 +85,24 @@ body {
       border-radius: 3px; }
       #travelControls .formElement input :focus,
       #travelControls .formElement select :focus,
-      #travelControls .formElement button :focus {
+      #travelControls .formElement button :focus,
+      #dataSource .formElement input :focus,
+      #dataSource .formElement select :focus,
+      #dataSource .formElement button :focus {
         border: 1px solid #9EE2ED; }
-    #travelControls .formElement button:hover {
+    #travelControls .formElement button:hover,
+    #dataSource .formElement button:hover {
       background-color: #283338; }
     #travelControls .formElement input,
-    #travelControls .formElement select {
+    #travelControls .formElement select,
+    #dataSource .formElement input,
+    #dataSource .formElement select {
       width: 75%; }
-    #travelControls .formElement button {
+    #travelControls .formElement button,
+    #dataSource .formElement button {
       width: 100%; }
-    #travelControls .formElement span {
+    #travelControls .formElement span,
+    #dataSource .formElement span {
       width: 25%;
       padding: 5px 8px;
       text-transform: uppercase; }

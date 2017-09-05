@@ -1,5 +1,5 @@
 {
-  "name": "SystemSimulator",
+  "name": "systemsimulator",
   "version": "1.0.0",
   "scripts": {
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
@@ -29,5 +29,16 @@
     "lite-server": "^2.1.0",
     "typescript": "^1.7.5",
     "typings": "^0.6.8"
-  }
+  },
+  "main": "Gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valthek/SystemSimulator.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Valthek/SystemSimulator/issues"
+  },
+  "homepage": "https://github.com/Valthek/SystemSimulator#readme",
+  "description": ""
 }
