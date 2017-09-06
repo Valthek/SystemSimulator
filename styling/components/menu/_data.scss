@@ -1,0 +1,22 @@
+#dataSourceControls
+{
+    @include standard-menu();
+    #sourceSelectOptions
+    {
+        width:95%;
+        margin:5px 5px 0px 5px;
+        padding:5px;
+        display:inline-flex;
+        justify-content: space-between;
+
+        .formElement
+        {
+        width:48%;
+            select,
+            button
+            {
+                width:100%;
+            }
+        }
+    }
+}

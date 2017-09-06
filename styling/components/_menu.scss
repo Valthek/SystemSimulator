@@ -1,0 +1,71 @@
+.menuLabel {
+    position: absolute;
+    right:0px;
+    top:0px;
+    width:30px;
+    height:100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;    
+    background-color:$menuBackground;
+    border-left: 1px solid $textColor;
+
+    &:hover {
+        background-color: $menuBackgroundLight;
+    }
+
+    .menuLabelContent:before{
+        @include symbol-content ("<");
+    }
+} 
+
+#menuToggle {
+    display: none; /* hide the checkbox */
+    &:checked ~ .menuLabel{
+      right:400px;
+  
+      .menuLabelContent:before{
+          @include symbol-content (">");
+      }
+    }
+    &:checked ~ #menu,{
+          display: block;
+        } 
+  }
+  
+  #menu {
+      display:none;
+      position: absolute;
+      right: 0px;
+      top:0px; 
+      height:100%;
+      width: 400px;
+      border-left: 1px solid $textColor;
+      background-color: $menuBackground;
+  
+    #travelControls,
+    #animationControls,
+    #travelCalculationResults,
+    #dataSourceControls{
+        @include standard-menu();
+        @include standard-input();
+
+        .menuElement
+        {
+            width:95%;
+            margin:5px 5px 0px 5px;
+            padding:5px;
+            display:inline-flex;
+            justify-content: space-between;
+        }
+    }
+
+      @import "menu/_time.scss";
+      @import "menu/_plot.scss";
+      @import "menu/_results.scss";
+      @import "menu/_data.scss";
+      
+  }

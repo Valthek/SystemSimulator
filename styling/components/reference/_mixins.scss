@@ -21,9 +21,47 @@
 
 @mixin symbol-content ($symbol) {
     content: $symbol;
-    height: 100%;
-    opacity: 0;
-    position: relative;
-    right: 10px;
+    font-weight:bolder;
     transition: 0.2s;
+}
+
+@mixin standard-input()
+{
+  input, 
+  select,
+  button{
+      padding: 5px 8px;
+      box-sizing: border-box;
+      background-color: $lightBackroundColor;
+      border: 1px solid $borderColor;
+      border-radius: 3px;
+      :focus{
+          border: 1px solid $lightBorderColor;
+      }
+  }
+  button:hover {
+      background-color: $backgroundHoverColor;
+  }
+}
+
+@mixin standard-form() {
+  .formElement{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    
+    .formButton{
+        width:48%;
+    }        
+    .timeSet{
+        width:32%;
+    }
+}
+}
+
+@mixin standard-menu() {
+  display:inline-block;
+  width:100%;
+  border-bottom: 1px solid $borderColor;
+  padding: 5px 0px;
 }

@@ -46,6 +46,7 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.travelDestination = 0;
                     this.travelSource = 0;
                     this.shipThrustInG = 0;
+                    this.systemDataSource = "antara_system.xml";
                     // Visualisation Options
                     this.simSpeed = 1;
                     this.zoomLevel = 10;
@@ -68,7 +69,7 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.actualZoom = 1;
                     this.thenTime = Date.now();
                     this.loadDateVisualisation();
-                    this.loadAllObjects("antara_system.xml");
+                    this.loadAllObjects(this.systemDataSource);
                     console.log("The simulator has loaded. Starting...");
                     this.isRunning = true;
                 }
@@ -151,6 +152,10 @@ System.register(['./system/engine/library', "angular2/core", "./system/engine/ve
                     this.mouseDown = false;
                 };
                 /* Mouse events */
+                AppComponent.prototype.changeDataSource = function () {
+                    console.log(this.systemDataSource);
+                    this.loadAllObjects(this.systemDataSource);
+                };
                 AppComponent.prototype.lockTime = function () {
                     this.dateUnlocked = false;
                 };

@@ -1,0 +1,32 @@
+#travelControls{
+    span{
+        width:100%;
+        padding: 5px 8px;
+        text-transform: uppercase; 
+    }
+
+    #travelOptions{
+        width:100%;
+    .formElement{
+        width:95%;
+        margin:5px 5px 0px 5px;
+        padding:5px;
+        display: inline-flex;
+        justify-content: space-between;
+       
+        input,
+        select {
+            width: 75%;
+        }
+
+        button {
+            width: 100%;
+        }
+        span {
+            width:25%;
+            padding: 5px 8px;
+            text-transform: uppercase; 
+        }
+    }
+}
+}

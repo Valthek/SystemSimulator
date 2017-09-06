@@ -6,55 +6,64 @@
   </label>
   <div id="menu">
     <div id="animationControls">
-      <div class="slider">
-        <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed"
-        /><br/>
-      </div>
-      <div class="slider">
-        <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />
-      </div>
-      <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
-        <div class="formElement">
-          <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
-        <option *ngFor="#day of daysList; #i = index" [value]="i">{{day}}</option>
-        </select>
-
-          <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()">
-        <option *ngFor="#month of monthsList; #i = index" [value]="i">{{month}}</option>
-      </select>
-          <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
-          <option *ngFor="#year of yearsList; #i = index" [value]="i">{{year}} AT</option>
-        </select>
+      <div class="menuElement">
+        <div class="slider">
+          <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed"
+          />
         </div>
-        <div class="formElement">
-          <button type="submit" class="formButton">Change Date</button>
-          <button type="button" class="formButton" id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
+      </div>
+      <div class="menuElement">
+        <div class="slider">
+          <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />
         </div>
-      </form>
+      </div>
+      <div class="menuElement">
+        <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
+          <div class="formElement">
+            <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
+            <option *ngFor="#day of daysList; #i = index" [value]="i">{{day}}</option>
+          </select>
+            <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()">
+            <option *ngFor="#month of monthsList; #i = index" [value]="i">{{month}}</option>
+          </select>
+            <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
+            <option *ngFor="#year of yearsList; #i = index" [value]="i">{{year}} AT</option>
+          </select>
+          </div>
+          <div class="formElement">
+            <button type="submit" class="formButton">Change Date</button>
+            <button type="button" class="formButton" id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
+          </div>
+        </form>
+      </div>
     </div>
     <div id="travelControls">
-      <span>Set travel route</span>
-      <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
-        <div class="formElement">
-          <span>From: </span>
-          <select [(ngModel)]="travelSource">
-      <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
-      </select>
-        </div>
-        <div class="formElement">
-          <span>To: </span>
-          <select [(ngModel)]="travelDestination">
-      <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
-      </select>
-        </div>
-        <div class="formElement">
-          <span>Thrust: </span>
-          <input type="text" [(ngModel)]="shipThrustInG" required>
-        </div>
-        <div class="formElement">
-          <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
-        </div>
-      </form>
+      <div class="menuElement">
+        <span>Set travel route</span>
+      </div>
+      <div class="menuElement">
+        <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
+          <div class="formElement">
+            <span>From: </span>
+            <select [(ngModel)]="travelSource">
+              <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+            </select>
+          </div>
+          <div class="formElement">
+            <span>To: </span>
+            <select [(ngModel)]="travelDestination">
+              <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+            </select>
+          </div>
+          <div class="formElement">
+            <span>Thrust: </span>
+            <input type="text" [(ngModel)]="shipThrustInG" required />
+          </div>
+          <div class="formElement">
+            <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
+          </div>
+        </form>
+      </div>
     </div>
     <div id="travelCalculationResults">
       <div *ngIf="showResults">
@@ -78,17 +87,24 @@
         <span>Ideal launch time for quarter thrust is in {{brachistochroneResults[5]}} days </span>
       </div>
     </div>
-    <div id="directFlight">
+    <div id="directFlightControls">
       <form id="directFlightOptions" (ngSubmit)="calculateDirectFlight()" #travelForm="ngForm">
-        <!-- TBD -->
+        <div class="formElement">
+          <!-- TBD -->
+        </div>
       </form>
     </div>
-    <div id="dataSource">
-      <form id="sourceSelectOptions" (ngSubmit)="changeSource()" #sourceForm="ngForm">
-        <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource">
-          <option value="antara_system.xml">Antara</option>
-          <option value="solSystem.xml">Sol</option>
-        </select>
+    <div id="dataSourceControls">
+      <form id="sourceSelectOptions" (ngSubmit)="changeDataSource()" #sourceForm="ngForm">
+        <div class="formElement">
+          <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource">
+            <option value="antara_system.xml" selected="selected">Antara</option>
+            <option value="sol_system.xml">Sol</option>
+          </select>
+        </div>
+        <div class="formElement">
+          <button type="submit" class="btn btn-success">Change Data Source</button>
+        </div>
       </form>
     </div>
   </div>

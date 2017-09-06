@@ -1,7 +1,5 @@
 #travelCalculationResults{
-    display:inline-block;
-    width:100%;
-    border-bottom: 1px solid $borderColor;
+    @include standard-menu();
 
     span {
         margin: 5px;

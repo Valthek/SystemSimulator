@@ -37,6 +37,8 @@ export class AppComponent implements AfterViewInit {
     travelSource: number = 0;
     shipThrustInG: number = 0;
 
+    systemDataSource: string = "antara_system.xml";
+
     // Visualisation Options
     simSpeed: number = 1;
     zoomLevel: number = 10;
@@ -67,7 +69,7 @@ export class AppComponent implements AfterViewInit {
     constructor(private ngZone: NgZone) {
         this.thenTime = Date.now();
         this.loadDateVisualisation();
-        this.loadAllObjects("antara_system.xml");
+        this.loadAllObjects(this.systemDataSource);
         console.log("The simulator has loaded. Starting...");
         this.isRunning = true;
 
@@ -171,6 +173,12 @@ export class AppComponent implements AfterViewInit {
         this.mouseDown = false;
     }
     /* Mouse events */
+
+    changeDataSource()
+    {
+        console.log(this.systemDataSource);
+        this.loadAllObjects(this.systemDataSource);
+    }
 
     lockTime() {
         this.dateUnlocked = false;
