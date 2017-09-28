@@ -6,10 +6,10 @@ var sass = require('gulp-sass');
 gulp.task('styles', function() {
     gulp.src('styling/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./styling/', {overwrite: true}));
+        .pipe(gulp.dest('./src/styling/', {overwrite: true}));
 });
 
 //Watch task
 gulp.task('default',['styles'],function() {
-    gulp.watch('styling/**/*.scss',['styles']);
+    gulp.watch('src/styling/**/*.scss',['styles']);
 });

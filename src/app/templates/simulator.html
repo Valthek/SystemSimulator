@@ -8,26 +8,26 @@
     <div id="animationControls">
       <div class="menuElement">
         <div class="slider">
-          <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed"
+          <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed" name="simSpeed"
           />
         </div>
       </div>
       <div class="menuElement">
         <div class="slider">
-          <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />
+          <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" name="zoomLevel"/>
         </div>
       </div>
       <div class="menuElement">
         <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
           <div class="formElement">
-            <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
-            <option *ngFor="#day of daysList; #i = index" [value]="i">{{day}}</option>
+            <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()" name="currentDateD">
+            <option *ngFor="let day of daysList; let i = index" [value]="i">{{day}}</option>
           </select>
-            <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()">
-            <option *ngFor="#month of monthsList; #i = index" [value]="i">{{month}}</option>
+            <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()" name="currentDateM">
+            <option *ngFor="let month of monthsList; let i = index" [value]="i">{{month}}</option>
           </select>
-            <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
-            <option *ngFor="#year of yearsList; #i = index" [value]="i">{{year}} AT</option>
+            <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()" name="currentDateY">
+            <option *ngFor="let year of yearsList; let i = index" [value]="i">{{year}} AT</option>
           </select>
           </div>
           <div class="formElement">
@@ -45,19 +45,19 @@
         <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
           <div class="formElement">
             <span>From: </span>
-            <select [(ngModel)]="travelSource">
-              <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+            <select [(ngModel)]="travelSource" name="travelSource">
+              <option *ngFor="let p of planets" [value]="p.objectID"> {{p.name}}</option>
             </select>
           </div>
           <div class="formElement">
             <span>To: </span>
-            <select [(ngModel)]="travelDestination">
-              <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+            <select [(ngModel)]="travelDestination" name="travelDestination">
+              <option *ngFor="let p of planets" [value]="p.objectID"> {{p.name}}</option>
             </select>
           </div>
           <div class="formElement">
             <span>Thrust: </span>
-            <input type="text" [(ngModel)]="shipThrustInG" required />
+            <input type="text" [(ngModel)]="shipThrustInG" required name="shipThrustInG" />
           </div>
           <div class="formElement">
             <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
@@ -97,7 +97,7 @@
     <div id="dataSourceControls">
       <form id="sourceSelectOptions" (ngSubmit)="changeDataSource()" #sourceForm="ngForm">
         <div class="formElement">
-          <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource">
+          <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource" name="systemDateSource">
             <option value="antara_system.xml" selected="selected">Antara</option>
             <option value="sol_system.xml">Sol</option>
           </select>
