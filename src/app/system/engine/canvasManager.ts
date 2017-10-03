@@ -1,4 +1,5 @@
 //Class to draw animations on the canvas
+import { Library } from './Library';
 import { planet } from "./../objects/planet";
 import { moon } from "./../objects/moon";
 import { cObject } from "./../objects/cObject";
@@ -51,13 +52,34 @@ export class canvasManager {
     static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number, positionOffset:vector2d) {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
-        context.lineWidth = 1;
+        context.lineWidth = width;
         context.strokeStyle = "#12B4CE";
         let x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
         let y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2+ positionOffset.y;
         context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
 
+    }
+
+    // Draw a selected indicator for a specific celestial object
+    static drawSelector(context, object:cObject, zoomLevel:number, positionOffset:vector2d, lineWidth:number, color:string, rotation:number)
+    {
+        let selectorArea = 3;
+        let zoom:number = this.getZoom(context, zoomLevel);
+        context.beginPath();
+        context.lineWidth = lineWidth;
+        context.strokeStyle = color;
+        let x = (object.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
+        let y = (object.currentPosition.y) * zoom + context.canvas.clientHeight / 2+ positionOffset.y;
+        context.arc(x, y, object.size * selectorArea , Library.toRadian(20 - rotation), Library.toRadian(100- rotation));
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, object.size * selectorArea, Library.toRadian(140 - rotation), Library.toRadian(220- rotation));
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, object.size * selectorArea, Library.toRadian(260 - rotation), Library.toRadian(340- rotation));
+        context.stroke();
+        
     }
 
     // Fill in an area with color to indicate the aproximate location of an object's orbit
@@ -93,7 +115,7 @@ export class canvasManager {
         context.fillText(frameRate, 30, 30);
     }
 
-    public static getZoom(context, zoomLevel)
+    private static getZoom(context, zoomLevel)
     {
         let zoom: number;
         if (context.canvas.clientWidth > context.canvas.clientHeight) {

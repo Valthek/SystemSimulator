@@ -19,7 +19,7 @@ export class cObject {
     // internal values
     currentPosition: vector2d;
     
-    constructor(objectID:number, name: string, color:string, objectSize:number, actualDiameter:number, orbitRadius: number, velocity: number,initialAngle: number ) {
+    constructor(objectID:number, name: string, color:string, actualDiameter:number, orbitRadius: number, velocity: number,initialAngle: number ) {
         this.objectID = objectID;
         this.name = name;
         this.color = color;

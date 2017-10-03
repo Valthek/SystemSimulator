@@ -29,8 +29,8 @@ export class AppComponent implements AfterViewInit {
     currentDateD: number = 0;
 
 
-    travelDestination: number = 0;
-    travelSource: number = 0;
+    travelDestination: number = 3;
+    travelSource: number = 4;
     shipThrustInG: number = 0;
 
     systemDataSource: string = "antara_system.xml";
@@ -234,6 +234,7 @@ export class AppComponent implements AfterViewInit {
         canvasManager.clearCanvas(ctx);
         canvasManager.drawSky(ctx);
         canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, false, this.systemPositionOffset);
+        
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
             canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset);
@@ -241,7 +242,7 @@ export class AppComponent implements AfterViewInit {
             // Update Moons 
             if (this.showMoons && this.planets[p].moons.length != 0) {
                 for (let m = 0; m < this.planets[p].moons.length; m++) {
-                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false, this.systemPositionOffset);
+                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.planets[p].size, this.actualZoom, false, this.systemPositionOffset);
                 }
             }
         }
@@ -249,6 +250,10 @@ export class AppComponent implements AfterViewInit {
         for (let c = 1; c < this.cObjects.length; c++) {
             canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true, this.systemPositionOffset);
         }
+
+        // draw selectors for selected planets
+        canvasManager.drawSelector(ctx, this.planets[this.travelSource], this.actualZoom, this.systemPositionOffset, 2, "#61DCEF", this.actualDate*10);
+        canvasManager.drawSelector(ctx, this.planets[this.travelDestination], this.actualZoom, this.systemPositionOffset, 2, "#DCEF61", this.actualDate*10);
     }
 
     private updateGUI() {

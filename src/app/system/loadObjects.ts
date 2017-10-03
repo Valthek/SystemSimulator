@@ -21,7 +21,6 @@ export class loadObjects {
           let distanceToOrigin = parseFloat($(this).find("distance").text());
           let radialVelocity = parseFloat($(this).find("radialVelocity").text());
           let initialAngle = parseFloat($(this).find("startAngle").text());
-          let radius = parseFloat($(this).find("displayRadius").text());
           let planetColor = $(this).find("planetColor").text();
           let actualDiameter = parseFloat($(this).find("realDiameter").text());
           let moons: moon[] = [];
@@ -31,12 +30,12 @@ export class loadObjects {
             let moonStartAngle = parseFloat($(this).find("moonStartAngle").text());
             let moonColor = $(this).find("moonColor").text();
             let moonActualDiameter = parseFloat($(this).find("realMoonDiameter").text());
-            let m: moon = new moon(moonNumber, moonName, radius, moonActualDiameter, moonColor, distanceToOrigin, moonSpeed, moonStartAngle);
+            let m: moon = new moon(moonNumber, moonName, moonActualDiameter, moonColor, distanceToOrigin, moonSpeed, moonStartAngle);
             moons.push(m);
             console.log(m);
             moonNumber++;
           });
-          let p: planet = new planet(planetNumber,name,planetColor,radius, actualDiameter,moons, distanceToOrigin, radialVelocity,initialAngle);
+          let p: planet = new planet(planetNumber,name,planetColor, actualDiameter,moons, distanceToOrigin, radialVelocity,initialAngle);
           planets.push(p);
           console.log(p);
           planetNumber++;
@@ -65,7 +64,7 @@ export class loadObjects {
           let objectColor = $(this).find("objectColor").text();
           let objectSize = parseFloat($(this).find("displayRadius").text());
           let actualDiameter = parseFloat($(this).find("realDiameter").text());
-          let o: cObject = new cObject(cObjectNumber,name, objectColor, objectSize, actualDiameter, distanceToOrigin,  radialVelocity,initialAngle);
+          let o: cObject = new cObject(cObjectNumber,name, objectColor, actualDiameter, distanceToOrigin,  radialVelocity,initialAngle);
           cObjects.push(o);
           console.log(o);
           cObjectNumber++;
