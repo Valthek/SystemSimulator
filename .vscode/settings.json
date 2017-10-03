@@ -15,6 +15,7 @@
     "**/**.css":true,
     "LICENSE":true,
     "**/**.bat":true,
-    "**/**.txt":true
+    "**/**.txt":true,
+    "**/assets":true
   }
 }

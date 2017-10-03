@@ -116,8 +116,8 @@ export class AppComponent implements AfterViewInit {
         this.hohmanResults[1] = /* insertion Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[1];
         this.hohmanResults[2] = /* arrival Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[2];
         this.hohmanResults[3] = /* travel time for hohman*/"" + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        this.hohmanResults[4] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        this.hohmanResults[5] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        this.hohmanResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        this.hohmanResults[5] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
         // brachistochrone transfer results
         this.brachistochroneResults[0] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
         this.brachistochroneResults[1] = /* brachistochrone at full thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
@@ -152,8 +152,8 @@ export class AppComponent implements AfterViewInit {
     @HostListener('wheel', ['$event'])
     onMouseScroll(event) {
         if (event.path[0].id == "simulatorCanvas") { 
-            if (this.zoomLevel + (0.01 * event.deltaY) > 0) {
-                this.zoomLevel = +(this.zoomLevel) + +(0.01 * event.deltaY);
+            if (this.zoomLevel + (0.05 * event.deltaY) > 0) {
+                this.zoomLevel = +(this.zoomLevel) + +(0.05 * event.deltaY);
             }
         }
         if (event.path[0].id == "menu") {
