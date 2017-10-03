@@ -1,4 +1,5 @@
 // base class for celestial objects (everything)
+import { Library } from '../engine/Library';
 import { vector2d } from "./../engine/vector2d";
 
 export class cObject {
@@ -26,14 +27,14 @@ export class cObject {
         this.size = Math.floor(Math.log(actualDiameter)) - 5;
 
         // angles must be in radians for Math.cos & Math.sin to work
-        this.currentAngle = vector2d.ToRadian(initialAngle);
-        this.initialAngle = vector2d.ToRadian(initialAngle);
+        this.currentAngle = Library.toRadian(initialAngle);
+        this.initialAngle = Library.toRadian(initialAngle);
 
         this.orbitRadius = orbitRadius; 
 
-        this.radialVelocity = vector2d.ToRadian(velocity);
+        this.radialVelocity = Library.toRadian(velocity);
        
-        let radian = vector2d.ToRadian(initialAngle);
+        let radian = Library.toRadian(initialAngle);
 
         let x = +orbitRadius * Math.cos(radian);
         let y = +orbitRadius * Math.sin(radian);

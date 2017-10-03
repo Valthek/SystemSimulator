@@ -13,7 +13,7 @@
 		<name>Cavernus</name>
 		<distance>0.233</distance>
 		<radialVelocity>8.246</radialVelocity>
-		<startAngle>84</startAngle>
+		<startAngle>264</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>6371</realDiameter>
 		<planetColor>#663300</planetColor>
@@ -22,7 +22,7 @@
 		<name>Styx</name>
 		<distance>0.336</distance>
 		<radialVelocity>4.746</radialVelocity>
-		<startAngle>25</startAngle>
+		<startAngle>122</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>10011</realDiameter>
 		<planetColor>#993300</planetColor>
@@ -31,7 +31,7 @@
 		<name>Zyraak</name>
 		<distance>0.628</distance>
 		<radialVelocity>1.857</radialVelocity>
-		<startAngle>45</startAngle>
+		<startAngle>123</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8919</realDiameter>
 		<planetColor>#0066cc</planetColor>
@@ -61,7 +61,7 @@
 		<name>Tareen</name>
 		<distance>0.906</distance>
 		<radialVelocity>1.071</radialVelocity>
-		<startAngle>90</startAngle>
+		<startAngle>265</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12104</realDiameter>
 		<planetColor>#009933</planetColor>
@@ -118,7 +118,7 @@
 		<name>Tempesta</name>
 		<distance>4.150</distance>
 		<radialVelocity>0.109</radialVelocity>
-		<startAngle>230</startAngle>
+		<startAngle>351</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>138846</realDiameter>
 		<planetColor>#00cccc</planetColor>
@@ -155,7 +155,7 @@
 		<name>Helia</name>
 		<distance>7.650</distance>
 		<radialVelocity>0.044</radialVelocity>
-		<startAngle>10</startAngle>
+		<startAngle>26</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>149731</realDiameter>
 		<planetColor>#99cc33</planetColor>
@@ -185,7 +185,7 @@
 		<name>Celestia</name>
 		<distance>11.500</distance>
 		<radialVelocity>0.024</radialVelocity>
-		<startAngle>340</startAngle>
+		<startAngle>312</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>52721</realDiameter>
 		<planetColor>#3333cc</planetColor>
@@ -236,7 +236,7 @@
 		<name>Iscarda</name>
 		<distance>18.050</distance>
 		<radialVelocity>0.012</radialVelocity>
-		<startAngle>145</startAngle>
+		<startAngle>301</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>36657</realDiameter>
 		<planetColor>#999966</planetColor>

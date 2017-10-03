@@ -14,7 +14,6 @@ export class canvasManager {
         // Draw a planet at their appropriate coordinates
         // Coordinates are absolute for the planet compared to origin, centered on canvas
         let zoom:number = this.getZoom(context, zoomLevel);
-
         context.beginPath();
         context.fillStyle = planet.color;
         let x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2)  + positionOffset.x;
@@ -94,7 +93,7 @@ export class canvasManager {
         context.fillText(frameRate, 30, 30);
     }
 
-    private static getZoom(context, zoomLevel)
+    public static getZoom(context, zoomLevel)
     {
         let zoom: number;
         if (context.canvas.clientWidth > context.canvas.clientHeight) {

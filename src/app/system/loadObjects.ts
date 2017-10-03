@@ -10,8 +10,6 @@ export class loadObjects {
     let planets: planet[] = [];
     let planetNumber: number = 0;
 
-    console.log("./data/" + source);
-
     $.ajax({
       type: "GET",
       url: "./data/" + source,

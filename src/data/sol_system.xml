@@ -13,7 +13,7 @@
 		<name>Mercury</name>
 		<distance>0.39</distance>
 		<radialVelocity>4.449</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>122</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>6371</realDiameter>
 		<planetColor>#663300</planetColor>
@@ -22,7 +22,7 @@
 		<name>Venus</name>
 		<distance>0.723</distance>
 		<radialVelocity>1.741</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>123</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>10011</realDiameter>
 		<planetColor>#993300</planetColor>
@@ -31,7 +31,7 @@
 		<name>Earth</name>
 		<distance>1</distance>
 		<radialVelocity>1.071</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>265</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8919</realDiameter>
 		<planetColor>#0066cc</planetColor>
@@ -47,7 +47,7 @@
 		<name>Mars</name>
 		<distance>1.524</distance>
 		<radialVelocity>0.569</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>60</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12104</realDiameter>
 		<planetColor>#009933</planetColor>
@@ -79,7 +79,7 @@
 		<name>Jupiter</name>
 		<distance>5.203</distance>
 		<radialVelocity>0.090</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>351</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>11831</realDiameter>
 		<planetColor>#990000</planetColor>
@@ -95,7 +95,7 @@
 		<name>Saturn</name>
 		<distance>9.539</distance>
 		<radialVelocity>0.036</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>26</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>138846</realDiameter>
 		<planetColor>#404ccc</planetColor>
@@ -111,7 +111,7 @@
 		<name>Uranus</name>
 		<distance>19.18</distance>
 		<radialVelocity>0.012</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>312</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>138846</realDiameter>
 		<planetColor>#00cccc</planetColor>
@@ -127,7 +127,7 @@
 		<name>Neptune</name>
 		<distance>30.06</distance>
 		<radialVelocity>0.006</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>301</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>149731</realDiameter>
 		<planetColor>#99cc33</planetColor>
@@ -143,7 +143,7 @@
 		<name>Pluto</name>
 		<distance>39.53</distance>
 		<radialVelocity>0.004</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>264</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>52721</realDiameter>
 		<planetColor>#171766</planetColor>

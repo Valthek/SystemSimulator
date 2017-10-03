@@ -127,7 +127,7 @@ export class travelManager {
     }
 
     private static calculateTravelDistanceMeters(source: cObject, destination: cObject) {
-        let travelDistance = vector2d.CalculateDistance(source.currentPosition, destination.currentPosition);
+        let travelDistance = source.currentPosition.findDistance(destination.currentPosition);
         let travelDistanceMeters = travelDistance * Library.astronomicalUnit;
         return travelDistanceMeters
     }

@@ -26,4 +26,13 @@ export class Library {
         // return an arbitrarily large sized array (mostly for ngFor loops)
         return size?Library.arbitraryArray(size-1).concat(size):[]
     }
+
+    public static toRadian(degrees: number):number {
+        return degrees * (Math.PI / 180);
+    }
+
+    public static toDegrees(radian: number):number {
+        return radian * (180 / Math.PI);
+    }
+
 }

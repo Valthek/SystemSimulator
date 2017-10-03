@@ -1,40 +1,39 @@
 // 2d vector class (coordinate system, positioning)
 
-export class vector2d{
+export class vector2d {
     // X coordinate relative to origin
-    x:number;
+    x: number;
     // Y coordinate relative to origin
-    y:number;
+    y: number;
 
-    constructor(x, y)
-    {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
     }
 
-    static ToRadian(degrees:number)
-    {
-        return degrees*(Math.PI/180);
-    }
-
-    static ToDegrees(radian:number) 
-    {
-        return radian*(180/Math.PI);
-    }
-
-    static CalculateDistance(source: vector2d, destination:vector2d)
-    {
-        let dx = source.x - destination.x;
-        let dy = source.y - destination.y;
-        let distance = Math.sqrt((dx*dx)+(dy*dy));
+    public findDistance(destination: vector2d) : number {
+        // calculate distance in [units] from this vector2d to a target vector2d
+        let dx = this.x - destination.x;
+        let dy = this.y - destination.y;
+        let distance = Math.sqrt((dx * dx) + (dy * dy));
 
         return distance;
     }
 
-    AddVector(vector2d)
-    {
-        this.x += vector2d.x;
-        this.y += vector2d.y;
+    public toString(): string {
+        return `Vector2D (Coordinates: ${this.x} ${this.y})`;
+    }
+
+    public add(value: vector2d): vector2d {
+        // add a vector to this
+        this.x += value.x;
+        this.y += value.y;
+        return this;
+    }
+    public subtract(value:vector2d): vector2d{
+        // subtract a vector from this
+        this.x -= value.x;
+        this.y -= value.y;
         return this;
     }
 }
