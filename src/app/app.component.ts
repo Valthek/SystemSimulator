@@ -152,7 +152,6 @@ export class AppComponent implements AfterViewInit {
     onMouseScroll(event) {
         if (event.path[0].id == "simulatorCanvas") { 
             // mouse event's scroll wheel event emits values that are multiples of 100, hence the weird multiplication.
-            console.log(event.deltaY);
 
             if (event.deltaY > 0 && (this.zoomLevel * +(0.01 * 1.1 * event.deltaY) < 500 )) {
                 this.zoomLevel *= +(0.01 * 1.1 * event.deltaY);
