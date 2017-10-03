@@ -145,15 +145,21 @@ export class AppComponent implements AfterViewInit {
             this.mouseDown = true;
             this.mousePosition = new vector2d(event.clientX - (this.viewportWidth / 2), event.clientY - (this.viewportHeight / 2));
             this.lastMousePosition = this.mousePosition;
-            console.log(this.systemPositionOffset);
         }
     }
 
     @HostListener('wheel', ['$event'])
     onMouseScroll(event) {
         if (event.path[0].id == "simulatorCanvas") { 
-            if (this.zoomLevel + (0.05 * event.deltaY) > 0) {
-                this.zoomLevel = +(this.zoomLevel) + +(0.05 * event.deltaY);
+            // mouse event's scroll wheel event emits values that are multiples of 100, hence the weird multiplication.
+            console.log(event.deltaY);
+
+            if (event.deltaY > 0 && (this.zoomLevel * +(0.01 * 1.1 * event.deltaY) < 500 )) {
+                this.zoomLevel *= +(0.01 * 1.1 * event.deltaY);
+            }
+            else if ((this.zoomLevel * (1/+(0.01 * 1.1 * Math.abs(event.deltaY)))) > 0.5)
+            {
+                this.zoomLevel *= (1/+(0.01 * 1.1 * Math.abs(event.deltaY)));
             }
         }
         if (event.path[0].id == "menu") {
