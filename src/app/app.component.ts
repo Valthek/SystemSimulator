@@ -33,7 +33,7 @@ export class AppComponent implements AfterViewInit {
     travelSource: number = 4;
     shipThrustInG: number = 0;
 
-    systemDataSource: string = "antara_system.xml";
+    systemDataSource: string = "antara";
 
     // Visualisation Options
     simSpeed: number = 1;
@@ -62,16 +62,18 @@ export class AppComponent implements AfterViewInit {
     private actualDate: number = 0;
     private actualZoom: number = 1;
 
-    ctx : any;
+    ctx: any;
 
 
     constructor(private ngZone: NgZone) {
         this.thenTime = Date.now();
+        this.getUrlParameters();
+        console.log("Url Parameters loaded");
         this.loadDateVisualisation();
-        console.log("setting load: " + this.systemDataSource);
         this.loadAllObjects(this.systemDataSource);
         console.log("The simulator has loaded. Starting...");
         this.isRunning = true;
+        this.onTimeSubmit();
     }
     @ViewChild("simulatorCanvas") myCanvas: ElementRef;
 
@@ -80,7 +82,6 @@ export class AppComponent implements AfterViewInit {
         this.ctx = this.context;
         this.updateCanvas();
         this.ngZone.runOutsideAngular(() => this.tick());
-
     }
 
     ngOnDestroy() {
@@ -150,15 +151,14 @@ export class AppComponent implements AfterViewInit {
 
     @HostListener('wheel', ['$event'])
     onMouseScroll(event) {
-        if (event.path[0].id == "simulatorCanvas") { 
+        if (event.path[0].id == "simulatorCanvas") {
             // mouse event's scroll wheel event emits values that are multiples of 100, hence the weird multiplication.
 
-            if (event.deltaY > 0 && (this.zoomLevel * +(0.01 * 1.1 * event.deltaY) < 500 )) {
+            if (event.deltaY > 0 && (this.zoomLevel * +(0.01 * 1.1 * event.deltaY) < 500)) {
                 this.zoomLevel *= +(0.01 * 1.1 * event.deltaY);
             }
-            else if ((this.zoomLevel * (1/+(0.01 * 1.1 * Math.abs(event.deltaY)))) > 0.5)
-            {
-                this.zoomLevel *= (1/+(0.01 * 1.1 * Math.abs(event.deltaY)));
+            else if ((this.zoomLevel * (1 / +(0.01 * 1.1 * Math.abs(event.deltaY)))) > 0.5) {
+                this.zoomLevel *= (1 / +(0.01 * 1.1 * Math.abs(event.deltaY)));
             }
         }
         if (event.path[0].id == "menu") {
@@ -169,9 +169,15 @@ export class AppComponent implements AfterViewInit {
 
     @HostListener('mousemove', ['$event'])
     onMousemove(event: MouseEvent) {
-        if (this.mouseDown) {            
+        if (this.mouseDown) {
             this.mousePosition = new vector2d(event.clientX - (this.viewportWidth / 2), event.clientY - (this.viewportHeight / 2));
-            this.systemPositionOffset.subtract(this.lastMousePosition.subtract(this.mousePosition));
+            let offsetResult = this.lastMousePosition.subtract(this.mousePosition)
+            if (this.viewportWidth > this.viewportHeight)
+                offsetResult.multiply(1 / this.viewportWidth)
+            else
+                offsetResult.multiply(1 / this.viewportHeight)
+            offsetResult.multiply(this.actualZoom);
+            this.systemPositionOffset.subtract(offsetResult);
             this.lastMousePosition = this.mousePosition;
         }
     }
@@ -198,7 +204,7 @@ export class AppComponent implements AfterViewInit {
         // Update Time
         this.updateTime();
         this.updateCanvas();
-        
+
 
         if (this.isRunning) {
             // Increment current date
@@ -233,8 +239,8 @@ export class AppComponent implements AfterViewInit {
         // deal with Canvas & Background
         canvasManager.clearCanvas(ctx);
         canvasManager.drawSky(ctx);
-        canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, false, this.systemPositionOffset);
-        
+        canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, true, this.systemPositionOffset);
+
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
             canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset);
@@ -242,7 +248,7 @@ export class AppComponent implements AfterViewInit {
             // Update Moons 
             if (this.showMoons && this.planets[p].moons.length != 0) {
                 for (let m = 0; m < this.planets[p].moons.length; m++) {
-                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.planets[p].size, this.actualZoom, false, this.systemPositionOffset);
+                    canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false, this.systemPositionOffset);
                 }
             }
         }
@@ -252,8 +258,8 @@ export class AppComponent implements AfterViewInit {
         }
 
         // draw selectors for selected planets
-        canvasManager.drawSelector(ctx, this.planets[this.travelSource], this.actualZoom, this.systemPositionOffset, 2, "#61DCEF", this.actualDate*10);
-        canvasManager.drawSelector(ctx, this.planets[this.travelDestination], this.actualZoom, this.systemPositionOffset, 2, "#DCEF61", this.actualDate*10);
+        canvasManager.drawSelector(ctx, this.planets[this.travelSource], this.actualZoom, this.systemPositionOffset, 3, "#16DB93", this.actualDate * 10);
+        canvasManager.drawSelector(ctx, this.planets[this.travelDestination], this.actualZoom, this.systemPositionOffset, 3, "#E2EF70", this.actualDate * 10);
     }
 
     private updateGUI() {
@@ -313,13 +319,51 @@ export class AppComponent implements AfterViewInit {
     }
 
     private loadAllObjects(source: string) {
-        this.cObjects = loadObjects.loadCObjects(source);
-        this.planets = loadObjects.loadPlanets(source);
+        this.cObjects = loadObjects.loadCObjects(source + "_system.xml");
+        this.planets = loadObjects.loadPlanets(source + "_system.xml");
     }
 
     private loadDateVisualisation() {
         this.daysList = Library.arbitraryArray(28);
         this.monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         this.yearsList = Library.arbitraryArray(50);
+    }
+
+    // get specific url parameters
+    private getUrlParameters() {
+        let url = window.location.href;
+        let queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+        if (queryString) {
+            let strings = queryString.split('&');
+            console.log(strings)
+            for (let i = 0; i < strings.length; i++) {
+                let split = strings[i].split('=');
+                console.log(split)
+                switch (split[0]) {
+                    case 'time':
+                        let date = split[1].split('.');
+                        if (parseInt(date[0]) > 0 && parseInt(date[0]) < 28) {
+                            this.currentDateD = parseInt(date[0]);
+                        }
+                        if (parseInt(date[1]) > 0 && parseInt(date[1]) < 12) {
+                            this.currentDateM = parseInt(date[1]);
+                        }
+                        if (parseInt(date[2]) > 0 && parseInt(date[2]) < 50) {
+                            this.currentDateY = parseInt(date[2]);
+                        }
+                        break;
+                    case 'datasource':
+                        this.systemDataSource = split[1];
+                        console.log(this.systemDataSource);
+                        break;
+                    case 'speed':
+                        this.simSpeed = parseInt(split[1]);
+                        break;
+                    case 'zoom':
+                        this.zoomLevel = parseInt(split[1]);
+                        break;
+                }
+            }
+        }
     }
 }

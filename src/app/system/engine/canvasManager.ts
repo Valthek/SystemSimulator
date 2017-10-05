@@ -17,10 +17,10 @@ export class canvasManager {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.fillStyle = planet.color;
-        let x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2)  + positionOffset.x;
-        let y = ((planet.currentPosition.y) * zoom + context.canvas.clientHeight / 2) + positionOffset.y;
+        let x = ((planet.currentPosition.x + positionOffset.x) * zoom + (context.canvas.clientWidth / 2))  ;
+        let y = ((planet.currentPosition.y + positionOffset.y) * zoom + (context.canvas.clientHeight / 2)) ;
         context.moveTo(x, y);
-        context.arc(x, y, planet.size, 0, Math.PI * 2);
+        context.arc(x, y,  this.setObjectSize(planet.size, zoomLevel), 0, Math.PI * 2);
         context.fill();
         if (showName) {
             context.fillStyle = "#12B4CE";
@@ -36,10 +36,12 @@ export class canvasManager {
 
         context.beginPath();
         context.fillStyle = moon.color;
-        let x = ((moon.currentPosition.x) * zoom + context.canvas.clientWidth / 2) + positionOffset.x;
-        let y = ((moon.currentPosition.y) * zoom + context.canvas.clientHeight / 2)+ positionOffset.y;
+        let x = ((moon.currentPosition.x+ positionOffset.x) * zoom + context.canvas.clientWidth / 2) ;
+        let y = ((moon.currentPosition.y+ positionOffset.y) * zoom + context.canvas.clientHeight / 2);
         context.moveTo(x, y);
-        context.arc(x, y, moon.size, 0, Math.PI * 2);
+        if (this.setObjectSize(moon.size, zoomLevel) >= 1)
+        context.arc(x, y, this.setObjectSize(moon.size, zoomLevel), 0, Math.PI * 2);
+
         context.fill();
         if (showName) {
             context.fillStyle = "#12B4CE";
@@ -54,9 +56,9 @@ export class canvasManager {
         context.beginPath();
         context.lineWidth = width;
         context.strokeStyle = "#12B4CE";
-        let x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
-        let y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2+ positionOffset.y;
-        context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
+        let x = (parent.currentPosition.x+ positionOffset.x) * zoom + context.canvas.clientWidth / 2 ;
+        let y = (parent.currentPosition.y+ positionOffset.y) * zoom + context.canvas.clientHeight / 2;
+        context.arc(x, y,  object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
 
     }
@@ -69,15 +71,15 @@ export class canvasManager {
         context.beginPath();
         context.lineWidth = lineWidth;
         context.strokeStyle = color;
-        let x = (object.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
-        let y = (object.currentPosition.y) * zoom + context.canvas.clientHeight / 2+ positionOffset.y;
-        context.arc(x, y, object.size * selectorArea , Library.toRadian(20 - rotation), Library.toRadian(100- rotation));
+        let x = (object.currentPosition.x+ positionOffset.x) * zoom + context.canvas.clientWidth / 2 ;
+        let y = (object.currentPosition.y+ positionOffset.y) * zoom + context.canvas.clientHeight / 2;
+        context.arc(x, y, this.setObjectSize(object.size, zoomLevel) * selectorArea , Library.toRadian(20 - rotation), Library.toRadian(100- rotation));
         context.stroke();
         context.beginPath();
-        context.arc(x, y, object.size * selectorArea, Library.toRadian(140 - rotation), Library.toRadian(220- rotation));
+        context.arc(x, y, this.setObjectSize(object.size, zoomLevel) * selectorArea, Library.toRadian(140 - rotation), Library.toRadian(220- rotation));
         context.stroke();
         context.beginPath();
-        context.arc(x, y, object.size * selectorArea, Library.toRadian(260 - rotation), Library.toRadian(340- rotation));
+        context.arc(x, y, this.setObjectSize(object.size, zoomLevel) * selectorArea, Library.toRadian(260 - rotation), Library.toRadian(340- rotation));
         context.stroke();
         
     }
@@ -88,8 +90,8 @@ export class canvasManager {
         context.beginPath();
         context.strokeStyle = object.color;
         context.lineWidth = object.size;
-        let x = context.canvas.clientWidth / 2 + positionOffset.x;
-        let y = context.canvas.clientHeight / 2+ positionOffset.y;
+        let x = context.canvas.clientWidth / 2 + (positionOffset.x * zoom);
+        let y = context.canvas.clientHeight / 2+ (positionOffset.y * zoom);
         context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
         if (showName) {
@@ -117,6 +119,9 @@ export class canvasManager {
 
     private static getZoom(context, zoomLevel)
     {
+        // calculate zoom
+        // zoomLevel is the # of AU from the center to the edge
+        // zoom bound is aprox between 15 (fully zoomed out) and 2350 (fully zoomed in)
         let zoom: number;
         if (context.canvas.clientWidth > context.canvas.clientHeight) {
             zoom = ((context.canvas.clientWidth / 2) / zoomLevel);
@@ -125,5 +130,11 @@ export class canvasManager {
             zoom = ((context.canvas.clientHeight / 2) / zoomLevel);
         }
         return zoom;
+    }
+
+    private static setObjectSize(actualSizeInAu:number, zoomLevel:number):number
+    {
+        let displaySize = ((Math.log(actualSizeInAu)+12)*3) * (1 / Math.sqrt(zoomLevel));
+        return displaySize;
     }
 }

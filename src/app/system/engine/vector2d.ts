@@ -36,4 +36,10 @@ export class vector2d {
         this.y -= value.y;
         return this;
     }
+    public multiply(value:number):vector2d{
+        // multiply this vector by a set value
+        this.x *= value;
+        this.y *= value;
+        return this;
+    }
 }

@@ -28,5 +28,32 @@
             text-transform: uppercase; 
         }
     }
-}
+    .input-icon {
+        position: relative;
+        > i{
+            position: absolute;
+            display: block;
+            transform: translate(0, -50%);
+            top: 50%;
+            pointer-events: none;
+            width: 25px;
+            text-align: center;
+            font-style: normal;
+        }
+        > input {
+            padding-left: 25px;
+              padding-right: 0;
+          }
+      }
+      .input-icon-right {
+          > i {
+            right: 5px;
+          }
+            > input {
+            padding-left: 0;
+            padding-right: 22px;
+            text-align: right;
+            }
+        }
+    }
 }

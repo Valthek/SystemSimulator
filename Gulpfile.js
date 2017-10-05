@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 
 gulp.task('styles', function() {
-    gulp.src('styling/**/*.scss')
+    gulp.src('src/styling/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./src/styling/', {overwrite: true}));
 });

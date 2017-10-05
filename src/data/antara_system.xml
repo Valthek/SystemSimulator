@@ -5,8 +5,7 @@
 		<distance>0</distance>
 		<radialVelocity>0</radialVelocity>
 		<startAngle>0</startAngle>
-		<displayRadius>10</displayRadius>
-		<realDiameter>1000000</realDiameter>
+		<realDiameter>695700</realDiameter>
 		<objectColor>#fff000</objectColor>
 	</cObject>
 	<planet>
@@ -14,7 +13,6 @@
 		<distance>0.233</distance>
 		<radialVelocity>8.246</radialVelocity>
 		<startAngle>264</startAngle>
-		<displayRadius>3</displayRadius>
 		<realDiameter>6371</realDiameter>
 		<planetColor>#663300</planetColor>
 	</planet>
@@ -23,7 +21,6 @@
 		<distance>0.336</distance>
 		<radialVelocity>4.746</radialVelocity>
 		<startAngle>122</startAngle>
-		<displayRadius>3</displayRadius>
 		<realDiameter>10011</realDiameter>
 		<planetColor>#993300</planetColor>
 	</planet>
@@ -32,29 +29,35 @@
 		<distance>0.628</distance>
 		<radialVelocity>1.857</radialVelocity>
 		<startAngle>123</startAngle>
-		<displayRadius>3</displayRadius>
 		<realDiameter>8919</realDiameter>
 		<planetColor>#0066cc</planetColor>
 		<moon>
 			<moonName>Ashakar</moonName>
+			<moonOrbitRadius>0.002565106</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>140</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2150</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
+
+
 		</moon>
 		 <moon>
 			<moonName>Dirak </moonName>
+			<moonOrbitRadius>0.002565106</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>350</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2068</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
+
+
 		</moon>
 		<moon>
 			<moonName>Aman</moonName>
+			<moonOrbitRadius>0.002565106</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>40</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2410</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<planet>
@@ -67,10 +70,11 @@
 		<planetColor>#009933</planetColor>
 		 <moon>
 			<moonName>Calader</moonName>
+			<moonOrbitRadius>0.002565106</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>310</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2841</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<planet>
@@ -83,17 +87,19 @@
 		<planetColor>#990000</planetColor>
 		 <moon>
 			<moonName>Fylakos </moonName>
+			<moonOrbitRadius>0.002565106</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>80</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2849</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Navpigeia</moonName>
+			<moonOrbitRadius>0.002565106</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>200</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2643</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<cObject>
@@ -124,31 +130,35 @@
 		<planetColor>#00cccc</planetColor>
 		 <moon>
 			<moonName>Osara </moonName>
+			<moonOrbitRadius>0.00262089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>240</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3029</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Tothus  </moonName>
+			<moonOrbitRadius>0.00262089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>180</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3085</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Isa </moonName>
+			<moonOrbitRadius>0.00262089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>120</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3268</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Hori </moonName>
+			<moonOrbitRadius>0.00262089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>60</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2963</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<planet>
@@ -161,24 +171,27 @@
 		<planetColor>#99cc33</planetColor>
 		 <moon>
 			<moonName>Thoren</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>120</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>4196</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Frejon </moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>45</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>2684</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Hodan </moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>90</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3621</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<planet>
@@ -191,45 +204,51 @@
 		<planetColor>#3333cc</planetColor>
 		 <moon>
 			<moonName>Hermea</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>240</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>6021</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Attenos</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>120</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>6371</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Aren</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>270</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3401</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Aprocryta</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>180</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>4682</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Artemea</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>90</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>5621</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Posida</moonName>
+			<moonOrbitRadius>0.00272089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>0</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3259</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<planet>
@@ -242,24 +261,27 @@
 		<planetColor>#999966</planetColor>
 		 <moon>
 			<moonName>Shavana</moonName>
+			<moonOrbitRadius>0.00282089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>0</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3968</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Visja</moonName>
+			<moonOrbitRadius>0.00282089577</moonOrbitRadius>
 			<moonSpeed>12.852</moonSpeed>
 			<moonStartAngle>90</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>3462</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon>
 		<moon>
 			<moonName>Brahmos</moonName>
 			<moonSpeed>12.852</moonSpeed>
+			<moonOrbitRadius>0.00282089577</moonOrbitRadius>
 			<moonStartAngle>270</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
 			<realMoonDiameter>4236</realMoonDiameter>
+			<moonColor>#ffdddd</moonColor>
 		</moon> 
 	</planet>
 	<!-- <cObject>

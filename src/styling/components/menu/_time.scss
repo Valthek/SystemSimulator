@@ -23,6 +23,10 @@
     display: inline-flex;
     justify-content: space-between;
 
+    #zoom{
+      direction: rtl;
+    }
+
     label{
         width:25%;
         text-transform: uppercase;

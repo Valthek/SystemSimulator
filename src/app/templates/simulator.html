@@ -55,8 +55,9 @@
               <option *ngFor="let p of planets" [value]="p.objectID"> {{p.name}}</option>
             </select>
           </div>
-          <div class="formElement">
+          <div class="formElement input-icon input-icon-right">
             <span>Thrust: </span>
+            <i>G</i>
             <input type="text" [(ngModel)]="shipThrustInG" required name="shipThrustInG" />
           </div>
           <div class="formElement">
@@ -98,8 +99,8 @@
       <form id="sourceSelectOptions" (ngSubmit)="changeDataSource()" #sourceForm="ngForm">
         <div class="formElement">
           <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource" name="systemDateSource">
-            <option value="antara_system.xml" selected="selected">Antara</option>
-            <option value="sol_system.xml">Sol</option>
+            <option value="antara" selected="selected">Antara</option>
+            <option value="sol">Sol</option>
           </select>
         </div>
         <div class="formElement">

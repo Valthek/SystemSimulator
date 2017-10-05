@@ -23,8 +23,12 @@ export class cObject {
         this.objectID = objectID;
         this.name = name;
         this.color = color;
+        // diameter in KM
         this.actualDiameter = actualDiameter;
-        this.size = Math.floor(Math.log(actualDiameter)) - 5;
+        // AU is in m, not KM
+        this.size = (actualDiameter / Library.astronomicalUnit)*1000;
+        // old size calc
+        //this.size = Math.floor(Math.log(actualDiameter)) - 5;
 
         // angles must be in radians for Math.cos & Math.sin to work
         this.currentAngle = Library.toRadian(initialAngle);
