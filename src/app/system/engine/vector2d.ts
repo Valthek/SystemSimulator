@@ -16,7 +16,6 @@ export class vector2d {
         let dx = this.x - destination.x;
         let dy = this.y - destination.y;
         let distance = Math.sqrt((dx * dx) + (dy * dy));
-
         return distance;
     }
 

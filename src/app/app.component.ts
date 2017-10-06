@@ -24,10 +24,9 @@ export class AppComponent implements AfterViewInit {
     thenTime: number = 0;
     deltaTime: number = 0;
 
+    currentDateD: number = 1;
+    currentDateM: number = 1;    
     currentDateY: number = 0;
-    currentDateM: number = 0;
-    currentDateD: number = 0;
-
 
     travelDestination: number = 3;
     travelSource: number = 4;
@@ -49,7 +48,7 @@ export class AppComponent implements AfterViewInit {
     viewportWidth: number;
     viewportHeight: number;
     calculationDate: string[] = new Array<string>(3);
-    hohmanResults: string[] = new Array<string>(5);
+    hohmannResults: string[] = new Array<string>(5);
     brachistochroneResults: string[] = new Array<string>(16);
     showResults: boolean = false;
 
@@ -101,7 +100,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     onTimeSubmit() {
-        let newDate: number = (+this.currentDateY * 336) + (+this.currentDateM * 28) + +this.currentDateD;
+        let newDate: number = (+this.currentDateY * 336) + ((+this.currentDateM-1) * 28) + (+this.currentDateD-1);
         this.actualDate = newDate;
         this.updateObjects();
         this.dateUnlocked = true;
@@ -113,12 +112,12 @@ export class AppComponent implements AfterViewInit {
         this.calculationDate[1] = "" + this.currentDateM;
         this.calculationDate[2] = "" + this.currentDateY;
         // hohman transfer results
-        this.hohmanResults[0] = /* total DeltaV*/ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[0];
-        this.hohmanResults[1] = /* insertion Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[1];
-        this.hohmanResults[2] = /* arrival Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[2];
-        this.hohmanResults[3] = /* travel time for hohman*/"" + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
-        this.hohmanResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
-        this.hohmanResults[5] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        this.hohmannResults[0] = /* total DeltaV*/ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[0];
+        this.hohmannResults[1] = /* insertion Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[1];
+        this.hohmannResults[2] = /* arrival Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[2];
+        this.hohmannResults[3] = /* travel time for hohman*/"" + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        this.hohmannResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        this.hohmannResults[5] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
         // brachistochrone transfer results
         this.brachistochroneResults[0] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
         this.brachistochroneResults[1] = /* brachistochrone at full thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
@@ -335,21 +334,19 @@ export class AppComponent implements AfterViewInit {
         let queryString = url ? url.split('?')[1] : window.location.search.slice(1);
         if (queryString) {
             let strings = queryString.split('&');
-            console.log(strings)
             for (let i = 0; i < strings.length; i++) {
                 let split = strings[i].split('=');
-                console.log(split)
                 switch (split[0]) {
                     case 'time':
                         let date = split[1].split('.');
-                        if (parseInt(date[0]) > 0 && parseInt(date[0]) < 28) {
-                            this.currentDateD = parseInt(date[0]);
+                        if (parseInt(date[0]) > 0 && parseInt(date[0]) < 29) {
+                            this.currentDateD = parseInt(date[0]) -1;
                         }
-                        if (parseInt(date[1]) > 0 && parseInt(date[1]) < 12) {
-                            this.currentDateM = parseInt(date[1]);
+                        if (parseInt(date[1]) > 0 && parseInt(date[1]) < 13) {
+                            this.currentDateM = parseInt(date[1]) - 1;
                         }
                         if (parseInt(date[2]) > 0 && parseInt(date[2]) < 50) {
-                            this.currentDateY = parseInt(date[2]);
+                            this.currentDateY = parseInt(date[2]) -1;
                         }
                         break;
                     case 'datasource':
