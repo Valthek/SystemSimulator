@@ -25,7 +25,7 @@ export class canvasManager {
         if (showName) {
             context.fillStyle = "#12B4CE";
             context.font = "10px Arial";
-            context.fillText(planet.name, (x - 15), y + 15);
+            context.fillText(planet.name, (x - 15), y +this.setObjectSize(planet.size, zoomLevel) + 15);
         }
     }
 
@@ -46,7 +46,7 @@ export class canvasManager {
         if (showName) {
             context.fillStyle = "#12B4CE";
             context.font = "10px Arial";
-            context.fillText(moon.name, (x - 15), y + 15);
+            context.fillText(moon.name, (x - 15), y +this.setObjectSize(moon.size, zoomLevel) + 15);
         }
     }
 
