@@ -27,7 +27,7 @@
             <option *ngFor="let month of monthsList; let i = index" [value]="i">{{month}}</option>
           </select>
             <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()" name="currentDateY">
-            <option *ngFor="let year of yearsList; let i = index" [value]="i">{{year}} AT</option>
+            <option *ngFor="let year of yearsList; let i = index" [value]="i">{{i}} AT</option>
           </select>
           </div>
           <div class="formElement">
@@ -35,6 +35,8 @@
             <button type="button" class="formButton" id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
           </div>
         </form>
+        <div>
+      </div>
       </div>
     </div>
     <div id="travelControls">

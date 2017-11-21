@@ -25,7 +25,7 @@ export class AppComponent implements AfterViewInit {
     deltaTime: number = 0;
 
     currentDateD: number = 1;
-    currentDateM: number = 1;    
+    currentDateM: number = 0;    
     currentDateY: number = 0;
 
     travelDestination: number = 3;
@@ -58,7 +58,8 @@ export class AppComponent implements AfterViewInit {
     private mousePosition: vector2d = new vector2d(0, 0);
 
     // internal data
-    private actualDate: number = 0;
+    // Actual Date is date since 0.0.0AT in days
+    public actualDate: number = 0;
     private actualZoom: number = 1;
 
     ctx: any;
@@ -100,7 +101,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     onTimeSubmit() {
-        let newDate: number = (+this.currentDateY * 336) + ((+this.currentDateM-1) * 28) + (+this.currentDateD-1);
+        let newDate: number = ((+this.currentDateY) * 336) + ((+this.currentDateM) * 28) + (+this.currentDateD);
         this.actualDate = newDate;
         this.updateObjects();
         this.dateUnlocked = true;
@@ -112,12 +113,14 @@ export class AppComponent implements AfterViewInit {
         this.calculationDate[1] = "" + this.currentDateM;
         this.calculationDate[2] = "" + this.currentDateY;
         // hohman transfer results
-        this.hohmannResults[0] = /* total DeltaV*/ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[0];
-        this.hohmannResults[1] = /* insertion Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[1];
-        this.hohmannResults[2] = /* arrival Burn */ "" + travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination])[2];
+        let hohMannDeltaV = travelManager.calculateHohmanDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        this.hohmannResults[0] = /* total DeltaV*/ "" + hohMannDeltaV[0];
+        this.hohmannResults[1] = /* insertion Burn */ "" + hohMannDeltaV[1];
+        this.hohmannResults[2] = /* arrival Burn */ "" + hohMannDeltaV[2];
         this.hohmannResults[3] = /* travel time for hohman*/"" + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
         this.hohmannResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
         this.hohmannResults[5] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        
         // brachistochrone transfer results
         this.brachistochroneResults[0] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
         this.brachistochroneResults[1] = /* brachistochrone at full thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
@@ -207,6 +210,7 @@ export class AppComponent implements AfterViewInit {
 
         if (this.isRunning) {
             // Increment current date
+            // Simspeed = number of days per second
             this.actualDate += (this.simSpeed * this.deltaTime);
         }
         if (this.cObjects.length > 0 && this.planets.length > 0) {
@@ -263,7 +267,7 @@ export class AppComponent implements AfterViewInit {
 
     private updateGUI() {
         if (this.dateUnlocked) {
-            this.ngZone.run(() => this.setDate(this.actualDate));
+            this.ngZone.run(() => this.setDate());
         }
     }
 
@@ -306,15 +310,20 @@ export class AppComponent implements AfterViewInit {
         doc.setAttribute('height', "" + this.viewportHeight);
     }
 
-    private setDate(newDate: number) {
-        let dateRemainder: number = newDate;
-        let year: number = Math.floor(dateRemainder / 336);
-        dateRemainder = +dateRemainder - (year * 336);
-        this.currentDateY = year;
-        let month: number = Math.floor(dateRemainder / 28);
-        dateRemainder = +dateRemainder - (month * 28);
-        this.currentDateM = month;
-        this.currentDateD = Math.floor(dateRemainder);
+    private setDate() {
+        let dateRemainder: number = this.actualDate;
+        let remainingDays = dateRemainder%336;
+        remainingDays = remainingDays%28;
+        this.currentDateD = Math.floor(remainingDays);
+
+        dateRemainder = dateRemainder - remainingDays;
+        let remainingMonths = dateRemainder %336;
+        remainingMonths = remainingMonths / 28;
+        this.currentDateM = Math.floor(remainingMonths);
+
+        dateRemainder = dateRemainder - remainingMonths;
+        let remainingYears = dateRemainder / 336;
+        this.currentDateY = Math.floor(remainingYears);
     }
 
     private loadAllObjects(source: string) {

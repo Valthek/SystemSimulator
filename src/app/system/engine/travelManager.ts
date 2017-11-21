@@ -10,7 +10,7 @@ export class travelManager {
 
     static calculateHohmanDeltaV(source: cObject, destination: cObject) {
         let hohmanResults:number[] = [];
-        console.log("========= Calculating Hohman Maneuver ============");
+        console.log("========= Calculating Hohmann Maneuver ============");
         let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
         let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
         let smAxis = this.calculateSMAxis(source, destination);
@@ -19,19 +19,16 @@ export class travelManager {
         let orbitVelocitySource = Math.sqrt(Library.gravitationConstant / sourceOrbit);
         let velocityI = Math.sqrt(Library.gravitationConstant * ((2 / sourceOrbit) - (1 / smAxis)));
         let deltaVI = velocityI - orbitVelocitySource;
-        console.log("Insertion Burn for: " + source.name + + ": " + Math.ceil(deltaVI) + "m/s" );
         
 
         // Calculate deltaV for Arrival Burn (in m/s)
         let orbitVelocityDestination = Math.sqrt(Library.gravitationConstant / destinationOrbit);
         let velocityA = Math.sqrt(Library.gravitationConstant * ((2 / destinationOrbit) - (1 / smAxis)));
         let deltaVA = velocityA - orbitVelocityDestination;
-        console.log("Arrival Burn for: " + destination.name + ": " + Math.ceil(deltaVA)+ "m/s");
         
 
         // Calculate total deltaV (in m/s)
         let deltaV = Math.abs(deltaVI) + Math.abs(deltaVA);
-        console.log("Total Delta V: " + (Math.floor(deltaV)/1000) + "km/s");
         hohmanResults.push(Math.floor(deltaV)/1000);
         hohmanResults.push(Math.floor(deltaVI));
         hohmanResults.push(Math.floor(deltaVA));
@@ -40,17 +37,14 @@ export class travelManager {
     }
 
     static calculateHohmanTransferTime(source: cObject, destination: cObject) {
-        console.log("======= Calculating Hohman Transfer Time =========");
         let piSquared = Math.pow(Math.PI, 2);
         let smAxis = Math.pow(this.calculateSMAxis(source, destination), 3);
         let timeSeconds = 0.5 * Math.sqrt((4 * piSquared * smAxis) / Library.gravitationConstant);
         let time = timeSeconds / 86400;
-        console.log("Time in days from " + source.name + " to " + destination.name + ": " + Math.floor(time)+" days");
         return Math.floor(time);
     }
 
     static calculateHohmanTransferWindow(source: cObject, destination: cObject) {
-        console.log("======= Calculating Hohman Launch Window =========");
         var inferiorOrbit = 0;
         var superiorOrbit = 0;
         if (source.orbitRadius > destination.orbitRadius) {
@@ -65,56 +59,49 @@ export class travelManager {
         let orbitPeriodS = 2 * Math.PI * Math.sqrt(Math.pow(superiorOrbit, 3) / Library.gravitationConstant);
         let synodicPeriod = 1 / ((1 / orbitPeriodI) - (1 / orbitPeriodS));
         let window: number = synodicPeriod / 86400;
-        console.log("The Launch Window for " + source.name + " to " + destination.name + " is every " + Math.floor(window) + " days");
         return Math.floor(window);
     }
 
     static calculateHohmanLaunchTiming(source: cObject, destination: cObject) {
-        console.log("======= Calculating Hohman Launch Angle ==========");
-
         let sourceOrbit = source.orbitRadius * Library.astronomicalUnit;
         let destinationOrbit = destination.orbitRadius * Library.astronomicalUnit;
         let inner = Math.pow(sourceOrbit / destinationOrbit + 1, 3);
         let angleRadian = Math.PI * (1 - (0.35355 * Math.sqrt(inner)));
         angleRadian = angleRadian%(Math.PI*2);
         let angleDegrees = angleRadian * (180 / Math.PI);
-        console.log("Tranfer Launch Angle for " + source.name + " to " + destination.name + " is " + angleDegrees + "°");
         return angleRadian;
     }
 
-    static calculateDaysToNextHohmanTravelDate(source: cObject, destination: cObject, actualDate: number) {
-        console.log("======== Calculating Next Hohman Window ==========");
+    static calculateDaysToNextHohmanTravelDate(source: cObject, destination: cObject, actualDate: number) {        
         let goalAngle = travelManager.calculateHohmanLaunchTiming(source, destination);
-        let daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle);
+        let daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle, this.calculateHohmanTransferWindow(source, destination));
         return (daysToAngle);
     }
 
     static calculateBrachistochroneDeltaVNow(source: cObject, destination: cObject, thrustInG: number) {
         // Calculate DeltaV requirement for Brachistochrone transfer
         // Acceleration input is in G
-        console.log("====== Calculating Brachistochrone DeltaV ========");
+        console.log("====== Calculating Brachistochrone Transfer ========");
         let acceleration = thrustInG * 9.81;
         let travelDistance = this.calculateTravelDistanceMeters(source, destination);
         let transitDeltaV = 2 * Math.sqrt(travelDistance * acceleration);
-        console.log("DeltaV Required for Brachistochrone from " + source.name + " to " + destination.name + " is " + Math.floor(transitDeltaV/1000) + " km/s");
         return Math.floor(transitDeltaV/1000);
     }
 
     static calculateBrachistochroneTransitTimeNow(source: cObject, destination: cObject, thrustInG: number) {
-        console.log("==== Calculating Brachistochrone Travel Time =====");
         let acceleration = thrustInG * 9.81;
         let travelDistance = this.calculateTravelDistanceMeters(source, destination);
         let transitTime = 2 * Math.sqrt(travelDistance / acceleration);
         let transitTimeDays = transitTime / 86400;
-        console.log("Time required for travel from " + source.name + " to " + destination.name + " at " + thrustInG + "G is " + Math.floor(transitTimeDays) + " days");
         return Math.floor(transitTimeDays);
     }
 
     static calculateNextBrachistochroneTransit(source:cObject, destination:cObject, thrustInG:number, actualDate:number)
     {        
         let goalAngle = 0;
-        let daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle);
-        let travelTime = this.calculateBrachistochroneTransitTimeNow(source, destination, thrustInG);
+        //maxIterations is set to the year length of [Object 12, ~162 yrs]
+        let daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle, 54000);
+        let travelTime = this.calculateBrachistochroneTransitTimeNow(source, destination, thrustInG);        
         return (daysToAngle - travelTime);
     }
 
@@ -132,21 +119,31 @@ export class travelManager {
         return travelDistanceMeters
     }
 
-    private static findDateForObjectangle(source:cObject, destination:cObject, actualDate:number, targetAngle:number){
+    private static findDateForObjectangle(source:cObject, destination:cObject, actualDate:number, targetAngle:number, maxIterations:number){
         let currentDate = Math.floor(actualDate);
         let initialDate = currentDate;
         let goalAngle = targetAngle;
-        let lastDeltaAngle = (source.currentAngle - destination.currentAngle);
+        let lastDeltaAngle = (source.getAngleForDate(initialDate) - destination.getAngleForDate(initialDate));
+        console.log("Target: " + targetAngle);
+        console.log("Last Angle: "+ lastDeltaAngle);
+        let accuracy = 0;
+        if (source.radialVelocity > destination.radialVelocity)
+        {accuracy = source.radialVelocity;}
+        else
+        {accuracy=destination.radialVelocity;}
 
-        while ((currentDate - initialDate) < 40320) {
+        // loop through n itterations of finding a date and checking the angle where n = the period of the transfer window in days
+        while ((currentDate - initialDate) < maxIterations) {
             currentDate++;
             let newAngle = (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate));
-            if (Math.abs(goalAngle - newAngle) < Math.abs(goalAngle - lastDeltaAngle)) {
+            console.log("New Angle: " + newAngle);
+             if ((targetAngle - accuracy) < newAngle && newAngle < (targetAngle + accuracy) )  {
+                console.log("Break!!");
                 break;
-            }
+            } 
             lastDeltaAngle = newAngle;
         }
-        if ((currentDate - initialDate) == 40320) {
+        if ((currentDate - initialDate) == maxIterations) {
             console.log("Next transfer from " + source.name + " to " + destination.name + " is not happening in your lifetime");
         }
         else {
