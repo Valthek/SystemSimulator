@@ -119,6 +119,7 @@ export class AppComponent implements AfterViewInit {
         this.hohmannResults[2] = /* arrival Burn */ "" + hohMannDeltaV[2];
         this.hohmannResults[3] = /* travel time for hohman*/"" + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
         this.hohmannResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        console.log("Today is: "+ this.actualDate + " Next window in: " + this.hohmannResults[4]);
         let tempDate = this.getDateForTimeStamp(this.actualDate + +this.hohmannResults[4]);
         this.hohmannResults[5] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ this.yearsList[tempDate[2]];
         this.hohmannResults[6] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
@@ -273,6 +274,7 @@ export class AppComponent implements AfterViewInit {
         // draw selectors for selected planets
         canvasManager.drawSelector(ctx, this.planets[this.travelSource], this.actualZoom, this.systemPositionOffset, 3, "#16DB93", this.actualDate * 10);
         canvasManager.drawSelector(ctx, this.planets[this.travelDestination], this.actualZoom, this.systemPositionOffset, 3, "#E2EF70", this.actualDate * 10);
+        canvasManager.drawHohmannPath(ctx, this.cObjects[0] ,this.planets[this.travelSource], this.planets[this.travelDestination], 5, this.actualZoom, this.systemPositionOffset, this.actualDate);
     }
 
     private updateGUI() {
@@ -327,18 +329,29 @@ export class AppComponent implements AfterViewInit {
 
     private getDateForTimeStamp(timeStamp:number) {
         let dateResult: string[] = new Array<string>(3);
+        console.log("Days");
         let dateRemainder: number = timeStamp;
+        console.log(dateRemainder);
         let remainingDays = dateRemainder%336;
+        console.log(remainingDays);
         remainingDays = remainingDays%28;
+        console.log(remainingDays);
         dateResult[0] = "" + Math.floor(remainingDays);
 
+        console.log("Months");
         dateRemainder = dateRemainder - remainingDays;
+        console.log(dateRemainder);
         let remainingMonths = dateRemainder %336;
+        console.log(remainingMonths);
         remainingMonths = remainingMonths / 28;
+        console.log(remainingMonths);
         dateResult[1] = "" + Math.floor(remainingMonths);
 
+        console.log("Years");
         dateRemainder = dateRemainder - remainingMonths;
+        console.log(dateRemainder);
         let remainingYears = dateRemainder / 336;
+        console.log(remainingYears);
         dateResult[2] = "" + Math.floor(remainingYears);
         return dateResult;
     }

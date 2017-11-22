@@ -124,8 +124,6 @@ export class travelManager {
         let initialDate = currentDate;
         let goalAngle = targetAngle;
         let lastDeltaAngle = (source.getAngleForDate(initialDate) - destination.getAngleForDate(initialDate));
-        console.log("Target: " + targetAngle);
-        console.log("Last Angle: "+ lastDeltaAngle);
         let accuracy = 0;
         if (source.radialVelocity > destination.radialVelocity)
         {accuracy = source.radialVelocity;}
@@ -136,9 +134,7 @@ export class travelManager {
         while ((currentDate - initialDate) < maxIterations) {
             currentDate++;
             let newAngle = (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate));
-            console.log("New Angle: " + newAngle);
              if ((targetAngle - accuracy) < newAngle && newAngle < (targetAngle + accuracy) )  {
-                console.log("Break!!");
                 break;
             } 
             lastDeltaAngle = newAngle;
@@ -149,7 +145,7 @@ export class travelManager {
         else {
             console.log("Next transfer from " + source.name + " to " + destination.name + " is in " + (currentDate - initialDate) + " days");
         }
-        let result:number = (currentDate - initialDate)-1; 
+        let result:number = (currentDate - initialDate); 
 
         return result;
     }

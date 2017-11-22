@@ -64,4 +64,24 @@ export class cObject {
         angle = angle%(Math.PI*2);
         return angle;
     }
+
+    getPositionForDate(date:number, zeroPosition:vector2d)
+    {
+        let position:vector2d = new vector2d(0,0);
+        let dateAngle = this.getAngleForDate(date);
+        console.log("actual angle: " + Library.toDegrees(this.currentAngle));
+        console.log("angle for date: " + date + " " + Library.toDegrees(dateAngle));
+        position.x =  zeroPosition.x + (this.orbitRadius * Math.cos(dateAngle));
+        position.y =  zeroPosition.y + (this.orbitRadius * Math.sin(dateAngle));
+        return position;
+    }
+
+    getPositionForAngle(angle:number, zeroPosition: vector2d)
+    {
+        let position:vector2d = new vector2d(0,0);
+        angle = angle%(Math.PI*2);
+        position.x =  zeroPosition.x + (this.orbitRadius * Math.cos(angle));
+        position.y =  zeroPosition.y + (this.orbitRadius * Math.sin(angle));
+        return position;
+    }
 }
