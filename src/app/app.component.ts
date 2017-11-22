@@ -48,8 +48,8 @@ export class AppComponent implements AfterViewInit {
     viewportWidth: number;
     viewportHeight: number;
     calculationDate: string[] = new Array<string>(3);
-    hohmannResults: string[] = new Array<string>(5);
-    brachistochroneResults: string[] = new Array<string>(16);
+    hohmannResults: string[] = new Array<string>(6);
+    brachistochroneResults: string[] = new Array<string>(19);
     showResults: boolean = false;
 
     // mouse variables
@@ -119,20 +119,30 @@ export class AppComponent implements AfterViewInit {
         this.hohmannResults[2] = /* arrival Burn */ "" + hohMannDeltaV[2];
         this.hohmannResults[3] = /* travel time for hohman*/"" + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
         this.hohmannResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
-        this.hohmannResults[5] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
+        let tempDate = this.getDateForTimeStamp(this.actualDate + +this.hohmannResults[4]);
+        this.hohmannResults[5] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ this.yearsList[tempDate[2]];
+        this.hohmannResults[6] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
         
+        
+
         // brachistochrone transfer results
         this.brachistochroneResults[0] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
         this.brachistochroneResults[1] = /* brachistochrone at full thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
         this.brachistochroneResults[2] = "" + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
+        tempDate = this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[2]);
+        this.brachistochroneResults[3] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ this.yearsList[tempDate[2]];
 
-        this.brachistochroneResults[3] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
-        this.brachistochroneResults[4] = /* brachistochrone at half thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
-        this.brachistochroneResults[5] = "" + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2, this.actualDate);
+        this.brachistochroneResults[4] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
+        this.brachistochroneResults[5] = /* brachistochrone at half thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
+        this.brachistochroneResults[6] = "" + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2, this.actualDate);
+        tempDate = this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[6]);
+        this.brachistochroneResults[7] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ this.yearsList[tempDate[2]];
 
-        this.brachistochroneResults[6] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
-        this.brachistochroneResults[7] = /* brachistochrone at quarter thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
-        this.brachistochroneResults[8] = "" + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4, this.actualDate);
+        this.brachistochroneResults[8] = "" + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
+        this.brachistochroneResults[9] = /* brachistochrone at quarter thrust*/"" + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
+        this.brachistochroneResults[10] = "" + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4, this.actualDate);
+        tempDate = this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[10]);
+        this.brachistochroneResults[11] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ this.yearsList[tempDate[2]];
     }
 
     calculateDirectFlight() {
@@ -267,7 +277,12 @@ export class AppComponent implements AfterViewInit {
 
     private updateGUI() {
         if (this.dateUnlocked) {
-            this.ngZone.run(() => this.setDate());
+            this.ngZone.run(() => function(){
+                let dates = this.getDateForTimeStamp();
+                this.currentDateD = dates[0];
+                this.currentDateM = dates[1];
+                this.currentDateY = dates[2];
+            });
         }
     }
 
@@ -310,20 +325,22 @@ export class AppComponent implements AfterViewInit {
         doc.setAttribute('height', "" + this.viewportHeight);
     }
 
-    private setDate() {
-        let dateRemainder: number = this.actualDate;
+    private getDateForTimeStamp(timeStamp:number) {
+        let dateResult: string[] = new Array<string>(3);
+        let dateRemainder: number = timeStamp;
         let remainingDays = dateRemainder%336;
         remainingDays = remainingDays%28;
-        this.currentDateD = Math.floor(remainingDays);
+        dateResult[0] = "" + Math.floor(remainingDays);
 
         dateRemainder = dateRemainder - remainingDays;
         let remainingMonths = dateRemainder %336;
         remainingMonths = remainingMonths / 28;
-        this.currentDateM = Math.floor(remainingMonths);
+        dateResult[1] = "" + Math.floor(remainingMonths);
 
         dateRemainder = dateRemainder - remainingMonths;
         let remainingYears = dateRemainder / 336;
-        this.currentDateY = Math.floor(remainingYears);
+        dateResult[2] = "" + Math.floor(remainingYears);
+        return dateResult;
     }
 
     private loadAllObjects(source: string) {
