@@ -72,7 +72,7 @@ export class travelManager {
         return angleRadian;
     }
 
-    static calculateDaysToNextHohmanTravelDate(source: cObject, destination: cObject, actualDate: number) {        
+    static calculateDaysToNextHohmanTravelDate(source: cObject, destination: cObject, actualDate: number) {     
         let goalAngle = travelManager.calculateHohmanLaunchTiming(source, destination);
         let daysToAngle = this.findDateForObjectangle(source, destination, actualDate, goalAngle, this.calculateHohmanTransferWindow(source, destination));
         return (daysToAngle);
@@ -123,7 +123,7 @@ export class travelManager {
         let currentDate = Math.floor(actualDate);
         let initialDate = currentDate;
         let goalAngle = targetAngle;
-        let lastDeltaAngle = (source.getAngleForDate(initialDate) - destination.getAngleForDate(initialDate));
+        let lastDeltaAngle = Library.angleBetweenVectors(source.getPositionForDate(initialDate, new vector2d(0,0)),destination.getPositionForDate(initialDate, new vector2d(0,0)));
         let accuracy = 0;
         if (source.radialVelocity > destination.radialVelocity)
         {accuracy = source.radialVelocity;}
@@ -133,7 +133,8 @@ export class travelManager {
         // loop through n itterations of finding a date and checking the angle where n = the period of the transfer window in days
         while ((currentDate - initialDate) < maxIterations) {
             currentDate++;
-            let newAngle = (source.getAngleForDate(currentDate) - destination.getAngleForDate(currentDate));
+            let newAngle = Library.angleBetweenVectors(source.getPositionForDate(currentDate, new vector2d(0,0)),
+                                                            destination.getPositionForDate(currentDate, new vector2d(0,0)));
              if ((targetAngle - accuracy) < newAngle && newAngle < (targetAngle + accuracy) )  {
                 break;
             } 

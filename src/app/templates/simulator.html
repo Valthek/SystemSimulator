@@ -70,7 +70,7 @@
     </div>
     <div id="travelCalculationResults">
       <div *ngIf="showResults">
-        <span>Travel from {{planets[travelSource].name}} to {{planets[travelDestination].name}} on {{calculationDate[0]+1}} {{monthsList[calculationDate[1]]}}, {{calculationDate[2]}} AT </span>
+        <span>Travel from {{planets[travelSource].name}} to {{planets[travelDestination].name}} on {{daysList[calculationDate[0]]}} {{monthsList[calculationDate[1]]}}, {{calculationDate[2]}} AT </span>
         <span class="title">Hohmann Maneuver:</span>
         <span>DeltaV required: {{hohmannResults[0]}} km/s</span>
         <span>Insertion Burn at {{planets[travelSource].name}}: {{hohmannResults[1]}}m/s</span>

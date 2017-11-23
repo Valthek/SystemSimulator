@@ -1,3 +1,5 @@
+import { vector2d } from "app/system/engine/vector2d";
+
 export class Library {
     //Astronomical unit in meters
     public static get astronomicalUnit() { return 149597870700 };
@@ -35,4 +37,13 @@ export class Library {
         return radian * (180 / Math.PI);
     }
 
+    public static angleBetweenVectors(pointA:vector2d, pointB:vector2d)
+    {
+        // calculate the angle between two points
+        let angleA:number = Math.atan2(pointA.y, pointA.x);
+        console.log("Vector A: " + Library.toDegrees(angleA));
+        let angleB:number = Math.atan2(pointB.y, pointB.x);
+        console.log("Vector B: "+ Library.toDegrees(angleB));
+        return angleB - angleA;
+    }
 }

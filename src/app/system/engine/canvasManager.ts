@@ -100,15 +100,41 @@ export class canvasManager {
     {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
-        context.strokeStyle = source.color;
+        context.strokeStyle = "#12D7AC";
         context.lineWidth = pathWidth; 
+        context.setLineDash([15,7,15]);
         let positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);
         let positionDestination = this.getObjectCanvasPosition(context, destination.currentPosition, zoom, positionOffset);
         context.moveTo(positionSource.x, positionSource.y);
-        let quadraticOffsetSource = this.getObjectCanvasPosition(context, source.getPositionForAngle(source.currentAngle - (Math.PI/2), objectZero.currentPosition),zoom, positionOffset);
-        let quadraticOffsetDestination = this.getObjectCanvasPosition(context, destination.getPositionForAngle(destination.currentAngle + (Math.PI/2), objectZero.currentPosition),zoom, positionOffset);
-        context.bezierCurveTo(quadraticOffsetSource.x, quadraticOffsetSource.y, positionDestination.x,positionDestination.y, positionDestination.x,positionDestination.y);
+        // offset position is aprox at the correctly rotated intersection of x = radius, y = radius
+        let sourceOffsetRadius = Math.sqrt(Math.pow(source.orbitRadius,2)*2);        
+        let sx = +sourceOffsetRadius * Math.cos(source.currentAngle - (Math.PI * 0.33));
+        let sy = +sourceOffsetRadius * Math.sin(source.currentAngle - (Math.PI * 0.33));
+        let sourceOffset:vector2d = this.getObjectCanvasPosition(context,new vector2d(sx, sy), zoom,positionOffset);
+
+        let destinationOffsetRadius = Math.sqrt(Math.pow(destination.orbitRadius,2)*2);
+        let dx = +destinationOffsetRadius * Math.cos(destination.currentAngle + (Math.PI * 0.5));
+        let dy = +destinationOffsetRadius * Math.sin(destination.currentAngle + (Math.PI * 0.5));
+        let destinationOffset:vector2d = this.getObjectCanvasPosition(context,new vector2d(sx, sy), zoom,positionOffset);
+
+        context.bezierCurveTo(sourceOffset.x, sourceOffset.y, destinationOffset.x,destinationOffset.y, positionDestination.x,positionDestination.y);
         context.stroke(); 
+        context.setLineDash([]);
+    }
+
+    static drawBrachistochronePath(context,source:cObject, destination:cObject, pathWidth:number, zoomLevel:number, positionOffset:vector2d, currentDate:number)
+    {
+        let zoom:number = this.getZoom(context, zoomLevel);
+        context.beginPath();
+        context.strokeStyle = "#ACD712";
+        context.lineWidth = pathWidth; 
+        context.setLineDash([15,7]);
+        let positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);
+        let positionDestination = this.getObjectCanvasPosition(context, destination.currentPosition, zoom, positionOffset);
+        context.moveTo(positionSource.x, positionSource.y);
+        context.lineTo(positionDestination.x, positionDestination.y);
+        context.stroke(); 
+        context.setLineDash([]);
     }
 
     // Draw the background for the map (dark blue/black)

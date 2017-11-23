@@ -29,8 +29,8 @@ export class AppComponent implements AfterViewInit {
     currentDateY: number = 0;
 
     travelDestination: number = 3;
-    travelSource: number = 4;
-    shipThrustInG: number = 0;
+    travelSource: number = 2;
+    shipThrustInG: number = 0.005;
 
     systemDataSource: string = "antara";
 
@@ -63,7 +63,6 @@ export class AppComponent implements AfterViewInit {
     private actualZoom: number = 1;
 
     ctx: any;
-
 
     constructor(private ngZone: NgZone) {
         this.thenTime = Date.now();
@@ -121,7 +120,7 @@ export class AppComponent implements AfterViewInit {
         this.hohmannResults[4] = /* next window in days*/"" + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
         console.log("Today is: "+ this.actualDate + " Next window in: " + this.hohmannResults[4]);
         let tempDate = this.getDateForTimeStamp(this.actualDate + +this.hohmannResults[4]);
-        this.hohmannResults[5] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ this.yearsList[tempDate[2]];
+        this.hohmannResults[5] = "" + this.daysList[tempDate[0]] + " "+this.monthsList[tempDate[1]] + " "+ tempDate[2];
         this.hohmannResults[6] = /* launch window every x days*/"" + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
         
         
@@ -254,7 +253,9 @@ export class AppComponent implements AfterViewInit {
         canvasManager.clearCanvas(ctx);
         canvasManager.drawSky(ctx);
         canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, true, this.systemPositionOffset);
-
+        canvasManager.drawHohmannPath(ctx, this.cObjects[0] ,this.planets[this.travelSource], this.planets[this.travelDestination], 3, this.actualZoom, this.systemPositionOffset, this.actualDate);
+        canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3, this.actualZoom, this.systemPositionOffset, this.actualDate);
+        
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
             canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset);
@@ -274,18 +275,20 @@ export class AppComponent implements AfterViewInit {
         // draw selectors for selected planets
         canvasManager.drawSelector(ctx, this.planets[this.travelSource], this.actualZoom, this.systemPositionOffset, 3, "#16DB93", this.actualDate * 10);
         canvasManager.drawSelector(ctx, this.planets[this.travelDestination], this.actualZoom, this.systemPositionOffset, 3, "#E2EF70", this.actualDate * 10);
-        canvasManager.drawHohmannPath(ctx, this.cObjects[0] ,this.planets[this.travelSource], this.planets[this.travelDestination], 5, this.actualZoom, this.systemPositionOffset, this.actualDate);
     }
 
     private updateGUI() {
         if (this.dateUnlocked) {
-            this.ngZone.run(() => function(){
-                let dates = this.getDateForTimeStamp();
-                this.currentDateD = dates[0];
-                this.currentDateM = dates[1];
-                this.currentDateY = dates[2];
-            });
+            this.ngZone.run(() => this.setDate());
         }
+    }
+
+    private setDate()
+    {
+            let dates = this.getDateForTimeStamp(this.actualDate);
+            this.currentDateD = +dates[0];
+            this.currentDateM = +dates[1];
+            this.currentDateY = +dates[2];
     }
 
     private updateTime() {
@@ -329,29 +332,18 @@ export class AppComponent implements AfterViewInit {
 
     private getDateForTimeStamp(timeStamp:number) {
         let dateResult: string[] = new Array<string>(3);
-        console.log("Days");
         let dateRemainder: number = timeStamp;
-        console.log(dateRemainder);
         let remainingDays = dateRemainder%336;
-        console.log(remainingDays);
         remainingDays = remainingDays%28;
-        console.log(remainingDays);
         dateResult[0] = "" + Math.floor(remainingDays);
 
-        console.log("Months");
         dateRemainder = dateRemainder - remainingDays;
-        console.log(dateRemainder);
         let remainingMonths = dateRemainder %336;
-        console.log(remainingMonths);
         remainingMonths = remainingMonths / 28;
-        console.log(remainingMonths);
         dateResult[1] = "" + Math.floor(remainingMonths);
 
-        console.log("Years");
         dateRemainder = dateRemainder - remainingMonths;
-        console.log(dateRemainder);
         let remainingYears = dateRemainder / 336;
-        console.log(remainingYears);
         dateResult[2] = "" + Math.floor(remainingYears);
         return dateResult;
     }
@@ -390,7 +382,6 @@ export class AppComponent implements AfterViewInit {
                         break;
                     case 'datasource':
                         this.systemDataSource = split[1];
-                        console.log(this.systemDataSource);
                         break;
                     case 'speed':
                         this.simSpeed = parseInt(split[1]);
