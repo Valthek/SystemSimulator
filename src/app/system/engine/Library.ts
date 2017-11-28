@@ -41,9 +41,7 @@ export class Library {
     {
         // calculate the angle between two points
         let angleA:number = Math.atan2(pointA.y, pointA.x);
-        console.log("Vector A: " + Library.toDegrees(angleA));
         let angleB:number = Math.atan2(pointB.y, pointB.x);
-        console.log("Vector B: "+ Library.toDegrees(angleB));
         return angleB - angleA;
     }
 }

@@ -4,6 +4,7 @@ import { planet } from "./../objects/planet";
 import { moon } from "./../objects/moon";
 import { cObject } from "./../objects/cObject";
 import { vector2d } from "./vector2d";
+import { CurrencyPipe } from '@angular/common/src/pipes/number_pipe';
 
 export class canvasManager {
     // clear canvas
@@ -104,13 +105,13 @@ export class canvasManager {
         context.lineWidth = pathWidth; 
         context.setLineDash([15,7]);
 
-        let positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);        
-        let positionDestination = this.getObjectCanvasPosition(context, destination.currentPosition, zoom, positionOffset);
+        let positionSource = this.getObjectCanvasPosition(context, source.getPositionForDate(currentDate, new vector2d(0,0)), zoom, positionOffset);        
+        let positionDestination = this.getObjectCanvasPosition(context, destination.getPositionForDate(currentDate, new vector2d(0,0)), zoom, positionOffset);
         //context.moveTo(positionSource.x, positionSource.y);
 
         let hohmannMinorAxis = (source.orbitRadius + destination.orbitRadius)/2;
         let hohmannMajorAxis = destination.orbitRadius;
-        let hohMannRotation = source.currentAngle + Math.PI;
+        let hohMannRotation = source.getAngleForDate(currentDate) + Math.PI;
         let x = (hohmannMinorAxis - source.orbitRadius) * Math.cos(hohMannRotation);
         let y = (hohmannMinorAxis - source.orbitRadius) * Math.sin(hohMannRotation);
         let hohmannCenter = new vector2d(x, y);
