@@ -102,35 +102,34 @@ export class canvasManager {
         context.beginPath();
         context.strokeStyle = "#12D7AC";
         context.lineWidth = pathWidth; 
-        context.setLineDash([15,7,15]);
-        let positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);
+        context.setLineDash([15,7]);
+
+        let positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);        
         let positionDestination = this.getObjectCanvasPosition(context, destination.currentPosition, zoom, positionOffset);
-        context.moveTo(positionSource.x, positionSource.y);
-        // offset position is aprox at the correctly rotated intersection of x = radius, y = radius
-        let sourceOffsetRadius = Math.sqrt(Math.pow(source.orbitRadius,2)*2);        
-        let sx = +sourceOffsetRadius * Math.cos(source.currentAngle - (Math.PI * 0.33));
-        let sy = +sourceOffsetRadius * Math.sin(source.currentAngle - (Math.PI * 0.33));
-        let sourceOffset:vector2d = this.getObjectCanvasPosition(context,new vector2d(sx, sy), zoom,positionOffset);
+        //context.moveTo(positionSource.x, positionSource.y);
 
-        let destinationOffsetRadius = Math.sqrt(Math.pow(destination.orbitRadius,2)*2);
-        let dx = +destinationOffsetRadius * Math.cos(destination.currentAngle + (Math.PI * 0.5));
-        let dy = +destinationOffsetRadius * Math.sin(destination.currentAngle + (Math.PI * 0.5));
-        let destinationOffset:vector2d = this.getObjectCanvasPosition(context,new vector2d(sx, sy), zoom,positionOffset);
-
-        context.bezierCurveTo(sourceOffset.x, sourceOffset.y, destinationOffset.x,destinationOffset.y, positionDestination.x,positionDestination.y);
+        let hohmannMinorAxis = (source.orbitRadius + destination.orbitRadius)/2;
+        let hohmannMajorAxis = destination.orbitRadius;
+        let hohMannRotation = source.currentAngle + Math.PI;
+        let x = (hohmannMinorAxis - source.orbitRadius) * Math.cos(hohMannRotation);
+        let y = (hohmannMinorAxis - source.orbitRadius) * Math.sin(hohMannRotation);
+        let hohmannCenter = new vector2d(x, y);
+        hohmannCenter = this.getObjectCanvasPosition(context,hohmannCenter, zoom,positionOffset);
+        context.ellipse(hohmannCenter.x, hohmannCenter.y,hohmannMinorAxis * zoom, hohmannMajorAxis * zoom,  hohMannRotation, 0, Math.PI, true);
+        
         context.stroke(); 
         context.setLineDash([]);
     }
 
-    static drawBrachistochronePath(context,source:cObject, destination:cObject, pathWidth:number, zoomLevel:number, positionOffset:vector2d, currentDate:number)
+    static drawBrachistochronePath(context,source:cObject, destination:cObject, pathWidth:number, pathColor:string, zoomLevel:number, positionOffset:vector2d, currentDate:number)
     {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
-        context.strokeStyle = "#ACD712";
+        context.strokeStyle = pathColor;
         context.lineWidth = pathWidth; 
         context.setLineDash([15,7]);
         let positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);
-        let positionDestination = this.getObjectCanvasPosition(context, destination.currentPosition, zoom, positionOffset);
+        let positionDestination = this.getObjectCanvasPosition(context, destination.getPositionForDate(currentDate, new vector2d(0,0)), zoom, positionOffset);
         context.moveTo(positionSource.x, positionSource.y);
         context.lineTo(positionDestination.x, positionDestination.y);
         context.stroke(); 
