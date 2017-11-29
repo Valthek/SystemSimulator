@@ -97,7 +97,7 @@ export class canvasManager {
         }
     }
 
-    static drawHohmannPath(context, objectZero:cObject, source:cObject, destination:cObject, pathWidth:number, zoomLevel:number, positionOffset:vector2d, currentDate:number)
+    static drawHohmannPath(context, source:cObject, destination:cObject, pathWidth:number, zoomLevel:number, positionOffset:vector2d, currentDate:number)
     {
         let zoom:number = this.getZoom(context, zoomLevel);
         context.beginPath();
@@ -105,18 +105,14 @@ export class canvasManager {
         context.lineWidth = pathWidth; 
         context.setLineDash([15,7]);
 
-        let positionSource = this.getObjectCanvasPosition(context, source.getPositionForDate(currentDate, new vector2d(0,0)), zoom, positionOffset);        
-        let positionDestination = this.getObjectCanvasPosition(context, destination.getPositionForDate(currentDate, new vector2d(0,0)), zoom, positionOffset);
-        //context.moveTo(positionSource.x, positionSource.y);
-
         let hohmannMinorAxis = (source.orbitRadius + destination.orbitRadius)/2;
-        let hohmannMajorAxis = destination.orbitRadius;
+        let hohmannMajorAxis = destination.orbitRadius; 
         let hohMannRotation = source.getAngleForDate(currentDate) + Math.PI;
         let x = (hohmannMinorAxis - source.orbitRadius) * Math.cos(hohMannRotation);
         let y = (hohmannMinorAxis - source.orbitRadius) * Math.sin(hohMannRotation);
         let hohmannCenter = new vector2d(x, y);
         hohmannCenter = this.getObjectCanvasPosition(context,hohmannCenter, zoom,positionOffset);
-        context.ellipse(hohmannCenter.x, hohmannCenter.y,hohmannMinorAxis * zoom, hohmannMajorAxis * zoom,  hohMannRotation, 0, Math.PI, false);
+        context.ellipse(hohmannCenter.x, hohmannCenter.y,hohmannMinorAxis * zoom, hohmannMajorAxis * zoom,  hohMannRotation, 0, Math.PI/2, false);
         
         context.stroke(); 
         context.setLineDash([]);

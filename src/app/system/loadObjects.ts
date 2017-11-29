@@ -33,12 +33,12 @@ export class loadObjects {
             let moonOrbitRadius = parseFloat($(this).find("moonOrbitRadius").text());
             let m: moon = new moon(moonNumber, moonName, moonActualDiameter, moonColor, moonOrbitRadius, moonSpeed, moonStartAngle);
             moons.push(m);
-            console.log(m);
+            //console.log(m);
             moonNumber++;
           });
           let p: planet = new planet(planetNumber,name,planetColor, actualDiameter,moons, distanceToOrigin, radialVelocity,initialAngle);
           planets.push(p);
-          console.log(p);
+          //console.log(p);
           planetNumber++;
         });
       },
@@ -67,7 +67,7 @@ export class loadObjects {
           let actualDiameter = parseFloat($(this).find("realDiameter").text());
           let o: cObject = new cObject(cObjectNumber,name, objectColor, actualDiameter, distanceToOrigin,  radialVelocity,initialAngle);
           cObjects.push(o);
-          console.log(o);
+          //console.log(o);
           cObjectNumber++;
         });
       },

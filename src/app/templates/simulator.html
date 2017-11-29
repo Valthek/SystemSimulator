@@ -44,7 +44,7 @@
         <span>Set travel route</span>
       </div>
       <div class="menuElement">
-        <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
+        <form id="travelOptions" (ngSubmit)="calculateTravelOptions(true)" #travelForm="ngForm">
           <div class="formElement">
             <span>From: </span>
             <select [(ngModel)]="travelSource" name="travelSource">

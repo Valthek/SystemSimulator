@@ -73,7 +73,7 @@ export class AppComponent implements AfterViewInit {
         this.loadDateVisualisation();
         this.loadAllObjects(this.systemDataSource);
         this.brachistochroneOffset = [0,0,0];
-        this.hohmannOffset = 0 + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
+        this.hohmannOffset = 0;
         console.log("The simulator has loaded. Starting...");
         this.isRunning = true;
         this.onTimeSubmit();
@@ -110,8 +110,8 @@ export class AppComponent implements AfterViewInit {
         this.dateUnlocked = true;
     }
 
-    calculateTravelOptions() {
-        this.showResults = true;
+    calculateTravelOptions(showResult:boolean) {
+        this.showResults = showResult;
         this.calculationDate[0] = "" + this.currentDateD;
         this.calculationDate[1] = "" + this.currentDateM;
         this.calculationDate[2] = "" + this.currentDateY;
@@ -261,7 +261,11 @@ export class AppComponent implements AfterViewInit {
         canvasManager.clearCanvas(ctx);
         canvasManager.drawSky(ctx);
         canvasManager.drawPlanet(ctx, this.cObjects[0], this.actualZoom, true, this.systemPositionOffset);
-        canvasManager.drawHohmannPath(ctx, this.cObjects[0] ,this.planets[this.travelSource], this.planets[this.travelDestination], 3, this.actualZoom, this.systemPositionOffset, this.hohmannOffset);
+        if (this.hohmannOffset == 0 || this.brachistochroneOffset == [0,0,0])
+        {
+            this.calculateTravelOptions(false);
+        }
+        canvasManager.drawHohmannPath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3, this.actualZoom, this.systemPositionOffset, this.hohmannOffset);
         canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3, "#D10000", this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[0]);
         canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3, "#F46036", this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[1]);
         canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3, "#F7B267", this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[2]);
