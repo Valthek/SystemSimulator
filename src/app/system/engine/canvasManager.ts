@@ -116,7 +116,7 @@ export class canvasManager {
         let y = (hohmannMinorAxis - source.orbitRadius) * Math.sin(hohMannRotation);
         let hohmannCenter = new vector2d(x, y);
         hohmannCenter = this.getObjectCanvasPosition(context,hohmannCenter, zoom,positionOffset);
-        context.ellipse(hohmannCenter.x, hohmannCenter.y,hohmannMinorAxis * zoom, hohmannMajorAxis * zoom,  hohMannRotation, 0, Math.PI, true);
+        context.ellipse(hohmannCenter.x, hohmannCenter.y,hohmannMinorAxis * zoom, hohmannMajorAxis * zoom,  hohMannRotation, 0, Math.PI, false);
         
         context.stroke(); 
         context.setLineDash([]);

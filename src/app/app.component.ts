@@ -73,7 +73,7 @@ export class AppComponent implements AfterViewInit {
         this.loadDateVisualisation();
         this.loadAllObjects(this.systemDataSource);
         this.brachistochroneOffset = [0,0,0];
-        this.hohmannOffset = 0;
+        this.hohmannOffset = 0 + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
         console.log("The simulator has loaded. Starting...");
         this.isRunning = true;
         this.onTimeSubmit();
