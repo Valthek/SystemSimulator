@@ -8,26 +8,26 @@
     <div id="animationControls">
       <div class="menuElement">
         <div class="slider">
-          <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed"
+          <label for="timescale">Time scale: </label><input id="timeScale" type="range" min="-28" max="28" [(ngModel)]="simSpeed" name="simSpeed"
           />
         </div>
       </div>
       <div class="menuElement">
         <div class="slider">
-          <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" />
+          <label for="zoom">Zoom: </label><input id="zoom" type="range" min="2" max="300" [(ngModel)]="zoomLevel" name="zoomLevel"/>
         </div>
       </div>
       <div class="menuElement">
         <form (ngSubmit)="onTimeSubmit()" #timeForm="ngForm">
           <div class="formElement">
-            <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()">
-            <option *ngFor="#day of daysList; #i = index" [value]="i">{{day}}</option>
+            <select class="timeSet" id="dateDay" [(ngModel)]="currentDateD" (click)="lockTime()" name="currentDateD">
+            <option *ngFor="let day of daysList; let i = index" [value]="i">{{day}}</option>
           </select>
-            <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()">
-            <option *ngFor="#month of monthsList; #i = index" [value]="i">{{month}}</option>
+            <select class="timeSet" id="dateMonth" [(ngModel)]="currentDateM" (click)="lockTime()" name="currentDateM">
+            <option *ngFor="let month of monthsList; let i = index" [value]="i">{{month}}</option>
           </select>
-            <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()">
-            <option *ngFor="#year of yearsList; #i = index" [value]="i">{{year}} AT</option>
+            <select class="timeSet" id="dateYear" [(ngModel)]="currentDateY" (click)="lockTime()" name="currentDateY">
+            <option *ngFor="let year of yearsList; let i = index" [value]="i">{{i}} AT</option>
           </select>
           </div>
           <div class="formElement">
@@ -35,6 +35,8 @@
             <button type="button" class="formButton" id="play" (click)="togglePlay()">{{playButtonText}}</button><br />
           </div>
         </form>
+        <div>
+      </div>
       </div>
     </div>
     <div id="travelControls">
@@ -42,49 +44,50 @@
         <span>Set travel route</span>
       </div>
       <div class="menuElement">
-        <form id="travelOptions" (ngSubmit)="calculateTravelOptions()" #travelForm="ngForm">
+        <form id="travelOptions" (ngSubmit)="calculateTravelOptions(true)" #travelForm="ngForm">
           <div class="formElement">
             <span>From: </span>
-            <select [(ngModel)]="travelSource">
-              <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+            <select [(ngModel)]="travelSource" name="travelSource">
+              <option *ngFor="let p of planets" [value]="p.objectID"> {{p.name}}</option>
             </select>
           </div>
           <div class="formElement">
             <span>To: </span>
-            <select [(ngModel)]="travelDestination">
-              <option *ngFor="#p of planets" [value]="p.objectID"> {{p.name}}</option>
+            <select [(ngModel)]="travelDestination" name="travelDestination">
+              <option *ngFor="let p of planets" [value]="p.objectID"> {{p.name}}</option>
             </select>
           </div>
-          <div class="formElement">
+          <div class="formElement input-icon input-icon-right">
             <span>Thrust: </span>
-            <input type="text" [(ngModel)]="shipThrustInG" required />
+            <i>G</i>
+            <input type="text" [(ngModel)]="shipThrustInG" required name="shipThrustInG" />
           </div>
           <div class="formElement">
-            <button type="submit" class="btn btn-success">Calculate Hohman DeltaV</button>
+            <button type="submit" class="btn btn-success">Calculate flight values</button>
           </div>
         </form>
       </div>
     </div>
     <div id="travelCalculationResults">
       <div *ngIf="showResults">
-        <span>Travel from {{planets[travelSource].name}} to {{planets[travelDestination].name}} on {{calculationDate[0]}} {{monthsList[calculationDate[1]]}}, {{calculationDate[2]}} AT </span>
-        <span class="title">Hohman Maneuver:</span>
-        <span>DeltaV required: {{hohmanResults[0]}} km/s</span>
-        <span>Insertion Burn at {{planets[travelSource].name}}: {{hohmanResults[1]}}m/s</span>
-        <span>Arrival Burn at {{planets[travelDestination].name}}: {{hohmanResults[2]}}m/s</span>
-        <span>Travel time: {{hohmanResults[3]}} days</span>
-        <span>Next travel window is in {{hohmanResults[5]}} days </span>
-        <span>Travel Window opens every {{hohmanResults[4]}} days </span>
-        <span class="title">Baristochrone Maneuver for {{shipThrustInG}}G: </span>
+        <span>Travel from {{planets[travelSource].name}} to {{planets[travelDestination].name}} on {{daysList[calculationDate[0]]}} {{monthsList[calculationDate[1]]}}, {{calculationDate[2]}} AT </span>
+        <span class="title">Hohmann Maneuver:</span>
+        <span>DeltaV required: {{hohmannResults[0]}} km/s</span>
+        <span>Insertion Burn at {{planets[travelSource].name}}: {{hohmannResults[1]}}m/s</span>
+        <span>Arrival Burn at {{planets[travelDestination].name}}: {{hohmannResults[2]}}m/s</span>
+        <span>Travel time: {{hohmannResults[3]}} days</span>
+        <span>Next travel window is in {{hohmannResults[4]}} days, on {{hohmannResults[5]}} AT </span>
+        <span>Travel Window opens every {{hohmannResults[6]}} days </span>
+        <span class="title">Brachistochrone Maneuver for {{shipThrustInG}}G: </span>
         <span>DeltaV required: {{brachistochroneResults[0]}} km/s</span>
         <span>Travel time: {{brachistochroneResults[1]}} days </span>
-        <span>Ideal launch time is in {{brachistochroneResults[2]}} days </span>
-        <span>DeltaV required at half thrust: {{brachistochroneResults[3]}}km/s</span>
-        <span>Travel time: {{brachistochroneResults[4]}} days</span>
-        <span>Ideal launch time for half thrust is in {{brachistochroneResults[5]}} days </span>
-        <span>DeltaV required at quarter thrust: {{brachistochroneResults[6]}}km/s</span>
-        <span>Travel time: {{brachistochroneResults[7]}} days</span>
-        <span>Ideal launch time for quarter thrust is in {{brachistochroneResults[5]}} days </span>
+        <span>Ideal launch time is in {{brachistochroneResults[2]}} days, on {{brachistochroneResults[3]}} </span>
+        <span>DeltaV required at half thrust: {{brachistochroneResults[4]}}km/s</span>
+        <span>Travel time: {{brachistochroneResults[5]}} days</span>
+        <span>Ideal launch time for half thrust is in {{brachistochroneResults[6]}} days, on {{brachistochroneResults[7]}}</span>
+        <span>DeltaV required at quarter thrust: {{brachistochroneResults[8]}}km/s</span>
+        <span>Travel time: {{brachistochroneResults[9]}} days</span>
+        <span>Ideal launch time for quarter thrust is in {{brachistochroneResults[10]}} days, {{brachistochroneResults[11]}} </span>
       </div>
     </div>
     <div id="directFlightControls">
@@ -97,9 +100,9 @@
     <div id="dataSourceControls">
       <form id="sourceSelectOptions" (ngSubmit)="changeDataSource()" #sourceForm="ngForm">
         <div class="formElement">
-          <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource">
-            <option value="antara_system.xml" selected="selected">Antara</option>
-            <option value="sol_system.xml">Sol</option>
+          <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource" name="systemDateSource">
+            <option value="antara" selected="selected">Antara</option>
+            <option value="sol">Sol</option>
           </select>
         </div>
         <div class="formElement">

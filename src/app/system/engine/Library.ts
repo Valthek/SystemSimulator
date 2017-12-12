@@ -1,4 +1,6 @@
-export class library {
+import { vector2d } from "app/system/engine/vector2d";
+
+export class Library {
     //Astronomical unit in meters
     public static get astronomicalUnit() { return 149597870700 };
     // gravitation constant for Antara TODO: make editable
@@ -24,6 +26,22 @@ export class library {
     public static arbitraryArray(size)
     {
         // return an arbitrarily large sized array (mostly for ngFor loops)
-        return size?library.arbitraryArray(size-1).concat(size):[]
+        return size?Library.arbitraryArray(size-1).concat(size):[]
+    }
+
+    public static toRadian(degrees: number):number {
+        return degrees * (Math.PI / 180);
+    }
+
+    public static toDegrees(radian: number):number {
+        return radian * (180 / Math.PI);
+    }
+
+    public static angleBetweenVectors(pointA:vector2d, pointB:vector2d)
+    {
+        // calculate the angle between two points
+        let angleA:number = Math.atan2(pointA.y, pointA.x);
+        let angleB:number = Math.atan2(pointB.y, pointB.x);
+        return angleB - angleA;
     }
 }

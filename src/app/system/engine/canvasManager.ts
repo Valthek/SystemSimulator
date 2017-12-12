@@ -1,8 +1,10 @@
-//Class to draw animations on the canvas
-import { planet } from "./../objects/planet";
-import { moon } from "./../objects/moon";
-import { cObject } from "./../objects/cObject";
-import { vector2d } from "./vector2d";
+// Class to draw animations on the canvas
+import { Library } from './Library';
+import { planet } from './../objects/planet';
+import { moon } from './../objects/moon';
+import { cObject } from './../objects/cObject';
+import { vector2d } from './vector2d';
+import { CurrencyPipe } from '@angular/common/src/pipes/number_pipe';
 
 export class canvasManager {
     // clear canvas
@@ -10,99 +12,163 @@ export class canvasManager {
         context.clearRect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
     }
 
-    static drawPlanet(context, planet: cObject, zoomLevel: number, showName: boolean, positionOffset:vector2d) {
+    static drawPlanet(context, planet: cObject, zoomLevel: number, showName: boolean, positionOffset: vector2d) {
         // Draw a planet at their appropriate coordinates
         // Coordinates are absolute for the planet compared to origin, centered on canvas
-        let zoom:number = this.getZoom(context, zoomLevel);
-
+        const zoom: number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.fillStyle = planet.color;
-        let x = ((planet.currentPosition.x) * zoom + context.canvas.clientWidth / 2)  + positionOffset.x;
-        let y = ((planet.currentPosition.y) * zoom + context.canvas.clientHeight / 2) + positionOffset.y;
-        context.moveTo(x, y);
-        context.arc(x, y, planet.size, 0, Math.PI * 2);
+        const position = this.getObjectCanvasPosition(context, planet.currentPosition, zoom, positionOffset);
+        context.moveTo(position.x, position.y);
+        context.arc(position.x, position.y, this.setObjectSize(planet.size, zoomLevel), 0, Math.PI * 2);
         context.fill();
         if (showName) {
-            context.fillStyle = "#12B4CE";
-            context.font = "10px Arial";
-            context.fillText(planet.name, (x - 15), y + 15);
+            context.fillStyle = '#12B4CE';
+            context.font = '10px Arial';
+            context.fillText(planet.name, (position.x - 15), position.y + this.setObjectSize(planet.size, zoomLevel) + 15);
         }
     }
 
-    static drawMoon(context, moon: moon, zoomLevel: number, showName: boolean, positionOffset:vector2d) {
+    static drawMoon(context, moon: moon, zoomLevel: number, showName: boolean, positionOffset: vector2d) {
         // Draw a moon at their appropriate coordinates
         // Coordinates are absolute for the planet compared to the mother planet's
-        let zoom:number = this.getZoom(context, zoomLevel);
+        const zoom: number = this.getZoom(context, zoomLevel);
 
         context.beginPath();
         context.fillStyle = moon.color;
-        let x = ((moon.currentPosition.x) * zoom + context.canvas.clientWidth / 2) + positionOffset.x;
-        let y = ((moon.currentPosition.y) * zoom + context.canvas.clientHeight / 2)+ positionOffset.y;
-        context.moveTo(x, y);
-        context.arc(x, y, moon.size, 0, Math.PI * 2);
+        const position = this.getObjectCanvasPosition(context, moon.currentPosition, zoom, positionOffset);
+        context.moveTo(position.x, position.y);
+        if (this.setObjectSize(moon.size, zoomLevel) >= 1) {
+            context.arc(position.x, position.y, this.setObjectSize(moon.size, zoomLevel), 0, Math.PI * 2);
+        }
+
         context.fill();
         if (showName) {
-            context.fillStyle = "#12B4CE";
-            context.font = "10px Arial";
-            context.fillText(moon.name, (x - 15), y + 15);
+            context.fillStyle = '#12B4CE';
+            context.font = '10px Arial';
+            context.fillText(moon.name, (position.x - 15), position.y + this.setObjectSize(moon.size, zoomLevel) + 15);
         }
     }
 
     // Draw a circle indicating a celestial object's orbit
-    static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number, positionOffset:vector2d) {
-        let zoom:number = this.getZoom(context, zoomLevel);
+    static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number, positionOffset: vector2d) {
+        const zoom: number = this.getZoom(context, zoomLevel);
         context.beginPath();
-        context.lineWidth = 1;
-        context.strokeStyle = "#12B4CE";
-        let x = (parent.currentPosition.x) * zoom + context.canvas.clientWidth / 2 + positionOffset.x;
-        let y = (parent.currentPosition.y) * zoom + context.canvas.clientHeight / 2+ positionOffset.y;
-        context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
+        context.lineWidth = width;
+        context.strokeStyle = '#12B4CE';
+        const position = this.getObjectCanvasPosition(context, parent.currentPosition, zoom, positionOffset);
+        context.arc(position.x, position.y, object.orbitRadius * zoom, 0, Math.PI * 2);
+        context.stroke();
+
+    }
+
+    // Draw a selected indicator for a specific celestial object
+    static drawSelector(context, object: cObject, zoomLevel: number, positionOffset: vector2d, lineWidth: number, color: string, rotation: number) {
+        const selectorArea = 3;
+        const zoom: number = this.getZoom(context, zoomLevel);
+        context.beginPath();
+        context.lineWidth = lineWidth;
+        context.strokeStyle = color;
+        const position = this.getObjectCanvasPosition(context, object.currentPosition, zoom, positionOffset);
+        context.arc(position.x, position.y, this.setObjectSize(object.size, zoomLevel) * selectorArea, Library.toRadian(20 - rotation), Library.toRadian(100 - rotation));
+        context.stroke();
+        context.beginPath();
+        context.arc(position.x, position.y, this.setObjectSize(object.size, zoomLevel) * selectorArea, Library.toRadian(140 - rotation), Library.toRadian(220 - rotation));
+        context.stroke();
+        context.beginPath();
+        context.arc(position.x, position.y, this.setObjectSize(object.size, zoomLevel) * selectorArea, Library.toRadian(260 - rotation), Library.toRadian(340 - rotation));
         context.stroke();
 
     }
 
     // Fill in an area with color to indicate the aproximate location of an object's orbit
-    static drawObjectArea(context, object: cObject, objectOrbitWidth: number, zoomLevel: number, showName: boolean, positionOffset:vector2d) {
-        let zoom:number = this.getZoom(context, zoomLevel);
+    static drawObjectArea(context, object: cObject, objectOrbitWidth: number, zoomLevel: number, showName: boolean, positionOffset: vector2d) {
+        const zoom: number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.strokeStyle = object.color;
         context.lineWidth = object.size;
-        let x = context.canvas.clientWidth / 2 + positionOffset.x;
-        let y = context.canvas.clientHeight / 2+ positionOffset.y;
-        context.arc(x, y, object.orbitRadius * zoom, 0, Math.PI * 2);
+        const position = this.getObjectCanvasPosition(context, object.currentPosition, zoom, positionOffset);
+        context.arc(position.x, position.y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();
         if (showName) {
-            context.fillStyle = "#12B4CE";
-            context.font = "10px Arial";
-            context.fillText(object.name, x - 25, y + (object.orbitRadius * zoom) + 15);
+            context.fillStyle = '#12B4CE';
+            context.font = '10px Arial';
+            context.fillText(object.name, position.x - 25, position.y + (object.orbitRadius * zoom) + 15);
         }
+    }
+
+    static drawHohmannPath(context, source: cObject, destination: cObject, pathWidth: number, zoomLevel: number, positionOffset: vector2d, currentDate: number) {
+        const zoom: number = this.getZoom(context, zoomLevel);
+        context.beginPath();
+        context.strokeStyle = '#12D7AC';
+        context.lineWidth = pathWidth;
+        context.setLineDash([15, 7]);
+
+        const hohmannMinorAxis = (source.orbitRadius + destination.orbitRadius) / 2;
+        const hohmannMajorAxis = destination.orbitRadius;
+        const hohMannRotation = source.getAngleForDate(currentDate) + Math.PI;
+        const x = (hohmannMinorAxis - source.orbitRadius) * Math.cos(hohMannRotation);
+        const y = (hohmannMinorAxis - source.orbitRadius) * Math.sin(hohMannRotation);
+        let hohmannCenter = new vector2d(x, y);
+        hohmannCenter = this.getObjectCanvasPosition(context, hohmannCenter, zoom, positionOffset);
+        context.ellipse(hohmannCenter.x, hohmannCenter.y, hohmannMinorAxis * zoom, hohmannMajorAxis * zoom, hohMannRotation, 0, Math.PI, false);
+
+        context.stroke();
+        context.setLineDash([]);
+    }
+
+    static drawBrachistochronePath(context, source: cObject, destination: cObject, pathWidth: number, pathColor: string, zoomLevel: number, positionOffset: vector2d, currentDate: number) {
+        const zoom: number = this.getZoom(context, zoomLevel);
+        context.beginPath();
+        context.strokeStyle = pathColor;
+        context.lineWidth = pathWidth;
+        context.setLineDash([15, 7]);
+        const positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);
+        const positionDestination = this.getObjectCanvasPosition(context, destination.getPositionForDate(currentDate, new vector2d(0, 0)), zoom, positionOffset);
+        context.moveTo(positionSource.x, positionSource.y);
+        context.lineTo(positionDestination.x, positionDestination.y);
+        context.stroke();
+        context.setLineDash([]);
     }
 
     // Draw the background for the map (dark blue/black)
     static drawSky(context) {
         context.beginPath();
         context.rect(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
-        context.fillStyle = "#282838";
+        context.fillStyle = '#282838';
         context.fill();
     }
 
     // Render framerate in top left corner (render text, technically speaking)
     static drawFrameRate(context, frameRate) {
         context.beginPath();
-        context.fillStyle = "#FFee00";
-        context.font = "20px Arial";
+        context.fillStyle = '#FFee00';
+        context.font = '20px Arial';
         context.fillText(frameRate, 30, 30);
     }
 
-    private static getZoom(context, zoomLevel)
-    {
+    private static getZoom(context, zoomLevel) {
+        // calculate zoom
+        // zoomLevel is the # of AU from the center to the edge
+        // zoom bound is aprox between 15 (fully zoomed out) and 2350 (fully zoomed in)
         let zoom: number;
         if (context.canvas.clientWidth > context.canvas.clientHeight) {
             zoom = ((context.canvas.clientWidth / 2) / zoomLevel);
-        }
-        else {
+        } else {
             zoom = ((context.canvas.clientHeight / 2) / zoomLevel);
         }
         return zoom;
+    }
+
+    private static setObjectSize(actualSizeInAu: number, zoomLevel: number): number {
+        const displaySize = ((Math.log(actualSizeInAu) + 12) * 3) * (1 / Math.sqrt(zoomLevel));
+        return displaySize;
+    }
+
+    private static getObjectCanvasPosition(ctx, objectPosition: vector2d, zoom, offset: vector2d) {
+        const position: vector2d = new vector2d(0, 0);
+        position.x = (objectPosition.x + offset.x) * zoom + (ctx.canvas.clientWidth / 2);
+        position.y = (objectPosition.y + offset.y) * zoom + (ctx.canvas.clientHeight / 2);
+        return position;
     }
 }

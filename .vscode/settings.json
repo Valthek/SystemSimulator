@@ -1,14 +1,21 @@
 {
   "files.exclude": {
+    ".editorconfig":true,
+    ".gitignore":true,
+    "angular-cli.json":false,
+    "README.md":true,
+    "tslint.json":true,
+    "e2e":true,
     "node_modules/": true,
     "dist/": true,
     "lib/": true,
-    "**/**.js":true,
+    "**/**/**.js":true,
     "**/**.js.map":true,
     "**/**.log.**":true,
     "**/**.css":true,
     "LICENSE":true,
     "**/**.bat":true,
-    "**/**.txt":true
+    "**/**.txt":true,
+    "**/assets":true
   }
 }
