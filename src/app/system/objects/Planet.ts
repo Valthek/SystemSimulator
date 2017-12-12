@@ -6,9 +6,9 @@ export class planet extends cObject
 {
     moons:cObject [] = [];
 
-    constructor(objectID:number, name:string, planetColor:string, realDiameter:number, moons:moon[], distance:number, velocity:number, initialAngle:number ) 
+    constructor(objectID:number, name:string, planetColor:string, planetSize:number, realDiameter:number, moons:moon[], distance:number, velocity:number, initialAngle:number ) 
     {
-        super(objectID, name, planetColor, realDiameter, distance,velocity, initialAngle);
+        super(objectID, name, planetColor, planetSize, realDiameter, distance,velocity, initialAngle);
         this.moons = moons;
     }    
 }  
