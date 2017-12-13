@@ -97,10 +97,10 @@ export class canvasManager {
         }
     }
 
-    static drawHohmannPath(context, source: cObject, destination: cObject, pathWidth: number, zoomLevel: number, positionOffset: vector2d, currentDate: number) {
+    static drawHohmannPath(context, source: cObject, destination: cObject, pathWidth: number, pathColor: string,  zoomLevel: number, positionOffset: vector2d, currentDate: number) {
         const zoom: number = this.getZoom(context, zoomLevel);
         context.beginPath();
-        context.strokeStyle = '#12D7AC';
+        context.strokeStyle = pathColor;
         context.lineWidth = pathWidth;
         context.setLineDash([15, 7]);
 
@@ -117,14 +117,14 @@ export class canvasManager {
         context.setLineDash([]);
     }
 
-    static drawBrachistochronePath(context, source: cObject, destination: cObject, pathWidth: number, pathColor: string, zoomLevel: number, positionOffset: vector2d, currentDate: number) {
+    static drawBrachistochronePath(context, source: cObject, destination: cObject, pathWidth: number, pathColor: string, zoomLevel: number, positionOffset: vector2d, currentDate: number, arrivalDate: number) {
         const zoom: number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.strokeStyle = pathColor;
         context.lineWidth = pathWidth;
         context.setLineDash([15, 7]);
-        const positionSource = this.getObjectCanvasPosition(context, source.currentPosition, zoom, positionOffset);
-        const positionDestination = this.getObjectCanvasPosition(context, destination.getPositionForDate(currentDate, new vector2d(0, 0)), zoom, positionOffset);
+        const positionSource = this.getObjectCanvasPosition(context, source.getPositionForDate(currentDate, new vector2d(0, 0)), zoom, positionOffset);
+        const positionDestination = this.getObjectCanvasPosition(context, destination.getPositionForDate(arrivalDate, new vector2d(0, 0)), zoom, positionOffset);
         context.moveTo(positionSource.x, positionSource.y);
         context.lineTo(positionDestination.x, positionDestination.y);
         context.stroke();

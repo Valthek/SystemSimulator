@@ -72,22 +72,18 @@
       <div *ngIf="showResults">
         <span>Travel from {{planets[travelSource].name}} to {{planets[travelDestination].name}} on {{daysList[calculationDate[0]]}} {{monthsList[calculationDate[1]]}}, {{calculationDate[2]}} AT </span>
         <span class="title">Hohmann Maneuver:</span>
-        <span>DeltaV required: {{hohmannResults[0]}} km/s</span>
-        <span>Insertion Burn at {{planets[travelSource].name}}: {{hohmannResults[1]}}m/s</span>
-        <span>Arrival Burn at {{planets[travelDestination].name}}: {{hohmannResults[2]}}m/s</span>
-        <span>Travel time: {{hohmannResults[3]}} days</span>
+        <span >DeltaV required: {{hohmannResults[0]}} km/s</span>
+        <span class="detailed">Insertion Burn at {{planets[travelSource].name}}: {{hohmannResults[1]}}m/s</span>
+        <span class="detailed">Arrival Burn at {{planets[travelDestination].name}}: {{hohmannResults[2]}}m/s</span>
+        <span class="hohmann-budget">Travel time: {{hohmannResults[3]}} days</span>
         <span>Next travel window is in {{hohmannResults[4]}} days, on {{hohmannResults[5]}} AT </span>
-        <span>Travel Window opens every {{hohmannResults[6]}} days </span>
+        <span class="detailed">Travel Window opens every {{hohmannResults[6]}} days </span>
         <span class="title">Brachistochrone Maneuver for {{shipThrustInG}}G: </span>
-        <span>DeltaV required: {{brachistochroneResults[0]}} km/s</span>
-        <span>Travel time: {{brachistochroneResults[1]}} days </span>
-        <span>Ideal launch time is in {{brachistochroneResults[2]}} days, on {{brachistochroneResults[3]}} </span>
-        <span>DeltaV required at half thrust: {{brachistochroneResults[4]}}km/s</span>
-        <span>Travel time: {{brachistochroneResults[5]}} days</span>
-        <span>Ideal launch time for half thrust is in {{brachistochroneResults[6]}} days, on {{brachistochroneResults[7]}}</span>
-        <span>DeltaV required at quarter thrust: {{brachistochroneResults[8]}}km/s</span>
-        <span>Travel time: {{brachistochroneResults[9]}} days</span>
-        <span>Ideal launch time for quarter thrust is in {{brachistochroneResults[10]}} days, {{brachistochroneResults[11]}} </span>
+        <span>DeltaV required now: {{brachistochroneResults[0]}} km/s</span>
+        <span class="brachistochrone-expensive">Travel time (now): {{brachistochroneResults[1]}} days </span>
+        <span>Ideal launch time is in {{brachistochroneResults[2]}} days, on {{brachistochroneResults[3]}} AT </span>
+        <span>DeltaV required at ideal transfer moment: {{brachistochroneResults[4]}}km/s</span>
+        <span class="brachistochrone-budget">Travel time (ideal transfer): {{brachistochroneResults[5]}} days</span>
       </div>
     </div>
     <div id="directFlightControls">

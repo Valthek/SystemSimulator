@@ -45,11 +45,13 @@
       width: 400px;
       border-left: 1px solid $textColor;
       background-color: $menuBackground;
-  
+      overflow:hidden; 
+ 
     #travelControls,
     #animationControls,
     #travelCalculationResults,
     #dataSourceControls{
+        overflow: auto;
         @include standard-menu();
         @include standard-input();
 

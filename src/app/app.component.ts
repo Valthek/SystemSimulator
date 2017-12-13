@@ -30,9 +30,7 @@ export class AppComponent implements AfterViewInit {
     currentDateM = 0;
     currentDateY = 0;
 
-    travelDestinationName = '';
     travelDestination = 3;
-    travelSourceName = '';
     travelSource = 2;
     shipThrustInG = 0.005;
 
@@ -78,12 +76,6 @@ export class AppComponent implements AfterViewInit {
         this.loadAllObjects(this.systemDataSource);
         this.brachistochroneOffset = [0, 0, 0];
         this.hohmannOffset = 0;
-        if (this.travelDestinationName !== '') {
-            this.travelDestination = this.planets.findIndex(x => x.name === this.travelDestinationName);
-        }
-        if (this.travelSourceName !== '') {
-            this.travelSource = this.planets.findIndex(x => x.name === this.travelSourceName);
-        }
         console.log('The simulator has loaded. Starting...');
         this.isRunning = true;
         this.onTimeSubmit();
@@ -235,16 +227,14 @@ export class AppComponent implements AfterViewInit {
             this.calculateTravelOptions(false);
         }
         canvasManager.drawHohmannPath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3,
-            this.actualZoom, this.systemPositionOffset, this.hohmannOffset);
-
-        canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination],
-            3, '#D10000', this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[0]);
+            '#99c140', this.actualZoom, this.systemPositionOffset, this.hohmannOffset);
 
         canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3,
-            '#F46036', this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[1]);
+             '#cc3232', this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[0], this.brachistochroneOffset[1]);
 
         canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3,
-            '#F7B267', this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[2]);
+            '#db7b2b', this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[2], this.brachistochroneOffset[2] + +this.brachistochroneResults[5]);
+
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
             canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset);
@@ -374,7 +364,7 @@ export class AppComponent implements AfterViewInit {
                             this.currentDateM = parseInt(date[1], 10) - 1;
                         }
                         if (parseInt(date[2], 10) > 0 && parseInt(date[2], 10) < 50) {
-                            this.currentDateY = parseInt(date[2], 10) - 1;
+                            this.currentDateY = parseInt(date[2], 10);
                         }
                         break;
                     case 'datasource':
@@ -385,12 +375,6 @@ export class AppComponent implements AfterViewInit {
                         break;
                     case 'zoom':
                         this.zoomLevel = parseInt(split[1], 10);
-                        break;
-                    case 'travelsource':
-                        this.travelSourceName = split[1];
-                        break;
-                    case 'traveldestination':
-                        this.travelDestinationName = split[1];
                         break;
                 }
             }
@@ -405,38 +389,27 @@ export class AppComponent implements AfterViewInit {
         this.hohmannResults[3] = /* travel time for hohman*/'' + travelManager.calculateHohmanTransferTime(this.planets[this.travelSource], this.planets[this.travelDestination]);
         this.hohmannResults[4] = /* next window in days*/'' + travelManager.calculateDaysToNextHohmanTravelDate(this.planets[this.travelSource], this.planets[this.travelDestination], this.actualDate);
         this.hohmannOffset = +this.actualDate + +this.hohmannResults[4];
-        console.log('Today is: ' + this.actualDate + ' Next window in: ' + this.hohmannResults[4]);
         const tempDate = this.getDateForTimeStamp(this.actualDate + +this.hohmannResults[4]);
         this.hohmannResults[5] = '' + this.daysList[tempDate[0]] + ' ' + this.monthsList[tempDate[1]] + ' ' + tempDate[2];
         this.hohmannResults[6] = /* launch window every x days*/'' + travelManager.calculateHohmanTransferWindow(this.planets[this.travelSource], this.planets[this.travelDestination]);
     }
 
     private calculateBrachistochroneTransfer() {
-        let tempDate = 0;
         // brachistochrone transfer results
-        this.brachistochroneResults[0] = '' + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
-        this.brachistochroneResults[1] = /* brachistochrone at full thrust*/'' + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG);
-        this.brachistochroneResults[2] = '' + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
-        tempDate = +this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[2]);
-        this.brachistochroneResults[3] = '' + this.daysList[tempDate[0]] + ' ' + this.monthsList[tempDate[1]] + ' ' + this.yearsList[tempDate[2]];
-        this.brachistochroneOffset[0] = this.actualDate + +this.brachistochroneResults[1];
+        this.brachistochroneResults[0] = /* DeltaV Required*/'' + travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
+        this.brachistochroneResults[1] = /* Brachistochrone travel time at full thrust (now)*/'' + travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
+        this.brachistochroneResults[2] = /* Ideal Brachistochrone Launch*/'' + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate);
+        const tempDate = this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[2]);
+        this.brachistochroneResults[3] = /* Ideal Brachistochrone Launch date*/'' + this.daysList[tempDate[0]] + ' ' + this.monthsList[tempDate[1]] + ' ' + [tempDate[2]];
+        this.brachistochroneOffset[0] = /* Launch Date Now*/ this.actualDate;
+        this.brachistochroneOffset[1] = /* Brachistochrone arrival date*/this.actualDate + +this.brachistochroneResults[1];
 
-        this.brachistochroneResults[4] = '' + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
-        this.brachistochroneResults[5] = /* brachistochrone at half thrust*/'' + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2);
-        this.brachistochroneResults[6] = '' + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 2, this.actualDate);
-        tempDate = +this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[6]);
-        this.brachistochroneResults[7] = '' + this.daysList[tempDate[0]] + ' ' + this.monthsList[tempDate[1]] + ' ' + this.yearsList[tempDate[2]];
-        this.brachistochroneOffset[1] = this.actualDate + +this.brachistochroneResults[5];
-
-        this.brachistochroneResults[8] = '' + travelManager.calculateBrachistochroneDeltaVNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
-        this.brachistochroneResults[9] = /* brachistochrone at quarter thrust*/'' + travelManager.calculateBrachistochroneTransitTimeNow(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4);
-        this.brachistochroneResults[10] = '' + travelManager.calculateNextBrachistochroneTransit(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG / 4, this.actualDate);
-        tempDate = +this.getDateForTimeStamp(this.actualDate + +this.brachistochroneResults[10]);
-        this.brachistochroneResults[11] = '' + this.daysList[tempDate[0]] + ' ' + this.monthsList[tempDate[1]] + ' ' + this.yearsList[tempDate[2]];
-        this.brachistochroneOffset[2] = this.actualDate + +this.brachistochroneResults[9];
+        this.brachistochroneResults[4] = /* DeltaV Required*/'' + travelManager.calculateBrachistochroneDeltaV(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate + +this.brachistochroneResults[2]);
+        this.brachistochroneResults[5] = /* Ideal Brachistochrone travel time*/'' + travelManager.calculateBrachistochroneTransitTime(this.planets[this.travelSource], this.planets[this.travelDestination], this.shipThrustInG, this.actualDate + +this.brachistochroneResults[2]);
+        this.brachistochroneOffset[2] = this.actualDate + +this.brachistochroneResults[2];
     }
 
-    private calculateDirectFlight() {
+    calculateDirectFlight() {
         // TODO: do direct flight calculations (when to leave, coasting etc)
     }
 }
