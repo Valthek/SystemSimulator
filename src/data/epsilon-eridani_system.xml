@@ -1,0 +1,67 @@
+<?xml version='1.0' ?>
+<doc>
+	<cObject>
+		<name>Ran</name>
+		<distance>0</distance>
+		<radialVelocity>0</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>9</displayRadius>
+		<realDiameter>100000</realDiameter>
+		<objectColor>f4b841</objectColor>
+	</cObject>
+	<planet>
+		<name>Svalarheima</name>
+		<distance>0.9</distance>
+		<radialVelocity>4.449</radialVelocity>
+		<startAngle>351</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>12650</realDiameter>
+		<planetColor>#663300</planetColor>
+	</planet>
+	<cObject>
+		<name>Asteroid Belt</name>
+		<distance>2.7</distance>
+		<radialVelocity>0</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>12</displayRadius>
+		<realDiameter>28630</realDiameter>
+		<objectColor>rgba(51,51,187,0.75)</objectColor>
+	</cObject>
+	<planet>
+		<name>Jotunheim</name>
+		<distance>3.38</distance>
+		<radialVelocity>1.107</radialVelocity>
+		<startAngle>123</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>8027</realDiameter>
+		<planetColor>#993300</planetColor>
+	</planet>	
+	<cObject>
+		<name>Asteroid Belt</name>
+		<distance>20</distance>
+		<radialVelocity>0</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>12</displayRadius>
+		<realDiameter>28630</realDiameter>
+		<objectColor>rgba(51,51,187,0.75)</objectColor>
+	</cObject>
+	<planet>
+		<name>Nidenheim</name>
+		<distance>40</distance>
+		<radialVelocity>0.603</radialVelocity>
+		<startAngle>265</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>8917</realDiameter>
+		<planetColor>#0066cc</planetColor>		
+	</planet>
+	<cObject>
+		<name>Dust Disk (border)</name>
+		<distance>35</distance>
+		<radialVelocity>0</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>12</displayRadius>
+		<realDiameter>28630</realDiameter>
+		<objectColor>rgba(51,51,187,0.75)</objectColor>
+	</cObject>
+</doc>
+

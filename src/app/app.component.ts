@@ -34,7 +34,7 @@ export class AppComponent implements AfterViewInit {
     travelSource = 2;
     shipThrustInG = 0.005;
 
-    systemDataSource = 'antara';
+    systemDataSource = 'sol';
 
     // Visualisation Options
     simSpeed = 1;
@@ -235,9 +235,15 @@ export class AppComponent implements AfterViewInit {
         canvasManager.drawBrachistochronePath(ctx, this.planets[this.travelSource], this.planets[this.travelDestination], 3,
             '#db7b2b', this.actualZoom, this.systemPositionOffset, this.brachistochroneOffset[2], this.brachistochroneOffset[2] + +this.brachistochroneResults[5]);
 
+        // draw empty or unidentified orbits
+        for (let c = 1; c < this.cObjects.length; c++) {
+            canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true, this.systemPositionOffset);
+            canvasManager.drawOrbit(ctx, this.cObjects[c], this.cObjects[0], this.actualZoom, 3, this.systemPositionOffset, '#7c4a21')
+        }
+
         // draw all the planets
         for (let p = 0; p < this.planets.length; p++) {
-            canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset);
+            canvasManager.drawOrbit(ctx, this.planets[p], this.cObjects[0], this.actualZoom, 1, this.systemPositionOffset, '#12B4CE');
             canvasManager.drawPlanet(ctx, this.planets[p], this.actualZoom, true, this.systemPositionOffset);
             // Update Moons
             if (this.showMoons && this.planets[p].moons.length !== 0) {
@@ -245,11 +251,7 @@ export class AppComponent implements AfterViewInit {
                     canvasManager.drawMoon(ctx, this.planets[p].moons[m], this.actualZoom, false, this.systemPositionOffset);
                 }
             }
-        }
-        // draw empty or unidentified orbits
-        for (let c = 1; c < this.cObjects.length; c++) {
-            canvasManager.drawObjectArea(ctx, this.cObjects[c], this.cObjects[c].size, this.actualZoom, true, this.systemPositionOffset);
-        }
+        }        
 
         // draw selectors for selected planets
         canvasManager.drawSelector(ctx, this.planets[this.travelSource], this.actualZoom, this.systemPositionOffset, 3,

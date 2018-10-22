@@ -51,11 +51,11 @@ export class canvasManager {
     }
 
     // Draw a circle indicating a celestial object's orbit
-    static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number, positionOffset: vector2d) {
+    static drawOrbit(context, object: cObject, parent: cObject, zoomLevel: number, width: number, positionOffset: vector2d, strokeColor:string) {
         const zoom: number = this.getZoom(context, zoomLevel);
         context.beginPath();
         context.lineWidth = width;
-        context.strokeStyle = '#12B4CE';
+        context.strokeStyle = strokeColor;
         const position = this.getObjectCanvasPosition(context, parent.currentPosition, zoom, positionOffset);
         context.arc(position.x, position.y, object.orbitRadius * zoom, 0, Math.PI * 2);
         context.stroke();

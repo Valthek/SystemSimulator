@@ -1,0 +1,49 @@
+<?xml version='1.0' ?>
+<doc>
+	<cObject>
+		<name>Fareedat</name>
+		<distance>0</distance>
+		<radialVelocity>0</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>10</displayRadius>
+		<realDiameter>1000000</realDiameter>
+		<objectColor>#ffaa00</objectColor>
+	</cObject>
+	<planet>
+		<name>Ababil</name>
+		<distance>0.2</distance>
+		<radialVelocity>4.449</radialVelocity>
+		<startAngle>351</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>12650</realDiameter>
+		<planetColor>#663300</planetColor>
+	</planet>
+	<planet>
+		<name>Bourak</name>
+		<distance>0.55</distance>
+		<radialVelocity>2.18</radialVelocity>
+		<startAngle>123</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>8027</realDiameter>
+		<planetColor>#993300</planetColor>
+	</planet>
+	<planet>
+		<name>Uj ibn Anaq</name>
+		<distance>0.85</distance>
+		<radialVelocity>1.220</radialVelocity>
+		<startAngle>265</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>8917</realDiameter>
+		<planetColor>#0066cc</planetColor>		
+	</planet>
+	<planet>
+		<name>Al-Miraj</name>
+		<distance>7</distance>
+		<radialVelocity>0.569</radialVelocity>
+		<startAngle>60</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>12104</realDiameter>
+		<planetColor>#009933</planetColor>		
+	</planet>    
+</doc>
+
