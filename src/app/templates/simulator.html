@@ -97,8 +97,7 @@
       <form id="sourceSelectOptions" (ngSubmit)="changeDataSource()" #sourceForm="ngForm">
         <div class="formElement">
           <select class="sourceSet" id="dataSource" [(ngModel)]="systemDataSource" name="systemDateSource">
-            <option value="antara" selected="selected">Antara</option>
-            <option value="sol">Sol</option>
+              <option *ngFor="let s of availableSystems" [value]="s"> {{s}}</option>            
           </select>
         </div>
         <div class="formElement">

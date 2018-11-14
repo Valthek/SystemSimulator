@@ -1,4 +1,4 @@
-import { vector2d } from "app/system/engine/vector2d";
+import { vector2d } from "./vector2d";
 
 export class Library {
     //Astronomical unit in meters

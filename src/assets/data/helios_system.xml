@@ -1,17 +1,17 @@
 <?xml version='1.0' ?>
 <doc>
 	<cObject>
-		<name>Concillium</name>
+		<name>Helios</name>
 		<distance>0</distance>
 		<radialVelocity>0</radialVelocity>
 		<startAngle>0</startAngle>
-		<displayRadius>10</displayRadius>
-		<realDiameter>1000000</realDiameter>
+		<displayRadius>9</displayRadius>
+		<realDiameter>100000</realDiameter>
 		<objectColor>#fff000</objectColor>
 	</cObject>
 	<planet>
-		<name>Concillium Minus</name>
-		<distance>0.59</distance>
+		<name>Tithonus</name>
+		<distance>0.19</distance>
 		<radialVelocity>4.449</radialVelocity>
 		<startAngle>351</startAngle>
 		<displayRadius>3</displayRadius>
@@ -19,8 +19,8 @@
 		<planetColor>#663300</planetColor>
 	</planet>
 	<planet>
-		<name>Concillium Prima</name>
-		<distance>1.3</distance>
+		<name>Ushas</name>
+		<distance>0.38</distance>
 		<radialVelocity>0.67</radialVelocity>
 		<startAngle>123</startAngle>
 		<displayRadius>3</displayRadius>
@@ -28,24 +28,35 @@
 		<planetColor>#993300</planetColor>
 	</planet>
 	<planet>
-		<name>Concillium Secunda</name>
-		<distance>1.8</distance>
+		<name>Hausos</name>
+		<distance>0.71</distance>
 		<radialVelocity>0.607</radialVelocity>
 		<startAngle>265</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8917</realDiameter>
-		<planetColor>#0066cc</planetColor>	
-		<moon>
-			<moonName>Unueco</moonName>
-			<moonSpeed>12.852</moonSpeed>
-			<moonStartAngle>75</moonStartAngle>
-			<moonColor>#ffdddd</moonColor>
-			<realMoonDiameter>2150</realMoonDiameter>
-		</moon>	
+		<planetColor>#0066cc</planetColor>		
 	</planet>
+	<planet>
+	<name>Dawn</name>
+		<distance>0.9</distance>
+		<radialVelocity>1.107</radialVelocity>
+		<startAngle>0</startAngle>
+		<displayRadius>12</displayRadius>
+		<realDiameter>28630</realDiameter>
+		<objectColor>>#0066cc</objectColor>
+	</planet>
+	<planet>
+		<name>Saranyu</name>
+		<distance>3</distance>
+		<radialVelocity>0.569</radialVelocity>
+		<startAngle>60</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>12104</realDiameter>
+		<planetColor>#009933</planetColor>		
+	</planet> 	
 	<cObject>
-	<name>The Brisingamen</name>
-		<distance>2.4</distance>
+		<name>Armstrong Asteroid Belt</name>
+		<distance>4</distance>
 		<radialVelocity>0</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>12</displayRadius>
@@ -53,26 +64,25 @@
 		<objectColor>rgba(51,51,187,0.75)</objectColor>
 	</cObject>
 	<planet>
-		<name>Niflheim</name>
-		<distance>5.1</distance>
-		<radialVelocity>0.569</radialVelocity>
-		<startAngle>60</startAngle>
-		<displayRadius>3</displayRadius>
-		<realDiameter>12104</realDiameter>
-		<planetColor>#009933</planetColor>		
-	</planet>    
-	<planet>
-	<name>Muspelheim</name>
-		<distance>7.3</distance>
+	<name>Albina</name>
+		<distance>7</distance>
 		<radialVelocity>0.036</radialVelocity>
 		<startAngle>26</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>138846</realDiameter>
 		<planetColor>#404ccc</planetColor>
 	</planet>
+	<name>Eostres</name>
+		<distance>11</distance>
+		<radialVelocity>0.036</radialVelocity>
+		<startAngle>226</startAngle>
+		<displayRadius>3</displayRadius>
+		<realDiameter>138846</realDiameter>
+		<planetColor>#404ccc</planetColor>
+	</planet>
 	<cObject>
-		<name>The Fields</name>
-		<distance>7.4</distance>
+		<name>Tereshkova Asteroid Belt</name>
+		<distance>14</distance>
 		<radialVelocity>0</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>12</displayRadius>

@@ -22,7 +22,7 @@
 		<name>Virgil-2</name>
 		<distance>0.12</distance>
 		<radialVelocity>4.449</radialVelocity>
-		<startAngle>346</startAngle>
+		<startAngle>336</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>1250</realDiameter>
 		<planetColor>#663300</planetColor>
@@ -40,7 +40,7 @@
 		<name>Paradiso</name>
 		<distance>2</distance>
 		<radialVelocity>0.35</radialVelocity>
-		<startAngle>123</startAngle>
+		<startAngle>13</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8027</realDiameter>
 		<planetColor>#993300</planetColor>
@@ -76,7 +76,7 @@
 	<name>Beatrice</name>
 		<distance>11</distance>
 		<radialVelocity>0.031</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>87</startAngle>
 		<displayRadius>12</displayRadius>
 		<realDiameter>28630</realDiameter>
 		<objectColor>>#0066cc</objectColor>
@@ -85,7 +85,7 @@
 		<name>Ugolino</name>
 		<distance>19</distance>
 		<radialVelocity>0.009</radialVelocity>
-		<startAngle>60</startAngle>
+		<startAngle>260</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12104</realDiameter>
 		<planetColor>#009933</planetColor>		

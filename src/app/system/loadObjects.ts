@@ -3,6 +3,7 @@ import { moon } from './objects/moon';
 import { cObject } from './objects/cObject';
 import { Directive } from '@angular/core';
 import { vector2d } from './engine/vector2d';
+import * as $ from 'jquery/dist/jquery.min.js';
 
 export class loadObjects {
 
@@ -12,7 +13,7 @@ export class loadObjects {
 
     $.ajax({
       type: 'GET',
-      url: './data/' + source,
+      url: './assets/data/' + source,
       dataType: 'xml',
       success: function (data) {
         $(data).find('planet').each(function (index) {
@@ -34,7 +35,7 @@ export class loadObjects {
             const m: moon = new moon(moonNumber, moonName, moonActualDiameter, moonColor, moonOrbitRadius, moonSpeed, moonStartAngle);
             moons.push(m);
             moonNumber++;
-          });
+          }); 
           const p: planet = new planet(planetNumber, name, planetColor, actualDiameter, moons, distanceToOrigin, radialVelocity, initialAngle);
           planets.push(p);
           planetNumber++;
@@ -52,7 +53,7 @@ export class loadObjects {
     let cObjectNumber = 0;
     $.ajax({
       type: 'GET',
-      url: '/data/' + source,
+      url: './assets/data/' + source,
       dataType: 'xml',
       success: function (data) {
         $(data).find('cObject').each(function (index) {

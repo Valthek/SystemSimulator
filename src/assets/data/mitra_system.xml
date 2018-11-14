@@ -22,7 +22,7 @@
 		<name>Lalita</name>
 		<distance>0.24</distance>
 		<radialVelocity>4.449</radialVelocity>
-		<startAngle>351</startAngle>
+		<startAngle>187</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12650</realDiameter>
 		<planetColor>#663300</planetColor>
@@ -31,7 +31,7 @@
 		<name>Kamadhenu</name>
 		<distance>0.56</distance>
 		<radialVelocity>4.449</radialVelocity>
-		<startAngle>351</startAngle>
+		<startAngle>299</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12650</realDiameter>
 		<planetColor>#663300</planetColor>
@@ -47,7 +47,7 @@
 		<name>Varuna</name>
 		<distance>0.7</distance>
 		<radialVelocity>1.107</radialVelocity>
-		<startAngle>123</startAngle>
+		<startAngle>43</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8027</realDiameter>
 		<planetColor>#993300</planetColor>
@@ -56,7 +56,7 @@
 		<name>Durga</name>
 		<distance>3.95</distance>
 		<radialVelocity>0.603</radialVelocity>
-		<startAngle>265</startAngle>
+		<startAngle>67</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8917</realDiameter>
 		<planetColor>#0066cc</planetColor>		
@@ -74,7 +74,7 @@
 		<name>Meenakshi</name>
 		<distance>6.39</distance>
 		<radialVelocity>0.603</radialVelocity>
-		<startAngle>265</startAngle>
+		<startAngle>198</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8917</realDiameter>
 		<planetColor>#0066cc</planetColor>		

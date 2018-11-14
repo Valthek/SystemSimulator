@@ -13,7 +13,7 @@
 		<name>Svalarheima</name>
 		<distance>0.9</distance>
 		<radialVelocity>4.449</radialVelocity>
-		<startAngle>351</startAngle>
+		<startAngle>140</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12650</realDiameter>
 		<planetColor>#663300</planetColor>
@@ -31,7 +31,7 @@
 		<name>Jotunheim</name>
 		<distance>3.38</distance>
 		<radialVelocity>1.107</radialVelocity>
-		<startAngle>123</startAngle>
+		<startAngle>260</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8027</realDiameter>
 		<planetColor>#993300</planetColor>

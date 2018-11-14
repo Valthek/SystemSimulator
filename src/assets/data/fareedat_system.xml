@@ -1,34 +1,34 @@
 <?xml version='1.0' ?>
 <doc>
 	<cObject>
-		<name>Descoberta</name>
+		<name>Fareedat</name>
 		<distance>0</distance>
 		<radialVelocity>0</radialVelocity>
 		<startAngle>0</startAngle>
 		<displayRadius>10</displayRadius>
 		<realDiameter>1000000</realDiameter>
-		<objectColor>#ffe020</objectColor>
+		<objectColor>#ffaa00</objectColor>
 	</cObject>
 	<planet>
-		<name>Miranda</name>
+		<name>Ababil</name>
 		<distance>0.2</distance>
 		<radialVelocity>4.449</radialVelocity>
-		<startAngle>351</startAngle>
+		<startAngle>240</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12650</realDiameter>
 		<planetColor>#663300</planetColor>
 	</planet>
 	<planet>
-		<name>Petaca</name>
-		<distance>0.7</distance>
-		<radialVelocity>1.741</radialVelocity>
-		<startAngle>123</startAngle>
+		<name>Bourak</name>
+		<distance>0.55</distance>
+		<radialVelocity>2.18</radialVelocity>
+		<startAngle>175</startAngle>
 		<displayRadius>3</displayRadius>
-		<realDiameter>6841</realDiameter>
+		<realDiameter>8027</realDiameter>
 		<planetColor>#993300</planetColor>
 	</planet>
 	<planet>
-		<name>Acontecimento</name>
+		<name>Uj ibn Anaq</name>
 		<distance>0.85</distance>
 		<radialVelocity>1.220</radialVelocity>
 		<startAngle>265</startAngle>
@@ -37,22 +37,13 @@
 		<planetColor>#0066cc</planetColor>		
 	</planet>
 	<planet>
-		<name>Aparecida</name>
+		<name>Al-Miraj</name>
 		<distance>7</distance>
 		<radialVelocity>0.569</radialVelocity>
 		<startAngle>60</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12104</realDiameter>
 		<planetColor>#009933</planetColor>		
-	</planet>
-    <planet>
-		<name>Sorvete</name>
-		<distance>14</distance>
-		<radialVelocity>0.184</radialVelocity>
-		<startAngle>14</startAngle>
-		<displayRadius>12</displayRadius>
-		<realDiameter>28630</realDiameter>
-		<objectColor>#4444ff</objectColor>
-	</planet>	
+	</planet>    
 </doc>
 

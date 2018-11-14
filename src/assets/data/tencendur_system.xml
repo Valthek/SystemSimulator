@@ -22,7 +22,7 @@
 		<name>Aphrodite</name>
 		<distance>0.9</distance>
 		<radialVelocity>1.107</radialVelocity>
-		<startAngle>123</startAngle>
+		<startAngle>90</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8027</realDiameter>
 		<planetColor>#993300</planetColor>
@@ -31,7 +31,7 @@
 		<name>Neoterra</name>
 		<distance>1.4</distance>
 		<radialVelocity>0.603</radialVelocity>
-		<startAngle>265</startAngle>
+		<startAngle>185</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8917</realDiameter>
 		<planetColor>#0066cc</planetColor>
@@ -54,7 +54,7 @@
 		<name>Zeus</name>
 		<distance>6.2</distance>
 		<radialVelocity>0.067</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>170</startAngle>
 		<displayRadius>12</displayRadius>
 		<realDiameter>28630</realDiameter>
 		<objectColor>>#0066cc</objectColor>

@@ -49,7 +49,7 @@
 		<name>Laozi</name>
 		<distance>0.75</distance>
 		<radialVelocity>0.607</radialVelocity>
-		<startAngle>265</startAngle>
+		<startAngle>165</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>8917</realDiameter>
 		<planetColor>#0066cc</planetColor>		
@@ -67,7 +67,7 @@
 	<name>Socrates</name>
 		<distance>2.5</distance>
 		<radialVelocity>1.107</radialVelocity>
-		<startAngle>0</startAngle>
+		<startAngle>210</startAngle>
 		<displayRadius>12</displayRadius>
 		<realDiameter>28630</realDiameter>
 		<objectColor>>#0066cc</objectColor>
@@ -85,7 +85,7 @@
 		<name>Heraclitus</name>
 		<distance>4.8</distance>
 		<radialVelocity>0.569</radialVelocity>
-		<startAngle>60</startAngle>
+		<startAngle>80</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>12104</realDiameter>
 		<planetColor>#009933</planetColor>		
@@ -103,7 +103,7 @@
 	<name>Castor/Polux</name>
 		<distance>8</distance>
 		<radialVelocity>0.036</radialVelocity>
-		<startAngle>26</startAngle>
+		<startAngle>156</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>138846</realDiameter>
 		<planetColor>#404ccc</planetColor>
@@ -120,7 +120,7 @@
 	<name>Livy</name>
 		<distance>10</distance>
 		<radialVelocity>0.036</radialVelocity>
-		<startAngle>26</startAngle>
+		<startAngle>310</startAngle>
 		<displayRadius>3</displayRadius>
 		<realDiameter>138846</realDiameter>
 		<planetColor>#404ccc</planetColor>
